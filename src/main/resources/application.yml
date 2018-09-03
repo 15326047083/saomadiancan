@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.106.216.63:3306/saomadiancan?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: leiyuan123.
+    thymeleaf:
+      prefix: classpath:/templates/
+      suffix: .html
+      mode: HTML5
+mybatis:
+  type-aliases-package: com.ambow.springboot.entity
+  mapper-locations: classpath:mapping/*.xml
+
