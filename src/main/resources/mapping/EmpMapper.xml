@@ -15,12 +15,27 @@
   <sql id="Base_Column_List" >
     id, name, username, password, roles, entry_time, leave_time, wage, ticheng
   </sql>
+  <!-- 得到所有的员工信息 -->
+  <select id="getAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from emp
+  </select>
+  <!-- 根据id查找员工信息-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from emp
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <!-- 根据roles查询是采购员的-->
+  <select id="selectByRoles" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from emp
+    where roles = "采购员"
+  </select>
+  <!-- 根据id删除某个员工信息 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from emp
     where id = #{id,jdbcType=INTEGER}
@@ -35,6 +50,7 @@
       #{leaveTime,jdbcType=TIMESTAMP}, #{wage,jdbcType=INTEGER}, #{ticheng,jdbcType=INTEGER}
       )
   </insert>
+  <!-- 插入一条员工信息 -->
   <insert id="insertSelective" parameterType="com.ambow.springboot.entity.Emp" >
     insert into emp
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -96,6 +112,7 @@
       </if>
     </trim>
   </insert>
+  <!-- 根据id更新一条员工信息 -->
   <update id="updateByPrimaryKeySelective" parameterType="com.ambow.springboot.entity.Emp" >
     update emp
     <set >
