@@ -1,9 +1,13 @@
 package com.ambow.springboot.mapper;
 
 import com.ambow.springboot.entity.Goods;
+import com.ambow.springboot.vo.GoodsTypeListVo;
+import com.ambow.springboot.vo.TypeGoodsVo;
+
+import java.util.List;
 
 public interface GoodsMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer[] ids);
 
     int insert(Goods record);
 
@@ -16,4 +20,10 @@ public interface GoodsMapper {
     int updateByPrimaryKeyWithBLOBs(Goods record);
 
     int updateByPrimaryKey(Goods record);
+
+    Goods selectByName(String name);
+
+    List<TypeGoodsVo> toList(Goods goods);
+
+    Integer selectGoodsCount(Goods goods);
 }

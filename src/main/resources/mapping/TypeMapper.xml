@@ -6,6 +6,16 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="num" property="num" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="BaseResultMap1" type="com.ambow.springboot.entity.Goods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="discount" property="discount" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, name, num
   </sql>
@@ -17,7 +27,11 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from type
-    where id = #{id,jdbcType=INTEGER}
+    where
+    <foreach item="ids" collection="array" open="id in ("
+             separator="," close=")">
+      #{ids,jdbcType=INTEGER}
+    </foreach>
   </delete>
   <insert id="insert" parameterType="com.ambow.springboot.entity.Type" >
     insert into type (id, name, num
@@ -68,4 +82,28 @@
       num = #{num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByNam" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from type
+    where id = #{typeName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectGoodsByTypeId" resultMap="BaseResultMap1" parameterType="java.lang.Integer" >
+    select
+    *
+    from goods
+    where
+    <foreach item="ids" collection="array" open="type_id in ("
+             separator="," close=")">
+      #{ids,jdbcType=INTEGER}
+    </foreach>
+  </select>
+  <select id="toList" resultMap="BaseResultMap">
+
+    select * from type
+
+  </select>
+
 </mapper>

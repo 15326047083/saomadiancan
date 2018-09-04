@@ -30,7 +30,11 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from goods
-    where id = #{id,jdbcType=INTEGER}
+    where
+    <foreach item="ids" collection="array" open="id in ("
+             separator="," close=")">
+      #{ids,jdbcType=INTEGER}
+    </foreach>
   </delete>
   <insert id="insert" parameterType="com.ambow.springboot.entity.Goods" >
     insert into goods (id, type_id, name, 
@@ -156,4 +160,23 @@
       num = #{num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectByName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  select
+  *
+  from goods
+  <where>
+    name = #{name,jdbcType=VARCHAR}
+  </where>
+</select>
+
+  <select id="toList" resultMap="TypeGoodVo" parameterType="java.lang.Integer" >
+    select
+    *
+    from goods
+    <where>
+      name = #{name,jdbcType=VARCHAR}
+    </where>
+  </select>
 </mapper>

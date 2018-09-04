@@ -24,6 +24,9 @@ public class Goods {
 
     private String info; // 详情
 
+    private Integer start;
+
+    private Integer rows;
     @Override
     public String toString() {
         return "Goods{" +
@@ -69,7 +72,7 @@ public class Goods {
     }
 
     public void setTypeId(String typeId) {
-        this.typeId = typeId == null ? null : typeId.trim();
+        this.typeId = typeId;
     }
 
     public String getName() {
@@ -77,7 +80,7 @@ public class Goods {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Integer getPrice() {
@@ -125,6 +128,22 @@ public class Goods {
     }
 
     public void setInfo(String info) {
-        this.info = info == null ? null : info.trim();
+        this.info = info;
+    }
+
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 }
