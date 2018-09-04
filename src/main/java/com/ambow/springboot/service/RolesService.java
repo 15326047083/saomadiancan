@@ -14,4 +14,6 @@ public interface RolesService {
     void delete(Integer rolesId);
 
     void save(Roles roles);
+
+    List<Roles> getMeanByRoles(String roles);
 }
