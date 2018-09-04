@@ -6,6 +6,7 @@ import com.ambow.springboot.service.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,7 @@ public class RolesController {
      * @param roles 修改后的roles信息
      * @return 成功或者失败（success or error）
      */
-    @RequestMapping("/update")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(Roles roles) {
         rolesService.update(roles);
         return "success";
@@ -71,7 +72,7 @@ public class RolesController {
      * @param roles 菜单详情
      * @return 成功或者失败（success or error）
      */
-    @RequestMapping("/save")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Roles roles) {
         rolesService.save(roles);
         return "success";
