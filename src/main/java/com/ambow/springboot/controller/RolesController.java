@@ -4,10 +4,8 @@ import com.ambow.springboot.entity.Emp;
 import com.ambow.springboot.entity.Roles;
 import com.ambow.springboot.service.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -17,7 +15,7 @@ import java.util.Set;
 /**
  * 菜单
  */
-@RestController
+@Controller
 @RequestMapping("/roles")
 public class RolesController {
     @Autowired
@@ -29,6 +27,7 @@ public class RolesController {
      * @return 角色表（使用HashSet存储）
      */
     @RequestMapping("/getRolesList")
+    @ResponseBody
     public Set<String> getRolesList() {
         List<Roles> roles = rolesService.queryAll();
         Set<String> rolesSet = new HashSet<String>();
@@ -45,6 +44,7 @@ public class RolesController {
      * @return json（菜单列表）
      */
     @RequestMapping("/toList")
+    @ResponseBody
     public List<Roles> toList() {
         return rolesService.queryAll();
     }
@@ -56,6 +56,7 @@ public class RolesController {
      * @return 要修改的roles详细信息
      */
     @RequestMapping("/toUpdate/{rolesId}")
+    @ResponseBody
     public Roles toUpdate(@PathVariable("rolesId") Integer rolesId) {
         return rolesService.getById(rolesId);
     }
@@ -67,6 +68,7 @@ public class RolesController {
      * @return 成功或者失败（success or error）
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
     public String update(Roles roles) {
         rolesService.update(roles);
         return "success";
@@ -79,6 +81,7 @@ public class RolesController {
      * @return 成功或者失败（success or error）
      */
     @RequestMapping("/delete/{rolesId}")
+    @ResponseBody
     public String delete(@PathVariable("rolesId") Integer rolesId) {
         rolesService.delete(rolesId);
         return "success";
@@ -93,7 +96,7 @@ public class RolesController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Roles roles) {
         rolesService.save(roles);
-        return "success";
+        return "/manager/menu/list";
     }
 
     /**
@@ -103,6 +106,7 @@ public class RolesController {
      * @return 该用户对应的菜单项
      */
     @RequestMapping("/getMean")
+    @ResponseBody
     public List<Roles> getMean(HttpServletRequest request) {
         Emp emp = (Emp) request.getSession().getAttribute("emp");
         return rolesService.getMeanByRoles(emp.getRoles());
