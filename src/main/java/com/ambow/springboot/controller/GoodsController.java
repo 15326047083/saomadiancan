@@ -3,6 +3,7 @@ package com.ambow.springboot.controller;
 import com.ambow.springboot.entity.Goods;
 import com.ambow.springboot.entity.Type;
 import com.ambow.springboot.service.GoodsService;
+import com.ambow.springboot.service.TypeService;
 import com.ambow.springboot.util.Page;
 import com.ambow.springboot.vo.GoodsTypeListVo;
 import com.ambow.springboot.vo.TypeGoodsVo;
@@ -22,10 +23,26 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private TypeService typeService;
+
     private List<Goods> goodsList=null;
     private Goods goods=null;
+    private List<Type> typeList;
+
     /*
-    * 增加商品信息，判重
+    * 点击添加按钮，先显示商品类型
+    * */
+    @RequestMapping("/toList")
+    @ResponseBody
+    public List<Type> toList(){
+        typeList=typeService.toList();
+        return typeList;
+    }
+
+    /*
+    * 增加商品信息，判重 有问题
     * */
     @RequestMapping("/toSave")
     public String addGoods(Goods goods){
@@ -77,8 +94,6 @@ public class GoodsController {
     public Page<TypeGoodsVo> tolist(@RequestParam(defaultValue = "1") Integer page,
                               @RequestParam(defaultValue = "9") Integer rows){
         Page<TypeGoodsVo> toList = goodsService.toList(page, rows);
-
-
         return toList;
     }
     /*

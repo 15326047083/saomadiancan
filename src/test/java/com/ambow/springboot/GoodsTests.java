@@ -80,5 +80,25 @@ public class GoodsTests {
      int id=3;
         System.out.println(goodsMapper.selectByPrimaryKey(id));
     }
+    /*
+     * 查看商品总条数
+     * */
+    @Test
+    public void toListGoodsCount(){
+        Goods goods=new Goods();
+        System.out.println(goodsMapper.selectGoodsCount(goods));
 
+    }
+
+    /*
+     * 查看商品所有信息
+     * */
+    @Test
+    public void toListGoods(){
+        Goods goods=new Goods();
+        goods.setStart(1);
+        goods.setRows(2);
+        System.out.println(goodsMapper.toList(goods));
+
+    }
 }

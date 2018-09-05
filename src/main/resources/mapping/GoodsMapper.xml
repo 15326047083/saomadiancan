@@ -171,12 +171,47 @@
   </where>
 </select>
 
-  <select id="toList" resultMap="TypeGoodVo" parameterType="java.lang.Integer" >
+  <select id="toList" resultMap="TypeGoodsVoMap" >
     select
-    *
-    from goods
-    <where>
-      name = #{name,jdbcType=VARCHAR}
-    </where>
+        gs.id as goodsId,
+        gs.name as goodsName,
+        gs.price as goodsPrice,
+        gs.discount as goodsDiscount,
+        gs.info as goodsInfo,
+        gs.num as goodsNum,
+        gs.start_time as goodsStartTime,
+        gs.end_time as goodsEndTime,
+        ty.name as typeName,
+        ty.num as typeNum,
+        ty.id as typeId
+    from
+    goods gs,type ty
+    where
+      gs.type_id=ty.id
+    <if test="start!=null and rows!=null">
+      LIMIT ${start},${rows};
+    </if>
+     </select>
+
+  <resultMap id="TypeGoodsVoMap" type="com.ambow.springboot.vo.TypeGoodsVo" >
+    <id column="goodsId" property="goodsId" jdbcType="INTEGER" />
+    <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goodsPrice" property="goodsPrice" jdbcType="INTEGER" />
+    <result column="goodsDiscount" property="goodsDiscount" jdbcType="INTEGER" />
+    <result column="goodsInfo" property="goodsInfo" jdbcType="VARCHAR" />
+    <result column="goodsNum" property="goodsNum" jdbcType="INTEGER" />
+    <result column="goodsStartTime" property="goodsStartTime" jdbcType="TIMESTAMP" />
+    <result column="goodsEndTime" property="goodsEndTime" jdbcType="TIMESTAMP" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    <result column="typeNum" property="typeNum" jdbcType="INTEGER" />
+    <result column="typeId" property="typeId" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <select id="selectGoodsCount" resultType="Integer">
+    SELECT
+    count(*)
+    FROM
+    goods
   </select>
 </mapper>
