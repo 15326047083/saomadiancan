@@ -34,6 +34,14 @@
     ,
     <include refid="Blob_Column_List" />
     from buy
+    LIMIT ${start},${rows};
+  </select>
+  <!--查询所有总数-->
+  <select id="selectBuyCount"  resultType="java.lang.Integer">
+     SELECT
+    count(*)
+    FROM
+    buy
   </select>
   <!--删除方法-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

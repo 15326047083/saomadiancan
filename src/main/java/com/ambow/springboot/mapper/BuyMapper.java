@@ -2,6 +2,7 @@ package com.ambow.springboot.mapper;
 
 import com.ambow.springboot.entity.Buy;
 
+
 import java.util.List;
 /*
 * 采购Mapper
@@ -13,13 +14,17 @@ public interface BuyMapper {
     * */
     int deleteByPrimaryKey(Integer id);
     /*
-    * 导入方法
+    * 导入方法，新增方法
     * */
     int insert(Buy record);
     /*
     * 查询所有方法
     * */
-    List<Buy> listBuy();
+    List<Buy> listBuy(Buy buy);
+    /*
+     * 统计总条数方法
+     * */
+    int selectBuyCount();
 
     int insertSelective(Buy record);
 

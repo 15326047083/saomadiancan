@@ -4,6 +4,7 @@ import com.ambow.springboot.entity.Buy;
 import com.ambow.springboot.entity.Emp;
 import com.ambow.springboot.service.BuyService;
 import com.ambow.springboot.util.ImportExcel;
+import com.ambow.springboot.util.Page;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,19 +52,29 @@ public class BuyController {
             record.setUserId(emp.getId());
             buyService.insertBuy(record);
         }
-        return  "";
+        return  "SUCCESS";
+    }
+    /*
+     * 新增方法
+     * */
+    @ResponseBody
+    @RequestMapping(value="/tosave")
+    public  String save(Buy record){
+        buyService.insertBuy(record);
+        return "SUCCESS";
     }
     /*
     * 查询方法
     * */
     @ResponseBody
     @RequestMapping(value = "/toList")
-    public List<Buy> buyList(){
-        List<Buy> empBuyVoList=buyService.buyList();
+    public Page<Buy> buyList(@RequestParam(defaultValue = "1") Integer page,
+                             @RequestParam(defaultValue = "4")Integer rows){
+        Page<Buy> empBuyVoList=buyService.buyList(page, rows);
         Buy buy=new Buy();
         Date date=new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        for (Buy empbuyVolists:empBuyVoList){
+        for (Buy empbuyVolists:empBuyVoList.getRows()){
             String s=(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format( empbuyVolists.getBuyDate()));
             try {
                 date = format.parse(s);

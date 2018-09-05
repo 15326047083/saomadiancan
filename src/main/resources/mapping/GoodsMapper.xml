@@ -182,8 +182,8 @@
         gs.start_time as goodsStartTime,
         gs.end_time as goodsEndTime,
         ty.name as typeName,
-        ty.num as typeNum,
-        ty.id as typeId
+    ty.num as typeNum,
+    ty.id as typeId
     from
     goods gs,type ty
     where

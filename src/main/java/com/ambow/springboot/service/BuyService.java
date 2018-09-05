@@ -1,6 +1,8 @@
 package com.ambow.springboot.service;
 
 import com.ambow.springboot.entity.Buy;
+import com.ambow.springboot.util.Page;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 /*
@@ -15,7 +17,8 @@ public interface BuyService {
      /*
      * 查询方法
      * */
-     List<Buy> buyList();
+     Page<Buy> buyList(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "4")Integer rows);
      /*
      * 删除方法
      * */
