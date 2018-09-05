@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -34,12 +35,12 @@ public class GoodsController {
     /*
     * 点击添加按钮，先显示商品类型
     * */
-    @RequestMapping("/toList")
+   /* @RequestMapping("/toList")
     @ResponseBody
     public List<Type> toList(){
         typeList=typeService.toList();
         return typeList;
-    }
+    }*/
 
     /*
     * 增加商品信息，判重 有问题
@@ -103,6 +104,8 @@ public class GoodsController {
     @ResponseBody
     public Goods toUpdate(@PathVariable("id") Integer id){
         goods=goodsService.toUpdate(id);
+        typeList=typeService.toList();
+        //Set<GoodsTypeListVo> GoodsTypeListVo=
         return goods;
     }
 }
