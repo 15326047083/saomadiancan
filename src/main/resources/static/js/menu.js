@@ -35,22 +35,40 @@ function toUpdate() {
 }
 //表格显示
 function showtable() {
+
 	$.ajax({
 		type: "post",
 		url: "/roles/toList",
 		dataType: "json",
 		error() {},
 		success(json) {
-
+			$("#main tr").remove();
 			for(var i = 0; i < json.length; i++) {
 				var t1 = $("#table1 tbody");
 				var trtd = "<td>" + json[i].id + "</td><td>" + json[i].name + "</td><td>" + json[i].meanName + "</td><td>" + json[i].meanUrl + "</td>";
 				var tdbutten = "<td><a href='/jump/toMenuUpdate/"+json[i].id+
 					"'><button class='layui-btn layui-btn-primary layui-btn-small'>修改</button></a>" +
-					"<a href='/roles/delete/" +json[i].id+
-					"'><button class='layui-btn layui-btn-primary layui-btn-small'>删除</button></a></td>";
+					"<button onclick='deleteById(" +json[i].id+")' class='layui-btn layui-btn-primary layui-btn-small'>删除</button></td>";
 				$("#table1 tbody").append("<tr>" + trtd + tdbutten + "</tr>");
 			}
 		}
 	});
 }
+function deleteById(id) {
+	$.ajax({
+        type: "get",
+        url: "/roles/delete/"+id,
+        dataType: "json",
+        error() {
+            alert("删除成功");
+            showtable();
+
+        },
+        success(json) {
+        	alert("删除成功");
+            showtable();
+        }
+	})
+
+}
+
