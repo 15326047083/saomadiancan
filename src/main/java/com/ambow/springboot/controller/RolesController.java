@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 菜单
@@ -20,6 +22,22 @@ import java.util.List;
 public class RolesController {
     @Autowired
     private RolesService rolesService; // 注入service
+
+    /**
+     * 获取去重后的角色列表
+     *
+     * @return 角色表（使用HashSet存储）
+     */
+    @RequestMapping("/getRolesList")
+    public Set<String> getRolesList() {
+        List<Roles> roles = rolesService.queryAll();
+        Set<String> rolesSet = new HashSet<String>();
+        for (Roles r : roles) {
+            rolesSet.add(r.getName());
+        }
+        System.out.println(rolesSet.toString());
+        return rolesSet;
+    }
 
     /**
      * 获取全部菜单列表
