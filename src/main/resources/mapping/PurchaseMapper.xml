@@ -11,7 +11,7 @@
     id, order_num, goods_id, num
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from purchase
     where id = #{id,jdbcType=INTEGER}
@@ -79,4 +79,40 @@
       num = #{num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="toListPurchaseByOrderNumber" resultMap="BaseResultMap1" parameterType="java.lang.Long" >
+    select
+    p.id as purchase_id,
+    p.order_num as purchase_orderNum,
+    p.goods_id as purchase_goodsId,
+    p.num as purchase_num,
+    g.id as goods_id,
+    g.type_id as goods_typeId,
+    g.name as goods_name,
+    g.price as goods_price,
+    g.discount as goods_discount,
+    g.start_time as goods_startTime,
+    g.end_time as goods_endTime,
+    g.num as goods_num
+    from purchase p,goods g
+    where order_num = #{order_number,jdbcType=BIGINT}
+           and p.goods_id=g.id
+  </select>
+
+  <resultMap id="BaseResultMap1" type="com.ambow.springboot.vo.PurchaseGoodsVo" >
+    <result column="purchase_id" property="purchase_id" jdbcType="INTEGER" />
+    <result column="purchase_orderNum" property="purchase_orderNum" jdbcType="BIGINT" />
+    <result column="purchase_goodsId" property="purchase_goodsId" jdbcType="INTEGER" />
+    <result column="purchase_num" property="purchase_num" jdbcType="INTEGER" />
+
+    <result column="goods_id" property="goods_id" jdbcType="INTEGER" />
+    <result column="goods_typeId" property="goods_typeId" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goods_name" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goods_price" jdbcType="INTEGER" />
+    <result column="goods_discount" property="goods_discount" jdbcType="INTEGER" />
+    <result column="goods_startTime" property="goods_startTime" jdbcType="TIMESTAMP" />
+    <result column="goods_endTime" property="goods_endTime" jdbcType="TIMESTAMP" />
+    <result column="goods_num" property="goods_num" jdbcType="INTEGER" />
+  </resultMap>
 </mapper>

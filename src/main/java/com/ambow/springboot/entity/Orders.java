@@ -22,6 +22,7 @@ public class Orders {
 
     private Integer peopleNum; // 用餐人数
 
+
     @Override
     public String toString() {
         return "Orders{" +
@@ -115,4 +116,6 @@ public class Orders {
     public void setPeopleNum(Integer peopleNum) {
         this.peopleNum = peopleNum;
     }
+
+
 }

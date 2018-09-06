@@ -102,10 +102,12 @@ public class GoodsController {
      * */
     @RequestMapping("/toUpdate/{id}")
     @ResponseBody
-    public Goods toUpdate(@PathVariable("id") Integer id){
+    public GoodsTypeListVo toUpdate(@PathVariable("id") Integer id){
         goods=goodsService.toUpdate(id);
         typeList=typeService.toList();
-        //Set<GoodsTypeListVo> GoodsTypeListVo=
-        return goods;
+        GoodsTypeListVo goodsTypeListVo=new GoodsTypeListVo();
+        goodsTypeListVo.setGoods(goods);
+        goodsTypeListVo.setTypeList(typeList);
+        return goodsTypeListVo;
     }
 }

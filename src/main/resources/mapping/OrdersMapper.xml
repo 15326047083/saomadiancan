@@ -10,6 +10,7 @@
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="desk_num" property="deskNum" jdbcType="INTEGER" />
     <result column="people_num" property="peopleNum" jdbcType="INTEGER" />
+
   </resultMap>
   <sql id="Base_Column_List" >
     id, order_num, all_price, generate_time, user_id, state, desk_num, people_num
@@ -124,5 +125,35 @@
       desk_num = #{deskNum,jdbcType=INTEGER},
       people_num = #{peopleNum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="toListOrdersByOrderNum" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  select
+  <include refid="Base_Column_List" />
+  from orders
+  where order_num = #{order_number,jdbcType=BIGINT}
+</select>
+
+  <select id="toListOrders" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from orders
+  </select>
+
+  <update id="toUpdateUp" parameterType="com.ambow.springboot.entity.Orders" >
+
+    update orders
+    <set >
+        state = 1,
+    </set>
+    where order_num = #{orders_num,jdbcType=BIGINT}
+  </update>
+  <update id="toUpdateDown" parameterType="com.ambow.springboot.entity.Orders" >
+
+    update orders
+    <set >
+      state = 2,
+    </set>
+    where order_num = #{orders_num,jdbcType=BIGINT}
   </update>
 </mapper>

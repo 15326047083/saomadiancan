@@ -1,6 +1,9 @@
 package com.ambow.springboot.mapper;
 
 import com.ambow.springboot.entity.Purchase;
+import com.ambow.springboot.vo.PurchaseGoodsVo;
+
+import java.util.List;
 
 public interface PurchaseMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,6 @@ public interface PurchaseMapper {
     int updateByPrimaryKeySelective(Purchase record);
 
     int updateByPrimaryKey(Purchase record);
+
+    List<PurchaseGoodsVo> toListPurchaseByOrderNumber(long order_number);
 }
