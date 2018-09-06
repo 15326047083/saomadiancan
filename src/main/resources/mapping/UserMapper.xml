@@ -17,6 +17,21 @@
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <!--登录方法-->
+  <select id="login" resultMap="BaseResultMap" parameterType="User">
+    select
+   <include refid="Base_Column_List"/>
+    from user
+    where phone =#{phone}and password=#{password}
+  </select>
+  <!--查询用户是否注册过-->
+  <select id="listphone" parameterType="String" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from user
+    where  phone=#{phone}
+  </select>
+  <!--注册方法-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}

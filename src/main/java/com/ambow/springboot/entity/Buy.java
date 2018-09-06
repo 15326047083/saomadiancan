@@ -1,5 +1,7 @@
 package com.ambow.springboot.entity;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.Date;
 
 /**
@@ -20,6 +22,10 @@ public class Buy {
 
     private String info; // 备注
 
+    private  Integer start;
+
+    private  Integer rows;
+
     @Override
     public String toString() {
         return "Buy{" +
@@ -34,6 +40,21 @@ public class Buy {
     }
 
     public Buy() {
+    }
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 
     public Buy(Integer id, String name, String num, Date buyDate, Integer price, Integer userId, String info) {

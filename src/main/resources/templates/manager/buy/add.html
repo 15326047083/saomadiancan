@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="renderer" content="webkit"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<title>添加</title>
+		<link rel="stylesheet" href="/static/frame/layui/css/layui.css"/>
+		<link rel="stylesheet" href="/static/frame/static/css/style.css"/>
+		<link rel="icon" href="/static/frame/static/image/code.png"/>
+	</head>
+
+	<body class="body">
+		<form class="layui-form layui-form-pane" action="goodsList.html">
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">采购员</label>
+				<div class="layui-input-block">
+					<select name="userId" lay-filter="aihao" id="typeId">
+						<option value=""></option>
+						<option value="0">小米</option>
+						<option value="1" selected="">大名</option>
+						<option value="3">庄周</option>
+					</select>
+				</div>
+			</div>
+				<div class="layui-form-item">
+				<label class="layui-form-label">时间</label>
+				<div class="layui-input-block">
+					<input class="layui-input" type="datetime-local" id="buyDate" name="buyDate" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">物品名称</label>
+				<div class="layui-input-block">
+					<input type="text" id="name" name="name" autocomplete="off" placeholder="请输入物品名称" lay-verify="required" class="layui-input" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">单价</label>
+				<div class="layui-input-block">
+					<input type="text" id="price" name="price" autocomplete="off" placeholder="请输入物品单价（分）" lay-verify="required" class="layui-input" required/>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">数量</label>
+				<div class="layui-input-block">
+					<input type="text" id="num" name="num" autocomplete="off" placeholder="请输入物品数量" lay-verify="required" class="layui-input" required/>
+				</div>
+			</div>
+		
+
+			<div class="layui-form-item">
+				 <input type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" value="提交"
+                   onclick="return submitNewUser()">
+                   <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+           
+			</div>
+		</form>
+	</body>
+
+</html>
+<script src="/frame/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+<script type="text/javascript">
+ function submitNewUser() {
+  	if($("#price").val()<1&&$("#price").val()!=''){
+ 		alert("物品单价要大于0的整数");
+ 		$("#price").val('');
+ 		//return false;
+ 	}
+  	if($("#num").val()<1&&$("#num").val()!=''){
+ 		alert("数量要大于0的整数");
+ 		$("#num").val('');
+ 		//return false;
+ 	}
+  	if($("#buyDate").val()==''){
+  		alert("日期不可为空");
+  		$("#num").val('');
+  	}
+ 	return true;
+ }
+
+	layui.use(['form', 'layedit', 'laydate', 'element'], function() {
+		var form = layui.form,
+			layer = layui.layer,
+			layedit = layui.layedit,
+			laydate = layui.laydate,
+			element = layui.element;
+
+		//创建一个编辑器
+		var editIndex = layedit.build('LAY_demo_editor');
+
+		//自定义验证规则
+		form.verify({
+			title: function(value) {
+				if(value.length < 5) {
+					return '标题至少得5个字符啊';
+				}
+			},
+			pass: [/(.+){6,12}$/, '密码必须6到12位'],
+			content: function(value) {
+				layedit.sync(editIndex);
+			}
+		});
+
+		//监听提交
+/*		form.on('submit(sub)', function(data) {
+			layer.alert(JSON.stringify(data.field), {
+				title: '最终的提交信息'
+			});
+			return false;
+		});
+*/
+		// you code ...
+
+	});
+</script>
