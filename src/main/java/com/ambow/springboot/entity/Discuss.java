@@ -20,6 +20,10 @@ public class Discuss {
 
     private String info; // 评价详情
 
+    private  Integer start;
+
+    private  Integer rows;
+
     public Discuss() {
     }
 
@@ -102,5 +106,21 @@ public class Discuss {
 
     public void setInfo(String info) {
         this.info = info == null ? null : info.trim();
+    }
+
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 }

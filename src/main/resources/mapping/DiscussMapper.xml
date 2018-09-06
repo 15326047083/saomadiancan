@@ -12,6 +12,39 @@
   <resultMap id="ResultMapWithBLOBs" type="com.ambow.springboot.entity.Discuss" extends="BaseResultMap" >
     <result column="info" property="info" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="DiscussReplyVoMap" type="com.ambow.springboot.vo.DiscussReplyVo">
+    <id column="discussId" property="discussId" jdbcType="INTEGER" />
+    <result column="discussEnLevel" property="discussEnLevel" jdbcType="INTEGER" />
+    <result column="discussServiceLevel" property="discussServiceLevel" jdbcType="INTEGER" />
+    <result column="discussQuLevel" property="discussQuLevel" jdbcType="INTEGER" />
+    <result column="discussTime" property="discussTime" jdbcType="TIMESTAMP" />
+    <result column="discussInfo" property="discussInfo" jdbcType="VARCHAR" />
+    <result column="replyId" property="replyId" jdbcType="INTEGER" />
+    <result column="replyTime" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="replyInfo" property="replyInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="DiscussList" resultMap="DiscussReplyVoMap" >
+    select
+    d1.id as discussId,
+    d1.info as discussInfo,
+    d1.en_level as discussEnLevel,
+    d1.service_level as discussServiceLevel,
+    d1.qu_level as discussQuLevel,
+    d1.discuss_time as discussTime,
+    d2.discuss_id as replyId,
+    d2.discuss_time as replyTime,
+    d2.info as replyInfo
+    from
+        discuss d1,discuss d2
+    where d1.id=d2.discuss_id
+  </select>
+  <!--查询所有总数-->
+  <select id="selectDiscussCount"  resultType="java.lang.Integer">
+     SELECT
+    count(*)
+    FROM
+    buy
+  </select>
   <sql id="Base_Column_List" >
     id, en_level, service_level, qu_level, discuss_id, discuss_time
   </sql>
