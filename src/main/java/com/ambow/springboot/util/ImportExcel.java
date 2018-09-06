@@ -2,25 +2,26 @@ package com.ambow.springboot.util;
 
 import com.ambow.springboot.entity.Buy;
 import jxl.Workbook;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ImportExcel {
 
-    public List<Buy> ImportExcel(File file) {
+    public List<Buy> ImportExcel(MultipartFile file,Integer id) {
         // TODO Auto-generated method stub
         List<Buy> list = new ArrayList<Buy>();
         try {
             // 创建输入流，读取Excel
-            InputStream is = new FileInputStream(file);
-            Workbook wb = Workbook.getWorkbook(is);
+            Workbook wb = Workbook.getWorkbook(file.getInputStream());
             // 页签数量
             int sheet_size = wb.getNumberOfSheets();
             for (int i = 0; i < sheet_size; i++) {
@@ -30,11 +31,7 @@ public class ImportExcel {
                     Buy u = new Buy();
                     for (int k = 0; k < wb.getSheet(i).getColumns(); k++) {
                         if (wb.getSheet(i).getCell(k, 0).getContents().equals("name")) {
-                            if (isNumeric(wb.getSheet(i).getCell(k, j).getContents())) {
                                 u.setName(wb.getSheet(i).getCell(k, j).getContents());
-                            } else {
-                                u.setName("");
-                            }
                         } if (wb.getSheet(i).getCell(k, 0).getContents().equals("num")) {
                             if (isNumeric(wb.getSheet(i).getCell(k, j).getContents())) {
                                 u.setNum(wb.getSheet(i).getCell(k, j).getContents());
@@ -42,7 +39,7 @@ public class ImportExcel {
                                 u.setNum("");
                             }
                         } else if (wb.getSheet(i).getCell(k, 0).getContents().equals("buyDate")) {
-                            u.setBuyDate(new SimpleDateFormat().parse(wb.getSheet(i).getCell(k, j).getContents()));
+                            u.setBuyDate(new Date());
                         } else if (wb.getSheet(i).getCell(k, 0).getContents().equals("price")) {
                             u.setPrice(Integer.parseInt(wb.getSheet(i).getCell(k, j).getContents()));
                         } else if (wb.getSheet(i).getCell(k, 0).getContents().equals("info")) {

@@ -58,10 +58,7 @@ function deleteById(id) {
 	$.ajax({
         type: "get",
         url: "/roles/delete/"+id,
-        dataType: "json",
         error() {
-            alert("删除成功");
-            showtable();
 
         },
         success(json) {

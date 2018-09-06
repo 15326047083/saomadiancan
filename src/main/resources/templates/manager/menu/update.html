@@ -60,10 +60,7 @@
             $.ajax({
                 type: "post",
                 data:$(".form").serialize(),
-               dataType: "json",
-                error() {
-                    alert("修改成功");
-                    window.location.href="/jump/toMenuList";},
+                error() {},
                 success() {
                         alert("修改成功");
                         window.location.href="/jump/toMenuList";

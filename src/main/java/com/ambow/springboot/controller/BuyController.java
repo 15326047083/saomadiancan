@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,27 +30,24 @@ public class BuyController {
     * 导入方法
     * */
     @ResponseBody
-    @RequestMapping(value="/import")
-    public String importExcel(@RequestParam("file")File file,Integer id ,HttpServletRequest request){
+    @RequestMapping(value="/import",method = RequestMethod.POST)
+    public String importExcel(@RequestParam("file") MultipartFile file, @RequestParam("id")Integer id , HttpServletRequest request){
         ImportExcel importExcel=new ImportExcel();
-        List<Buy> importList=importExcel.ImportExcel(file);
+        List<Buy> importList=importExcel.ImportExcel(file,id);
         /*
         * 用户登录session采购人
         * */
         /**
          * TODO 查询emp中所有roles为采购员的列表
          */
-        HttpSession session=request.getSession();
-        Emp emp= (Emp) session.getAttribute("emp");
-        Buy record=new Buy();
         for (Buy  importLists:importList){
+            Buy record=new Buy();
             record.setName(importLists.getName());
             record.setNum(importLists.getNum());
             record.setPrice(importLists.getPrice());
             record.setBuyDate( importLists.getBuyDate());
             record.setInfo(importLists.getInfo());
-            //empid
-            record.setUserId(emp.getId());
+            record.setUserId(id);
             buyService.insertBuy(record);
         }
         return  "SUCCESS";

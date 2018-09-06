@@ -25,4 +25,7 @@ public class JumpController {
         model.addAttribute("id", id);
         return "manager/menu/update";
     }
+
+    @RequestMapping("/toBuyList")
+    public String toBuy(){return "manager/buy/list";}
 }
