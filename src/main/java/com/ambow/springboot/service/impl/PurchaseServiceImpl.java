@@ -28,4 +28,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<PurchaseGoodsVo> toListPurchaseByOrderNumber(long order_number) {
         return purchaseMapper.toListPurchaseByOrderNumber(order_number);
     }
+
+    @Override
+    public void toDeletePurchase(Integer id) {
+        purchaseMapper.deleteByPrimaryKey(id);
+    }
 }

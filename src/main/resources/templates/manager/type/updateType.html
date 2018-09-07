@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8"/>
@@ -13,8 +13,8 @@
 	</head>
 
 	<body class="body">
-		<form class="layui-form layui-form-pane" action="">
-			<input type="hidden" id="id" name="id" />
+		<form class="layui-form layui-form-pane" action="/type/update" method="post">
+			<input  id="id" name="id" th:value="${id}" />
 			<div class="layui-form-item">
 				<label class="layui-form-label">类型名称</label>
 				<div class="layui-input-block">
@@ -31,7 +31,7 @@
 </html>
 <script src="/frame/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="/js/menu.js"></script>
+<script type="text/javascript" src="/js/type.js"></script>
 <script type="text/javascript">
 	layui.use(['form', 'layedit', 'laydate', 'element'], function() {
 		var form = layui.form,
@@ -42,27 +42,21 @@
 
 		//创建一个编辑器
 		var editIndex = layedit.build('LAY_demo_editor');
+        //监听提交
+        form.on('submit(sub)', function(data) {
+            $.ajax({
+                type: "post",
+                data:$(".form").serialize(),
+                error() {
+                    alert("重复命名");
+				},
+                success() {
+                    alert("修改成功");
+                    window.location.href="/zhengJump/toList";
+                }
+            });
 
-		//自定义验证规则
-		form.verify({
-			title: function(value) {
-				if(value.length < 5) {
-					return '标题至少得5个字符啊';
-				}
-			},
-			pass: [/(.+){6,12}$/, '密码必须6到12位'],
-			content: function(value) {
-				layedit.sync(editIndex);
-			}
-		});
-
-		//监听提交
-		form.on('submit(sub)', function(data) {
-			layer.alert(JSON.stringify(data.field), {
-				title: '最终的提交信息'
-			});
-			return false;
-		});
+        });
 
 		// you code ...
 

@@ -43,7 +43,7 @@ public class GoodsController {
     }*/
 
     /*
-    * 增加商品信息，判重 有问题
+    * 增加商品信息，判重
     * */
     @RequestMapping("/toSave")
     public String addGoods(Goods goods){

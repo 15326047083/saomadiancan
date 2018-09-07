@@ -34,10 +34,8 @@
     </foreach>
   </delete>
   <insert id="insert" parameterType="com.ambow.springboot.entity.Type" >
-    insert into type (id, name, num
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}
-      )
+    insert into type (name)
+    values (#{name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ambow.springboot.entity.Type" >
     insert into type
@@ -83,11 +81,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByNam" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from type
-    where id = #{typeName,jdbcType=VARCHAR}
+    where name = #{typeName,jdbcType=VARCHAR}
   </select>
 
   <select id="selectGoodsByTypeId" resultMap="BaseResultMap1" parameterType="java.lang.Integer" >

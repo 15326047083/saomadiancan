@@ -34,7 +34,7 @@ function goodstable() {
 }
 //类型表格显示
 function showtable() {
-	/*	$.ajax({
+	$.ajax({
 			type: "post",
 			url: "/type/toList",
 			dataType: "json",
@@ -44,13 +44,14 @@ function showtable() {
 				for(var i = 0; i < json.length; i++) {
 					var t1 = $("#table1 tbody");
 					var trtd = "<td>" + json[i].id + "</td><td>" + json[i].name + "</td><td>" + json[i].num + "</td>";
-					var tdbutten = "<td><a href='/type/toList/"+json[i].id+
+					var tdbutten = "<td><a href='/zhengJump/toUpdate/"+json[i].id+
 						"'><button class='layui-btn layui-btn-primary layui-btn-small'>修改</button></a>" +
 						"<button class='layui-btn layui-btn-primary layui-btn-small'>删除</button></td>";
 					$("#table1 tbody").append("<tr>" + trtd + tdbutten + "</tr>");
 				}
 			}
-		});*/
+		});
+	/*
 	$("#main").empty();
 	for(var i = 0; i < 5; i++) {
 		var t1 = $("#table1 tbody");
@@ -59,7 +60,7 @@ function showtable() {
 			"'><button class='layui-btn layui-btn-primary layui-btn-small'>修改</button></a>" +
 			"<button onclick='deletet(" + i + ")' class='layui-btn layui-btn-primary layui-btn-small'>删除</button></td>";
 		$("#table1 tbody").append("<tr>" + trtd + tdbutten + "</tr>");
-	}
+	}*/
 }
 
 function deletet(id) {
@@ -85,6 +86,23 @@ function deletet(id) {
 	}
 
 }
+
+//类型修改前 显示原来的值
+function toUpdate() {
+    $.ajax({
+        type: "post",
+        url: "/type/toUpdate/"+$("#id").val(),
+        dataType: "json",
+        error() {},
+        success(json) {
+            $("#id").val(json.id);
+            $("#name").val(json.name);
+
+        }
+    });
+}
+
+
 //批量删除
 function deleteAll() {
 	var num = 0;

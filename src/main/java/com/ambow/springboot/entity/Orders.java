@@ -22,6 +22,9 @@ public class Orders {
 
     private Integer peopleNum; // 用餐人数
 
+    private Integer start;
+
+    private Integer rows;
 
     @Override
     public String toString() {
@@ -117,5 +120,19 @@ public class Orders {
         this.peopleNum = peopleNum;
     }
 
+    public Integer getStart() {
+        return start;
+    }
 
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
+    }
 }

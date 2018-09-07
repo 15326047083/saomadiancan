@@ -71,6 +71,7 @@ public class GoodsServiceImpl implements GoodsService {
         pages.setRows(books);
         pages.setSize(rows);
         pages.setTotal(count);
+
         return pages;
     }
 }

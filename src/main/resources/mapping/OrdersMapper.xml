@@ -138,6 +138,13 @@
     select
     <include refid="Base_Column_List" />
     from orders
+    where
+    <if test="state!=null">
+    state=#{state,jdbcType=INTEGER}
+    </if>
+    <if test="start!=null and rows!=null">
+      LIMIT ${start},${rows};
+    </if>
   </select>
 
   <update id="toUpdateUp" parameterType="com.ambow.springboot.entity.Orders" >
@@ -156,4 +163,66 @@
     </set>
     where order_num = #{orders_num,jdbcType=BIGINT}
   </update>
+
+  <select id="selectOrdersCount" resultType="java.lang.Integer">
+    SELECT
+    count(*)
+    FROM
+    orders
+  </select>
+
+  <select id="ordersDay" resultMap="ReportMap">
+    SELECT
+    DATE_FORMAT(generate_time,
+		'%Y-%m-%d'
+		) AS name,
+		SUM(all_price) as value
+    from orders
+    where
+    <if test="time1 != null and time1 != null ">
+      generate_time BETWEEN #{time1} AND #{time2}
+    </if>
+    GROUP  BY DATE_FORMAT(generate_time,'%Y-%m-%d')
+
+  </select>
+
+  <select id="ordersMonth" resultMap="ReportMap">
+
+    SELECT
+	month (generate_time) as name,
+	SUM(all_price) as value
+    FROM
+	orders
+    where
+    <if test="year != null">
+      YEAR(generate_time)=#{year}
+    </if>
+    GROUP BY
+	month (generate_time)
+  </select>
+
+  <!--根据日期模糊查询-->
+  <select id="likeListOrders" resultMap="BaseResultMap" parameterType="String">
+    select
+    <include refid="Base_Column_List" />
+    from orders where  generate_time like "%"#{time1}"%"
+  </select>
+
+  <select id="goodsSale" resultMap="ReportMap">
+   SELECT
+	g.name as name,
+	SUM(p.num) as value
+    FROM
+	purchase p,
+	goods g
+    where
+    p.goods_id=g.id
+    GROUP BY g.name
+  </select>
+
+
+  <resultMap id="ReportMap" type="com.ambow.springboot.vo.Report">
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+  </resultMap>
 </mapper>

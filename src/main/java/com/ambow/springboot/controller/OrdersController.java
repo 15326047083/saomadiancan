@@ -5,12 +5,14 @@ import com.ambow.springboot.entity.Purchase;
 import com.ambow.springboot.entity.User;
 import com.ambow.springboot.service.OrdersService;
 import com.ambow.springboot.service.PurchaseService;
+import com.ambow.springboot.util.Page;
 import com.ambow.springboot.vo.CartVo;
 import com.ambow.springboot.vo.PurchaseGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
@@ -226,13 +228,14 @@ public class OrdersController {
     }
 
     /*
-     * 后台查询所有订单内容
+     * 后台查询所有订单内容,分页
      * */
     @RequestMapping("/toListOrders")
     @ResponseBody
-    public List<Orders> toListOrders() {
+    public Page<Orders> toListOrders(Integer state, @RequestParam(defaultValue = "1") Integer page,
+                                     @RequestParam(defaultValue = "8") Integer rows) {
 
-        ordersList=ordersService.toListOrders();
+        Page<Orders>  ordersList=ordersService.toListOrders(page,rows,state);
         return  ordersList;
     }
 
@@ -252,4 +255,15 @@ public class OrdersController {
         ordersService.toUpdateDown(orders_num);
         return "success";
     }
+
+    /*
+    * 删去订单中（中间表）的一条数据
+    * */
+    @RequestMapping("toDeletePurchase/{id}")
+
+    public String toDeletePurchase(@PathVariable("id") Integer id){
+            purchaseService.toDeletePurchase(id);
+            return "success";
+    }
+
 }

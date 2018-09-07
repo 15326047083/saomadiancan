@@ -1,6 +1,8 @@
 package com.ambow.springboot.service;
 
 import com.ambow.springboot.entity.Orders;
+import com.ambow.springboot.util.Page;
+import com.ambow.springboot.vo.Report;
 
 import java.util.List;
 
@@ -9,9 +11,17 @@ public interface OrdersService {
 
     Orders toListOrdersByOrderNum(Long order_number);
 
-    List<Orders> toListOrders();
+    Page<Orders> toListOrders(Integer page, Integer rows, Integer state);
 
     void toUpdateUp(Long orders_num);
 
     void toUpdateDown(Long orders_num);
+
+    List<Report> ordersDay(String time1, String time2);
+
+    List<Report> ordersMonth(String year);
+
+    List<Orders> likeListOrder();
+
+    List<Report> goodsSale();
 }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>某年的月销售金额</title>
+    <script type="text/javascript" src="/js/echarts.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/js/year.js"></script>
+</head>
+<body>
+<div style="text-align: center">
+    年份：<input type="text" id="year" name="year" value="2018" maxlength="4" width="30px" />
+    <input type="button" value="查询" onclick="aa()" />
+
+
+
+</div>
+<!-- 柱状图容器 -->
+<div id="main" style="width: 1000px; height: 500px;text-align: center; margin-top: 20px" ></div>
+<script type="text/javascript">
+    function aa() {
+        // 初始化
+        //var myChart = echarts.init(document.getElementById('main'));
+        var myChart = echarts.init($('#main')[0]); // 注意：这里init方法的参数的javascript对象，使用jQuery获取标签时，要将jQuery对象转成JavaScript对象；
+
+        // 配置图标参数
+        var options = {
+            title : {
+                text : '月营业额',
+                show : true, // 是否显示标题
+                subtext : '数据',
+                textStyle : {
+                    fontSize : 18
+                    // 标题文字大小
+                }
+            },
+            tooltip : {
+                trigger : 'axis',
+                axisPointer : {
+                    type : 'shadow'
+                }
+            },
+            legend : {
+                data : [ '月营业额' ]
+            },
+            // X轴
+            xAxis : {
+                data : []
+                // 异步请求时,这里要置空
+            },
+            // Y轴
+            yAxis : {},
+            series : [ {
+                name : '月营业额',
+                type : 'bar', // 设置图表类型为柱状图
+                data : []
+                // 设置纵坐标的刻度(异步请求时,这里要置空)
+            } ]
+        };
+        // 给图标设置配置的参数
+        myChart.setOption(options);
+        myChart.showLoading(); // 显示加载动画
+        // 异步请求加载数据
+
+        var year = $('#year').val();
+
+        $.ajax({
+            url : '/report/ordersMonth',
+            data : {
+                'year' : year,
+
+            },
+            type : 'post',
+            dataType : 'json',
+            success : function(data) {
+                var names = [];
+                var nums = [];
+                $.each(data, function(index, obj) {
+                    names.push(obj.name);
+                    nums.push(obj.value);
+                })
+
+                myChart.hideLoading(); // 隐藏加载动画
+                myChart.setOption({
+                    legend : {
+                        data : [ '月营业额' ]
+                    },
+                    xAxis : {
+                        data : names
+                    },
+                    series : [ {
+                        name : '月营业额',
+                        type : 'bar', // 设置图表类型为柱状图
+                        data : nums
+                        // 设置纵坐标的刻度
+                    } ]
+                });
+            }
+        });
+    };
+</script>
+
+
+</body>
+</html>

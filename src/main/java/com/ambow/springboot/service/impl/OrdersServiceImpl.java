@@ -3,9 +3,13 @@ package com.ambow.springboot.service.impl;
 import com.ambow.springboot.entity.Orders;
 import com.ambow.springboot.mapper.OrdersMapper;
 import com.ambow.springboot.service.OrdersService;
+import com.ambow.springboot.util.Page;
+import com.ambow.springboot.vo.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -14,6 +18,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Autowired
     private OrdersMapper ordersMapper;
 
+    private List<Orders> listorderByDay;
     /*
     * 添加订单
     * */
@@ -35,8 +40,20 @@ public class OrdersServiceImpl implements OrdersService {
     * 查询所有订单
     * */
     @Override
-    public List<Orders> toListOrders() {
-        return ordersMapper.toListOrders();
+    public Page<Orders> toListOrders(Integer page, Integer rows, Integer state) {
+
+        Orders orders = new Orders();
+
+        orders.setStart((page - 1) * rows);
+        orders.setRows(rows);
+        List<Orders> ordersList = ordersMapper.toListOrders(orders);
+        Integer count = ordersMapper.selectOrdersCount(orders);
+        Page<Orders> pages = new Page<Orders>();
+        pages.setPage(page);
+        pages.setRows(ordersList);
+        pages.setSize(rows);
+        pages.setTotal(count);
+        return pages;
     }
 
     /*
@@ -53,5 +70,43 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public void toUpdateDown(Long orders_num) {
         ordersMapper.toUpdateDown(orders_num);
+    }
+
+    /*
+    * 区间内的日销量
+    * */
+    @Override
+    public List<Report> ordersDay(String time1, String time2) {
+        return ordersMapper.ordersDay(time1,time2);
+    }
+
+    @Override
+    public List<Report> ordersMonth(String year) {
+        return ordersMapper.ordersMonth(year);
+    }
+
+
+    @Override
+    public List<Orders> likeListOrder() {
+        Orders order=new Orders();
+
+        try {
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-MM-dd");
+            String nowdates=sdfs.format(c.getTime());
+            listorderByDay=ordersMapper.likeListOrders(nowdates);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  listorderByDay;
+    }
+
+
+    /*
+    *菜品销售量
+    * */
+    @Override
+    public List<Report> goodsSale() {
+        return ordersMapper.goodsSale();
     }
 }

@@ -13,7 +13,7 @@
 	</head>
 
 	<body class="body">
-		<form class="layui-form layui-form-pane" action="">
+		<form class="layui-form layui-form-pane" action="/type/toSave" method="post">
 			<div class="layui-form-item">
 				<label class="layui-form-label">类型名称</label>
 				<div class="layui-input-block">
@@ -41,29 +41,23 @@
 
 		//创建一个编辑器
 		var editIndex = layedit.build('LAY_demo_editor');
-
-		//自定义验证规则
-		form.verify({
-			title: function(value) {
-				if(value.length < 5) {
-					return '标题至少得5个字符啊';
-				}
-			},
-			pass: [/(.+){6,12}$/, '密码必须6到12位'],
-			content: function(value) {
-				layedit.sync(editIndex);
-			}
-		});
-
 		//监听提交
-	/*	form.on('submit(sub)', function(data) {
-			layer.alert(JSON.stringify(data.field), {
-				title: '最终的提交信息'
-			});
-			return false;
-		});*/
+        form.on('submit(sub)', function(data) {
+            $.ajax({
+                type: "post",
+                data:$(".form").serialize(),
+                error() {
+                    alert("重复命名");
+                },
+                success() {
+                    alert("添加成功");
+                    window.location.href="/zhengJump/toList";
+                }
+            });
 
-		// you code ...
+        });
+
+        // you code ...
 
 	});
 </script>

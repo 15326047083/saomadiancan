@@ -9,4 +9,6 @@ public interface PurchaseService {
     void toSave(Purchase purchase);
 
     List<PurchaseGoodsVo> toListPurchaseByOrderNumber(long order_number);
+
+    void toDeletePurchase(Integer id);
 }
