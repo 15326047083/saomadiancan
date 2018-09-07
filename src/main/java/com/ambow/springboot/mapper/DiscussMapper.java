@@ -24,7 +24,7 @@ public interface DiscussMapper {
      * 查询所有评价和回复
      * @return List<DiscussReplyVo>
      */
-    List<DiscussReplyVo> DiscussList();
+    List<DiscussReplyVo> DiscussList(Discuss discuss);
 
     /*
      * 统计总条数方法

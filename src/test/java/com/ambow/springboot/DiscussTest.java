@@ -20,7 +20,7 @@ public class DiscussTest {
      */
     @Test
     public void testMysql() {
-        System.out.println(discussMapper.DiscussList());
+        //System.out.println(discussMapper.DiscussList());
     }
 
     /**

@@ -61,7 +61,7 @@ public class EmpController {
      */
     @RequestMapping(value = "/roleList")
     public List<Emp> toroleList(Emp emp) {
-        List<Emp> empList = empService.toList();
+        List<Emp> empList = empService.toroleList();
         return empList;
     }
 }

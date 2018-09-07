@@ -7,6 +7,16 @@ public class Page<T> {
     private int size;     // 每页数
     private List<T> rows; // 结果集
 
+    @Override
+    public String toString() {
+        return "Page{" +
+                "total=" + total +
+                ", page=" + page +
+                ", size=" + size +
+                ", rows=" + rows +
+                '}';
+    }
+
     public int getTotal() {
         return total;
     }

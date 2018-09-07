@@ -24,27 +24,29 @@ import java.util.HashMap;
 public class UserController {
     @Autowired
     private UserService userService;
+
     /*
-    * 登录
-    * */
+     * 登录
+     * */
     @ResponseBody
     @RequestMapping("/tologin")
-    public  String  login(User user, HttpServletRequest request){
-        user.setPassword(MD5Util.MD5( user.getPassword()));
-        HttpSession session=request.getSession();
-        User users=userService.login(user);
-        if (users!=null){
-            session.setAttribute("user","users");
-        return "SUCCESS";
+    public String login(User user, HttpServletRequest request) {
+        user.setPassword(MD5Util.MD5(user.getPassword()));
+        HttpSession session = request.getSession();
+        User users = userService.login(user);
+        if (users != null) {
+            session.setAttribute("user", users);
+            return "success";
         }
-        return "";
+        return "error";
     }
+
     /*
      * 短信验证注册
      * */
     @ResponseBody
     @RequestMapping(value = "/sendme", method = RequestMethod.GET)
-    public ModelAndView sendme(User user,@RequestParam("phone") String phone,
+    public ModelAndView sendme(User user, @RequestParam("phone") String phone,
                                HttpServletRequest request) throws HttpException, IOException {
 
         ModelAndView model = new ModelAndView();
@@ -72,7 +74,7 @@ public class UserController {
     @RequestMapping(value = "/comparecode.action", method = RequestMethod.POST)
     public ModelAndView comparecode(@RequestParam(value = "code") String code,
                                     User user, HttpServletRequest request) {
-        user.setPassword(MD5Util.MD5( user.getPassword()));
+        user.setPassword(MD5Util.MD5(user.getPassword()));
         ModelAndView model = new ModelAndView();
         HttpSession session = request.getSession();
         String sessioncode = (String) session.getAttribute(user.getPhone()
@@ -83,18 +85,19 @@ public class UserController {
         } else {
             model.setViewName("index");
         }
-            model.setViewName("result");
+        model.setViewName("result");
 
         return model;
     }
-      /*
-      * 注销
-      * */
-      @ResponseBody
-      @RequestMapping(value = "/zhuxiao")
-      public String  zhuxiao( HttpServletRequest request){
-         HttpSession session=request.getSession();
-         session.removeAttribute("user");
-         return "SUCCESS";
+
+    /*
+     * 注销
+     * */
+    @ResponseBody
+    @RequestMapping(value = "/zhuxiao")
+    public String zhuxiao(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("user");
+        return "SUCCESS";
     }
 }

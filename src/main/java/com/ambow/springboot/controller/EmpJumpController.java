@@ -23,4 +23,19 @@ public class EmpJumpController {
         model.addAttribute("empId", empId);
         return "manager/emp/update";
     }
+
+    @RequestMapping("/toBuyList")
+    public String toBuyList() {
+        return "manager/buy/list";
+    }
+
+    @RequestMapping("/toBuyNew")
+    public String toBuyNew() {
+        return "manager/buy/add";
+    }
+
+    @RequestMapping("/toDiscussList")
+    public String toDiscussList() {
+        return "manager/discuss/discuss";
+    }
 }
