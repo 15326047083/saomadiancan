@@ -20,37 +20,40 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     /*
-    * 根据名字查找
-    * */
+     * 根据名字查找
+     * */
     @Override
     public Goods selectByName(String name) {
         return goodsMapper.selectByName(name);
     }
+
     /*
-    * 添加商品
-    * */
+     * 添加商品
+     * */
     @Override
     public void addGoods(Goods goods) {
         goodsMapper.insert(goods);
     }
+
     /*
-    * 批量删除商品
-    * */
+     * 批量删除商品
+     * */
     @Override
     public void deleteType(Integer[] ids) {
         goodsMapper.deleteByPrimaryKey(ids);
     }
+
     /*
-    * 修改商品信息
-    * */
+     * 修改商品信息
+     * */
     @Override
     public void updateByPrimaryKeySelective(Goods goods) {
         goodsMapper.updateByPrimaryKeySelective(goods);
     }
 
     /*
-    * 根据id查询商品信息
-    * */
+     * 根据id查询商品信息
+     * */
     @Override
     public Goods toUpdate(Integer id) {
         return goodsMapper.selectByPrimaryKey(id);
@@ -58,7 +61,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Page<TypeGoodsVo> toList(@RequestParam(defaultValue = "1") Integer page,
-                                    @RequestParam(defaultValue = "4")Integer rows) {
+                                    @RequestParam(defaultValue = "4") Integer rows) {
 
         Goods goods = new Goods();
 
@@ -73,5 +76,15 @@ public class GoodsServiceImpl implements GoodsService {
         pages.setTotal(count);
 
         return pages;
+    }
+
+    @Override
+    public List<Goods> queryAll() {
+        return goodsMapper.queryAll();
+    }
+
+    @Override
+    public Goods getById(Integer goodsId) {
+        return goodsMapper.selectByPrimaryKey(goodsId);
     }
 }

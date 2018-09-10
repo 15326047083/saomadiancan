@@ -28,13 +28,13 @@ public class GoodsController {
     @Autowired
     private TypeService typeService;
 
-    private List<Goods> goodsList=null;
-    private Goods goods=null;
+    private List<Goods> goodsList = null;
+    private Goods goods = null;
     private List<Type> typeList;
 
     /*
-    * 点击添加按钮，先显示商品类型
-    * */
+     * 点击添加按钮，先显示商品类型
+     * */
    /* @RequestMapping("/toList")
     @ResponseBody
     public List<Type> toList(){
@@ -43,11 +43,11 @@ public class GoodsController {
     }*/
 
     /*
-    * 增加商品信息，判重
-    * */
+     * 增加商品信息，判重
+     * */
     @RequestMapping("/toSave")
-    public String addGoods(Goods goods){
-        String name=goods.getName();
+    public String addGoods(Goods goods) {
+        String name = goods.getName();
         if (goodsService.selectByName(name) != null) {
             return "error";
         }
@@ -56,22 +56,23 @@ public class GoodsController {
     }
 
     /*
-    * 批量删除商品
-    * */
+     * 批量删除商品
+     * */
     @RequestMapping("/todelete/{ids}")
-    public String deleteGoods(@PathVariable("ids") Integer[] ids){
+    public String deleteGoods(@PathVariable("ids") Integer[] ids) {
         if (ids != null && ids.length > 0) {
             goodsService.deleteType(ids);
             return "success";
-        }else {
+        } else {
             return "error";
         }
 
     }
+
     /*
-    * 修改商品，判重
-    * */
-    public String updateGoods(Goods goods){
+     * 修改商品，判重
+     * */
+    public String updateGoods(Goods goods) {
         String typeName = goods.getName();
         Goods goods1 = goodsService.selectByName(typeName);
         if (goods1 != null) {
@@ -85,7 +86,7 @@ public class GoodsController {
             goodsService.updateByPrimaryKeySelective(goods);
             return "success";
         }
-}
+    }
 
     /*
      * 查询所有商品，分页
@@ -93,21 +94,28 @@ public class GoodsController {
     @RequestMapping("/toList")
     @ResponseBody
     public Page<TypeGoodsVo> tolist(@RequestParam(defaultValue = "1") Integer page,
-                              @RequestParam(defaultValue = "9") Integer rows){
+                                    @RequestParam(defaultValue = "9") Integer rows) {
         Page<TypeGoodsVo> toList = goodsService.toList(page, rows);
         return toList;
     }
+
     /*
      * 根据id查询商品
      * */
     @RequestMapping("/toUpdate/{id}")
     @ResponseBody
-    public GoodsTypeListVo toUpdate(@PathVariable("id") Integer id){
-        goods=goodsService.toUpdate(id);
-        typeList=typeService.toList();
-        GoodsTypeListVo goodsTypeListVo=new GoodsTypeListVo();
+    public GoodsTypeListVo toUpdate(@PathVariable("id") Integer id) {
+        goods = goodsService.toUpdate(id);
+        typeList = typeService.toList();
+        GoodsTypeListVo goodsTypeListVo = new GoodsTypeListVo();
         goodsTypeListVo.setGoods(goods);
         goodsTypeListVo.setTypeList(typeList);
         return goodsTypeListVo;
+    }
+
+    @RequestMapping("/queryAll")
+    @ResponseBody
+    public List<Goods> queryAll() {
+        return goodsService.queryAll();
     }
 }

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>点餐</title>
+    <meta name="keywords" content="KEYWORDS..."/>
+    <meta name="description" content="DESCRIPTION..."/>
+    <meta name="author" content="DeathGhost"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name='apple-touch-fullscreen' content='yes'/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <!--导航栏渐变开始-->
+    <link rel="stylesheet" href="/phone/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/swiper3.07.min.css"/>
+    <link rel="stylesheet" href="/phone/css/index.css"/>
+    <script src="/phone/js/jquery.js"></script>
+    <script src="/phone/js/swiper.min.js"></script>
+    <style>
+        nav a {
+            display: block;
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            text-align: center;
+            color: grey;
+            line-height: 1.2;
+            color: #666;
+            text-shadow: 0 1px 1px white;
+        }
+
+        .addclasstruenav {
+            color: #3acd17;
+        }
+    </style>
+    <!--地区参数传值-->
+
+</head>
+
+<body>
+<!--header-->
+<header>
+    <div class="top-sch-box flex-col logoIcon">
+        <a>
+            <aside class="index-searchArea">
+                <form action="">
+                    <input class="input-text-searchArea" type="text" placeholder="请输入餐品"/>
+                    <input style="margin-left: 30px;" type="button" value="&#63;" class="input-searchBtn"/>
+                </form>
+            </aside>
+        </a>
+    </div>
+</header>
+
+<!--slide-->
+<div id="slide" class="public-banner">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <a href="#">
+                <img src="/phone/upload/banner1.jpg"/>  <!--首页滑动图片-->
+            </a>
+        </div>
+        <div class="swiper-slide">
+            <a href="#">
+                <img src="/phone/upload/banner2.jpg"/><!--首页滑动图片-->
+            </a>
+        </div>
+    </div>
+    <div class="pagination"></div>
+</div>
+
+<!--今日促销-->
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <!--第一页-->
+        <div class="swiper-slide">
+            <div class="right-con con-active">
+                <ul class="clearfix swiper-list">
+                    <!--从这里循环	-->
+                    <li>
+                        <div class="menu-img"><img src="/phone/img/index (1).png" width="55" height="55"/></div>
+                        <div class="menu-txt">
+                            <h4>宫保鸡丁</h4>
+                            <p class="list2">
+                                <b>￥25<em>(30)</em></b>
+                            <div class="btn">
+                                <button class="minus">
+                                    -
+                                </button>
+                                <i>0</i>
+                                <button class="add">
+                                    +
+                                </button>
+                                <i class="price">25</i>
+                            </div>
+                            </p>
+                        </div>
+                        <!--到这里结束-->        </li>
+                    <li>
+                        <div class="menu-img"><img src="/phone/img/index (2).png" width="55" height="55"/></div>
+                        <div class="menu-txt">
+                            <h4>宫保鸡丁</h4>
+                            <p class="list2">
+                                <b>￥25<em>(6折)</em></b>
+                            <div class="btn">
+                                <button class="minus">
+                                    -
+                                </button>
+                                <i>0</i>
+                                <button class="add">
+                                    +
+                                </button>
+                                <i class="price">25</i>
+                            </div>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--第二页-->
+
+    </div>
+
+</div>
+
+<!--分类商品-->
+<div class="main">
+    <!--分类名称-->
+    <div class="left-menu">
+        <ul>
+            <li class="active">最爱<span class="num-price"></span></li>
+            <li>分类</li>
+            <li>分类</li>
+            <li>分类</li>
+        </ul>
+    </div>
+    <div class="con">
+        <div id="goods" class="right-con con-active">
+            <ul>
+                <!--菜品-->
+                <!--开始循环菜品-->
+
+                <!--循环结束-->
+            </ul>
+        </div>
+        <!--分类二-->
+    </div>
+</div>
+<div class="footer">
+    <div class="left">
+		<span id="cartN">
+			<a href="/empJump/toCart"><img src="/phone/img/shop_03.png"/></a><!--购物车-->
+			<span id="totalcountshow">0</span>
+			<span class="totalpriceshow">￥<em id="totalpriceshow">0</em></span>
+		</span>
+    </div>
+    <!--	<div class="right">
+            <a id="btnselect" class="xhlbtn  disable" href="order-settlement.html">去结算</a>
+        </div> -->
+</div>
+<div style="height:1.2rem;"></div>
+<nav>
+    <a href="/empJump/toGoodsList" class="homeIcon addclasstruenav"><img src="/phone/img/index1-1.png"/>点餐</a>
+    <a href="order-settlement.html" class="categoryIcon"><img src="/phone/img/index2.png"/>订单</a>
+    <a href="service.html" class="cartIcon numberCount"><img src="/phone/img/index3.png"/>服务</a>
+    <a href="about-us.html" class="userIcon"><img src="/phone/img/index4.png"/>我的</a>
+</nav>
+<!--加减和tab切换-->
+<script type="text/javascript" src="/phone/js/goods.js">
+</script>
+<script language="javascript">
+    window.onload = getGoodsList();
+    var mySwiper = new Swiper('.swiper-container', {
+        prevButton: '.swiper-button-prev',
+        nextButton: '.swiper-button-next'
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var mySwiper = new Swiper('#slide', {
+            autoplay: 5000,
+            visibilityFullFit: true,
+            loop: true,
+            pagination: '.pagination'
+        });
+    });
+</script>
+</body>
+
+</html>
+<script src="/phone/js/button.js"></script>

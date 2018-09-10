@@ -1,6 +1,9 @@
 package com.ambow.springboot.controller;
 
+import com.ambow.springboot.entity.Goods;
+import com.ambow.springboot.service.GoodsService;
 import com.ambow.springboot.vo.CartVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +24,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/cart")
 public class CartController {
+
+    @Autowired
+    private GoodsService goodsService;
+
+    @RequestMapping("/getNumByGoodsId/{goodsId}")
+    public int getNumByGoodsId(@PathVariable("goodsId") Integer goodsId, HttpServletResponse response,
+                               HttpServletRequest request) throws
+            UnsupportedEncodingException {
+        int num = 0;
+        // 获取cookie中购物车列表
+        List<CartVo> cartVos = getCartInCookie(response, request);
+        for (CartVo c : cartVos) {
+            if (c.getGoodsId() == goodsId) {
+                num = c.getNum();
+                break;
+            }
+        }
+        return num;
+    }
 
     /**
      * 根据ID删除删除购物车内的商品
@@ -84,14 +106,16 @@ public class CartController {
     public String deleteCookie(HttpServletResponse response, HttpServletRequest request) {
         // 获取名为"cart"的cookie
         Cookie cookie = getCookie(request);
-        // 设置寿命为0秒
-        cookie.setMaxAge(0);
-        // 设置路径
-        cookie.setPath("/");
-        // 设置cookie的value为null
-        cookie.setValue(null);
-        // 更新cookie
-        response.addCookie(cookie);
+        if (cookie != null) {
+            // 设置寿命为0秒
+            cookie.setMaxAge(0);
+            // 设置路径
+            cookie.setPath("/");
+            // 设置cookie的value为null
+            cookie.setValue(null);
+            // 更新cookie
+            response.addCookie(cookie);
+        }
         return "success";
     }
 
@@ -125,15 +149,15 @@ public class CartController {
         Cookie cookie_2st;
         // 如果购物车列表为空
         if (cartVos.size() <= 0) {
-            //TODO 根据商品ID获取商品信息
             CartVo cartVo = new CartVo(); // 测试用，实际应当根据id获取
             cartVo.setNum(1);
-            cartVo.setGoodsId(1);
-            cartVo.setGoodsNum(1);
-            cartVo.setGoodsTypeId(1);
-            cartVo.setGoodsPrice(1);
-            cartVo.setGoodsDiscount(1);
-            cartVo.setGoodsName("雷园");
+            cartVo.setGoodsId(goodsId);
+            Goods goods = goodsService.getById(goodsId);
+            cartVo.setGoodsNum(goods.getNum());
+            cartVo.setGoodsTypeId(Integer.parseInt(goods.getTypeId()));
+            cartVo.setGoodsPrice(goods.getPrice());
+            cartVo.setGoodsDiscount(goods.getDiscount());
+            cartVo.setGoodsName(goods.getName());
             // 将当前传来的商品添加到购物车列表
             cartVos.add(cartVo);
             if (getCookie(request) == null) {
@@ -162,15 +186,15 @@ public class CartController {
                 }
             }
             if (bj == 0) {
-                //TODO 根据商品ID获取商品信息
                 CartVo cartVo = new CartVo(); // 测试用，实际应当根据id获取
                 cartVo.setNum(1);
                 cartVo.setGoodsId(goodsId);
-                cartVo.setGoodsNum(1);
-                cartVo.setGoodsTypeId(1);
-                cartVo.setGoodsPrice(1);
-                cartVo.setGoodsDiscount(1);
-                cartVo.setGoodsName("雷园");
+                Goods goods = goodsService.getById(goodsId);
+                cartVo.setGoodsNum(goods.getNum());
+                cartVo.setGoodsTypeId(Integer.parseInt(goods.getTypeId()));
+                cartVo.setGoodsPrice(goods.getPrice());
+                cartVo.setGoodsDiscount(goods.getDiscount());
+                cartVo.setGoodsName(goods.getName());
                 // 将当前传来的商品添加到购物车列表
                 cartVos.add(cartVo);
             }
@@ -196,7 +220,10 @@ public class CartController {
                     + item.getGoodsPrice() + "=" + item.getGoodsDiscount() + "=" + item.getGoodsNum() + "=" + item
                     .getGoodsInfo() + "=" + item.getNum() + "==");
         }
-        return buffer_2st.toString().substring(0, buffer_2st.toString().length() - 2);
+        if (buffer_2st.toString().length() > 2)
+            return buffer_2st.toString().substring(0, buffer_2st.toString().length() - 2);
+        else
+            return buffer_2st.toString();
     }
 
     /**
@@ -208,9 +235,11 @@ public class CartController {
     public Cookie getCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         Cookie cart_cookie = null;
-        for (Cookie cookie : cookies) {
-            if ("cart".equals(cookie.getName())) { //获取购物车cookie
-                cart_cookie = cookie;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("cart".equals(cookie.getName())) { //获取购物车cookie
+                    cart_cookie = cookie;
+                }
             }
         }
         return cart_cookie;

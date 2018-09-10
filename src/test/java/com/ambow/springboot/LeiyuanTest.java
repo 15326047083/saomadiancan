@@ -1,6 +1,7 @@
 package com.ambow.springboot;
 
 import com.ambow.springboot.entity.Roles;
+import com.ambow.springboot.service.GoodsService;
 import com.ambow.springboot.service.RolesService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,8 @@ import java.util.Set;
 public class LeiyuanTest {
     @Autowired
     private RolesService rolesService;
+    @Autowired
+    private GoodsService goodsService;
 
     @Test
     public void testQueryAll() {
@@ -45,5 +48,10 @@ public class LeiyuanTest {
             rolesSet.add(r.getName());
         }
         System.out.println(rolesSet.toString());
+    }
+
+    @Test
+    public void goodsListTest() {
+        System.out.println(goodsService.queryAll());
     }
 }

@@ -26,4 +26,6 @@ public interface GoodsMapper {
     List<TypeGoodsVo> toList(Goods goods);
 
     Integer selectGoodsCount(Goods goods);
+
+    List<Goods> queryAll();
 }

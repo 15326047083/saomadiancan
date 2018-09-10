@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ambow.springboot.mapper.GoodsMapper" >
-  <resultMap id="BaseResultMap" type="com.ambow.springboot.entity.Goods" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="type_id" property="typeId" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="INTEGER" />
-    <result column="discount" property="discount" jdbcType="INTEGER" />
-    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-    <result column="num" property="num" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.ambow.springboot.entity.Goods" extends="BaseResultMap" >
-    <result column="info" property="info" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.ambow.springboot.mapper.GoodsMapper">
+    <resultMap id="BaseResultMap" type="com.ambow.springboot.entity.Goods">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="type_id" property="typeId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="INTEGER"/>
+        <result column="discount" property="discount" jdbcType="INTEGER"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.ambow.springboot.entity.Goods" extends="BaseResultMap">
+        <result column="info" property="info" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, type_id, name, price, discount, start_time, end_time, num
   </sql>
-  <sql id="Blob_Column_List" >
+    <sql id="Blob_Column_List">
     info
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from goods
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from goods
-    where
-    <foreach item="ids" collection="array" open="id in ("
-             separator="," close=")">
-      #{ids,jdbcType=INTEGER}
-    </foreach>
-  </delete>
-  <insert id="insert" parameterType="com.ambow.springboot.entity.Goods" >
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from goods
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from goods
+        where
+        <foreach item="ids" collection="array" open="id in ("
+                 separator="," close=")">
+            #{ids,jdbcType=INTEGER}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.ambow.springboot.entity.Goods">
     insert into goods (id, type_id, name, 
       price, discount, start_time, 
       end_time, num, info
@@ -46,98 +46,98 @@
       #{endTime,jdbcType=TIMESTAMP}, #{num,jdbcType=INTEGER}, #{info,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.ambow.springboot.entity.Goods" >
-    insert into goods
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="typeId != null" >
-        type_id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-      <if test="discount != null" >
-        discount,
-      </if>
-      <if test="startTime != null" >
-        start_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-      <if test="info != null" >
-        info,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="typeId != null" >
-        #{typeId,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=INTEGER},
-      </if>
-      <if test="discount != null" >
-        #{discount,jdbcType=INTEGER},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=INTEGER},
-      </if>
-      <if test="info != null" >
-        #{info,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ambow.springboot.entity.Goods" >
-    update goods
-    <set >
-      <if test="typeId != null" >
-        type_id = #{typeId,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=INTEGER},
-      </if>
-      <if test="discount != null" >
-        discount = #{discount,jdbcType=INTEGER},
-      </if>
-      <if test="startTime != null" >
-        start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="num != null" >
-        num = #{num,jdbcType=INTEGER},
-      </if>
-      <if test="info != null" >
-        info = #{info,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ambow.springboot.entity.Goods" >
+    <insert id="insertSelective" parameterType="com.ambow.springboot.entity.Goods">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="typeId != null">
+                type_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="info != null">
+                info,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="typeId != null">
+                #{typeId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=INTEGER},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+            <if test="info != null">
+                #{info,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ambow.springboot.entity.Goods">
+        update goods
+        <set>
+            <if test="typeId != null">
+                type_id = #{typeId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=INTEGER},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="info != null">
+                info = #{info,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ambow.springboot.entity.Goods">
     update goods
     set type_id = #{typeId,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -149,7 +149,7 @@
       info = #{info,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ambow.springboot.entity.Goods" >
+    <update id="updateByPrimaryKey" parameterType="com.ambow.springboot.entity.Goods">
     update goods
     set type_id = #{typeId,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -161,18 +161,21 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+    <select id="queryAll" resultMap="BaseResultMap">
+    select * from goods order by type_id;
+  </select>
 
-  <select id="selectByName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-  select
-  *
-  from goods
-  <where>
-    name = #{name,jdbcType=VARCHAR}
-  </where>
-</select>
+    <select id="selectByName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        *
+        from goods
+        <where>
+            name = #{name,jdbcType=VARCHAR}
+        </where>
+    </select>
 
-  <select id="toList" resultMap="TypeGoodsVoMap" >
-    select
+    <select id="toList" resultMap="TypeGoodsVoMap">
+        select
         gs.id as goodsId,
         gs.name as goodsName,
         gs.price as goodsPrice,
@@ -182,33 +185,33 @@
         gs.start_time as goodsStartTime,
         gs.end_time as goodsEndTime,
         ty.name as typeName,
-    ty.num as typeNum,
-    ty.id as typeId
-    from
-    goods gs,type ty
-    where
-      gs.type_id=ty.id
-    <if test="start!=null and rows!=null">
-      LIMIT ${start},${rows};
-    </if>
-     </select>
+        ty.num as typeNum,
+        ty.id as typeId
+        from
+        goods gs,type ty
+        where
+        gs.type_id=ty.id
+        <if test="start!=null and rows!=null">
+            LIMIT ${start},${rows};
+        </if>
+    </select>
 
-  <resultMap id="TypeGoodsVoMap" type="com.ambow.springboot.vo.TypeGoodsVo" >
-    <id column="goodsId" property="goodsId" jdbcType="INTEGER" />
-    <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
-    <result column="goodsPrice" property="goodsPrice" jdbcType="INTEGER" />
-    <result column="goodsDiscount" property="goodsDiscount" jdbcType="INTEGER" />
-    <result column="goodsInfo" property="goodsInfo" jdbcType="VARCHAR" />
-    <result column="goodsNum" property="goodsNum" jdbcType="INTEGER" />
-    <result column="goodsStartTime" property="goodsStartTime" jdbcType="TIMESTAMP" />
-    <result column="goodsEndTime" property="goodsEndTime" jdbcType="TIMESTAMP" />
-    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
-    <result column="typeNum" property="typeNum" jdbcType="INTEGER" />
-    <result column="typeId" property="typeId" jdbcType="INTEGER" />
-  </resultMap>
+    <resultMap id="TypeGoodsVoMap" type="com.ambow.springboot.vo.TypeGoodsVo">
+        <id column="goodsId" property="goodsId" jdbcType="INTEGER"/>
+        <result column="goodsName" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goodsPrice" property="goodsPrice" jdbcType="INTEGER"/>
+        <result column="goodsDiscount" property="goodsDiscount" jdbcType="INTEGER"/>
+        <result column="goodsInfo" property="goodsInfo" jdbcType="VARCHAR"/>
+        <result column="goodsNum" property="goodsNum" jdbcType="INTEGER"/>
+        <result column="goodsStartTime" property="goodsStartTime" jdbcType="TIMESTAMP"/>
+        <result column="goodsEndTime" property="goodsEndTime" jdbcType="TIMESTAMP"/>
+        <result column="typeName" property="typeName" jdbcType="VARCHAR"/>
+        <result column="typeNum" property="typeNum" jdbcType="INTEGER"/>
+        <result column="typeId" property="typeId" jdbcType="INTEGER"/>
+    </resultMap>
 
 
-  <select id="selectGoodsCount" resultType="Integer">
+    <select id="selectGoodsCount" resultType="Integer">
     SELECT
     count(*)
     FROM

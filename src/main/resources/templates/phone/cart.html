@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>购物车</title>
+    <meta name="keywords" content="KEYWORDS..."/>
+    <meta name="description" content="DESCRIPTION..."/>
+    <meta name="author" content="DeathGhost"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name='apple-touch-fullscreen' content='yes'/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <!--导航栏渐变开始-->
+    <link rel="stylesheet" href="/phone/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/swiper3.07.min.css"/>
+    <link rel="stylesheet" href="/phone/css/index.css"/>
+    <script src="/phone/js/jquery.js"></script>
+    <script src="/phone/js/swiper.min.js"></script>
+    <style>
+        nav a {
+            display: block;
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            text-align: center;
+            color: grey;
+            line-height: 1.2;
+            color: #666;
+            text-shadow: 0 1px 1px white;
+        }
+
+        .addclasstruenav {
+            color: #3acd17;
+        }
+    </style>
+    <!--地区参数传值-->
+
+</head>
+<body>
+
+<div class="con">
+    <div id="cart" class="right-con con-active" style="width: 100%;height: 100%;">
+        <ul>
+            <!--菜品-->
+            <!--开始循环菜品-->
+            <li class="clearfix">
+                <div class="menu-img"><img src="/phone/img/index (2).png" width="55" height="55"/></div>
+                <div class="menu-txt">
+                    <h4>凉拌猪耳</h4>
+                    <h2>￥25.00</h2>
+                    <p class="list1">剩余<em>3</em>份，预计等待时间<em>5</em>分钟</p>
+                    <p class="list2">
+                    <div class="btn">
+                        <button class="cartminus">
+                            <strong>-</strong>
+                        </button>
+                        <i style="display: inline-block;">1</i>
+                        <button class="add">
+                            <strong>+</strong>
+                        </button>
+                        <i class="price">25</i>
+                    </div>
+                    </p>
+                </div>
+                <!--循环结束-->    </li>
+            <li class="clearfix">
+                <div class="menu-img"><img src="/phone/img/index (2).png" width="55" height="55"/></div>
+                <div class="menu-txt">
+                    <h4>宫保鸡丁</h4>
+                    <h2>￥30.00</h2>
+                    <p class="list1">剩余<em>3</em>份，预计等待时间<em>5</em>分钟</p>
+                    <p class="list2">
+                    <div class="btn">
+                        <button class="cartminus">
+                            <strong>-</strong>
+                        </button>
+                        <i style="display: inline-block;">1</i>
+                        <button class="add">
+                            <strong>+</strong>
+                        </button>
+                        <i class="price">30</i>
+                    </div>
+                    </p>
+                </div>
+                <!--循环结束-->    </li>
+
+        </ul>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="left">
+		<span id="cartN">
+			<a href="/empJump/toCart c"><img src="/phone/img/shop_03.png"/></a><!--购物车-->
+			<span id="totalcountshow">2</span>    <!--传入总数量-->
+			<span class="totalpriceshow">￥<em id="totalpriceshow">55</em></span>  <!--传入总价-->
+		</span>
+    </div>
+    <div class="right">
+        <a style="background-color: #3acd17;" id="btnselect" class="xhlbtn  disable"
+           href="order-settlement.html">去结算</a>
+    </div>
+</div>
+<div style="height:1.2rem;"></div>
+<nav>
+    <a href="/empJump/toGoodsList" class="homeIcon addclasstruenav"><img src="/phone/img/index1-1.png"/>点餐</a>
+    <a href="order-settlement.html" class="categoryIcon"><img src="/phone/img/index2.png"/>订单</a>
+    <a href="service.html" class="cartIcon numberCount"><img src="/phone/img/index3.png"/>服务</a>
+    <a href="about-us.html" class="userIcon"><img src="/phone/img/index4.png"/>我的</a>
+</nav>
+<script language="javascript">
+    var mySwiper = new Swiper('.swiper-container', {
+        prevButton: '.swiper-button-prev',
+        nextButton: '.swiper-button-next',
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        var mySwiper = new Swiper('#slide', {
+            autoplay: 5000,
+            visibilityFullFit: true,
+            loop: true,
+            pagination: '.pagination',
+        });
+    });
+</script>
+<!--加减和tab切换-->
+<script type="text/javascript" src="/phone/js/cart.js"></script>
+</body>
+
+</html>

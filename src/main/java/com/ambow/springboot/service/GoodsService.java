@@ -6,6 +6,8 @@ import com.ambow.springboot.util.Page;
 import com.ambow.springboot.vo.GoodsTypeListVo;
 import com.ambow.springboot.vo.TypeGoodsVo;
 
+import java.util.List;
+
 public interface GoodsService {
     /*
     * 根据商品名查询
@@ -28,4 +30,8 @@ public interface GoodsService {
     Goods toUpdate(Integer id);
 
     Page<TypeGoodsVo> toList(Integer page, Integer rows);
+
+    List<Goods> queryAll();
+
+    Goods getById(Integer goodsId);
 }
