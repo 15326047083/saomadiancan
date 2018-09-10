@@ -73,4 +73,13 @@ public class TypeTests {
         int id=1;
         System.out.println(typMapper.selectByPrimaryKey(id));
     }
+    /*
+     * 根据名字查找信息
+     * */
+    @Test
+    public void testSelectByName(){
+        Type type=new Type();
+        String name="1";
+        typMapper.selectByName(name);
+    }
 }

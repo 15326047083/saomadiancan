@@ -52,5 +52,33 @@ public class ReportController {
         reportList=ordersService.goodsSale();
         return reportList;
     }
+    /*
+    * 某一天时段客流量
+    * */
+    @RequestMapping(value = "/hoursCustmer",method = RequestMethod.POST)
+    @ResponseBody
+    public List<Report> hoursCustmer(String time1){
+        reportList=ordersService.hoursCustmer(time1);
+        return reportList;
+    }
+    /*
+    * 时间段的日成本利润
+    * */
+    @RequestMapping("costGain")
+    @ResponseBody
+    public List<Report> costGain(String time1,String time2){
+        reportList=ordersService.costGain(time1,time2);
+        return reportList;
+    }
+
+    /*
+     * 时间段的月成本利润
+     * */
+    @RequestMapping("costGainMonth")
+    @ResponseBody
+    public List<Report> costGainMonth(String time1,String time2){
+        reportList=ordersService.costGainMonth(time1,time2);
+        return reportList;
+    }
 
 }

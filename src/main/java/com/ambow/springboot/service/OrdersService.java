@@ -24,4 +24,10 @@ public interface OrdersService {
     List<Orders> likeListOrder();
 
     List<Report> goodsSale();
+
+    List<Report> hoursCustmer(String time1);
+
+    List<Report> costGain(String time1,String time2);
+
+    List<Report> costGainMonth(String time1, String time2);
 }

@@ -62,6 +62,19 @@ public interface OrdersMapper {
     /*
     * 菜品的销售量
     * */
-
     List<Report> goodsSale();
+    /*
+    * 某一天小时的客流量
+    * */
+    List<Report> hoursCustmer(@Param("time1") String time1);
+
+    /*
+    * 区间内的日成本利润
+    * */
+    List<Report> costGain(@Param("time1") String time1,@Param("time2") String time2);
+
+    /*
+    * 区间内的月收入
+    * */
+    List<Report> costGainMonth(@Param("time1") String time1,@Param("time2") String time2);
 }

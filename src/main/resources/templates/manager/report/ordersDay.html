@@ -23,7 +23,7 @@
         // 配置图标参数
         var options = {
             title : {
-                text : '营业额',
+                text : '日营业额',
                 show : true, // 是否显示标题
                 subtext : '数据',
                 textStyle : {
@@ -38,7 +38,7 @@
                 }
             },
             legend : {
-                data : [ '营业额' ]
+                data : [ '日营业额' ]
             },
             // X轴
             xAxis : {
@@ -48,7 +48,7 @@
             // Y轴
             yAxis : {},
             series : [ {
-                name : '营业额',
+                name : '日营业额',
                 type : 'bar', // 设置图表类型为柱状图
                 data : []
                 // 设置纵坐标的刻度(异步请求时,这里要置空)
@@ -80,13 +80,13 @@
                 myChart.hideLoading(); // 隐藏加载动画
                 myChart.setOption({
                     legend : {
-                        data : [ '营业额' ]
+                        data : [ '日营业额' ]
                     },
                     xAxis : {
                         data : names
                     },
                     series : [ {
-                        name : '营业额',
+                        name : '日营业额',
                         type : 'bar', // 设置图表类型为柱状图
                         data : nums
                         // 设置纵坐标的刻度

@@ -220,6 +220,54 @@
     GROUP BY g.name
   </select>
 
+  <select id="hoursCustmer" resultMap="ReportMap">
+    SELECT
+    sum(people_num) as value,
+    HOUR(generate_time) as name
+    FROM orders
+    where
+    <if test="time1 != null">
+      DATE_FORMAT(generate_time,
+      '%Y-%m-%d' )= #{time1}
+    </if>
+    GROUP BY  hour(generate_time)
+  </select>
+
+  <select id="costGain" resultMap="ReportMap">
+    SELECT
+    DATE_FORMAT(o.generate_time,
+    '%Y-%m-%d' ) as name,
+    SUM(o.all_price)-SUM(b.price) as value
+    FROM orders o,buy b
+    where
+    DATE_FORMAT(o.generate_time,
+    '%Y-%m-%d' )=DATE_FORMAT(b.buy_date,
+    '%Y-%m-%d' )
+    <if test="time1 != null and time2 !=null">
+    and o.generate_time BETWEEN #{time1} AND #{time2}
+    </if>
+    GROUP BY DATE_FORMAT(o.generate_time,
+    '%Y-%m-%d' )
+  </select>
+
+  <select id="costGainMonth" parameterType="String" resultMap="ReportMap">
+
+    SELECT
+    DATE_FORMAT(o.generate_time,'%Y-%m' ) as name,
+    SUM(o.all_price)-SUM(b.price) as value
+    FROM orders o,buy b
+    where
+    DATE_FORMAT(o.generate_time,
+		'%Y-%m' )=DATE_FORMAT(b.buy_date,
+		'%Y-%m' )
+    <if test="time1 != null and time2 !=null">
+    and DATE_FORMAT(o.generate_time,
+		'%Y-%m' ) BETWEEN #{time1} AND #{time2}
+    </if>
+    GROUP BY DATE_FORMAT(o.generate_time,
+		'%Y-%m' )
+
+  </select>
 
   <resultMap id="ReportMap" type="com.ambow.springboot.vo.Report">
     <result column="name" property="name" jdbcType="VARCHAR" />

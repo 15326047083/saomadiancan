@@ -109,4 +109,27 @@ public class OrdersServiceImpl implements OrdersService {
     public List<Report> goodsSale() {
         return ordersMapper.goodsSale();
     }
+
+    /*
+    * 某一天的时间客流量
+    * */
+    @Override
+    public List<Report> hoursCustmer(String time1) {
+        return ordersMapper.hoursCustmer(time1);
+    }
+    /*
+    * 时间段的天收入
+    * */
+    @Override
+    public List<Report> costGain(String time1,String time2) {
+        return ordersMapper.costGain(time1,time2);
+    }
+    /*
+    * 时间段的月收入
+    *
+    * */
+    @Override
+    public List<Report> costGainMonth(String time1, String time2) {
+        return ordersMapper.costGainMonth(time1,time2);
+    }
 }

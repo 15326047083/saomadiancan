@@ -59,4 +59,19 @@ public class TypeJumpController {
     public String goodsSale(){
         return "manager/report/goodsSale";
     }
+    /*
+    * 某一天时段客流量
+    * */
+    @RequestMapping("/hoursCustmer")
+    public String ordersCustmer(){
+        return "manager/report/ordersCustmer";
+    }
+
+    /*
+    * 日成本利润
+    * */
+    @RequestMapping("costGain")
+    public String costGain(){
+        return "manager/report/costGain";
+    }
 }
