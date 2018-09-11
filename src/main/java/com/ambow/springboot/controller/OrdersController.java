@@ -1,5 +1,6 @@
 package com.ambow.springboot.controller;
 
+import com.ambow.springboot.WebSocket;
 import com.ambow.springboot.entity.Orders;
 import com.ambow.springboot.entity.Purchase;
 import com.ambow.springboot.entity.User;
@@ -29,6 +30,9 @@ import java.util.List;
 @RequestMapping("/orders")
 @Controller
 public class OrdersController {
+
+    @Autowired
+    private WebSocket webSocket;
 
     @Autowired
     private OrdersService ordersService;
@@ -175,6 +179,9 @@ public class OrdersController {
 //            // 更新cookie
 //            response.addCookie(cookie);
 //        }
+
+        webSocket.sendMessage("有新的订单");
+
         return "success";
     }
 

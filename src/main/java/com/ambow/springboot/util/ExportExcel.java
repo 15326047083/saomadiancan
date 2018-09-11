@@ -304,7 +304,7 @@ System.out.println(sheet);
         }
     }
     /*定时导出*/
-    @Scheduled(cron = " */5 * * * * ?")
+    @Scheduled(cron = "0 00 22 * * ?")
     public void export() throws ClassNotFoundException,
             IntrospectionException, IllegalAccessException, ParseException, InvocationTargetException,
             UnsupportedEncodingException {

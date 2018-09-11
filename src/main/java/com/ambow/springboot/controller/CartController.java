@@ -1,5 +1,6 @@
 package com.ambow.springboot.controller;
 
+import com.ambow.springboot.WebSocket;
 import com.ambow.springboot.entity.Goods;
 import com.ambow.springboot.service.GoodsService;
 import com.ambow.springboot.vo.CartVo;
@@ -27,6 +28,8 @@ public class CartController {
 
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private WebSocket webSocket;
 
     @RequestMapping("/getNumByGoodsId/{goodsId}")
     public int getNumByGoodsId(@PathVariable("goodsId") Integer goodsId, HttpServletResponse response,
@@ -144,6 +147,10 @@ public class CartController {
     @RequestMapping("/addGoodsToCart/{goodsId}")
     public void addGoodsToCart(@PathVariable("goodsId") Integer goodsId, HttpServletRequest request,
                                HttpServletResponse response) throws UnsupportedEncodingException {
+
+        webSocket.sendMessage("4");
+
+
         // 从cookie中获取购物车列表
         List<CartVo> cartVos = getCartInCookie(response, request);
         Cookie cookie_2st;
