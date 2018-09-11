@@ -70,6 +70,26 @@ function getEmp() {
         }
     });
 }
+//查看个人信息
+function getEmpby() {
+    $.ajax({
+        type: "get",
+        url: "/emp/toUpdate/"+$("#empid").val() ,
+        dataType: "json",
+        error() {
+        },
+        success(json) {
+            $("#id").val(json.id);
+            $("#name").val(json.name);
+            $("#username").val(json.username);
+            $("#password").val(json.password);
+            $("#wage").val(json.wage);
+            $("#ticheng").val(json.ticheng);
+            $("#roles").val(json.roles);
+        }
+    });
+
+}
 // 获取角色去重列表
 function getRolesList() {
     $.ajax({

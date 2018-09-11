@@ -13,6 +13,8 @@ public class User {
     private String password; // 密码
 
     private Integer integral; // 积分
+   private Integer start;
+   private Integer rows;
 
     @Override
     public String toString() {
@@ -35,6 +37,7 @@ public class User {
         this.phone = phone;
         this.password = password;
         this.integral = integral;
+
     }
 
     public Integer getId() {
@@ -44,7 +47,18 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
-
+    public Integer getstart() {
+        return start;
+    }
+    public void setstart(Integer start) {
+        this.start = id;
+    }
+    public Integer getrows() {
+        return rows;
+    }
+    public void setrows(Integer rows) {
+        this.start = id;
+    }
     public String getName() {
         return name;
     }

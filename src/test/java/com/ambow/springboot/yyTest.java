@@ -152,13 +152,22 @@ public class yyTest {
     @Test
     public void testZhuce() {
         User user = new User();
-        user.setPassword("21");
+        user.setPassword("221");
         user.setName("11");
         user.setPhone("31");
         user.setIntegral(100);
         userService.insert(user);
     }
+    /*
+     * 用户登录短信验证测试
+     * */
+    @Test
+    public void sendmelogin () throws HttpException, IOException {
+        HttpServletRequest request = null;
+        String phone = "15848639533";
+        HashMap<String, String> m = SendMessage.getMessageStatus(phone);
 
+    }
     /*
      * 用户注册短信验证测试
      * */

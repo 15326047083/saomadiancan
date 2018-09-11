@@ -1,10 +1,13 @@
 package com.ambow.springboot.service.impl;
 
+import com.ambow.springboot.entity.Buy;
 import com.ambow.springboot.entity.User;
 import com.ambow.springboot.mapper.UserMapper;
 import com.ambow.springboot.service.UserService;
+import com.ambow.springboot.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 /*
@@ -34,6 +37,21 @@ public class UserServiceImpl implements UserService {
             flag = true;
         }
         return flag;
+
+    }
+    @Override
+    public Page<User> lsituser(@RequestParam(defaultValue = "1") Integer page,
+                             @RequestParam(defaultValue = "4")Integer rows) {
+        User user = new User();
+        List<User> lsit=usermapper.listUser();
+        user.setstart((page - 1) * rows);
+        user.setrows(rows);
+        Page<User> pages = new Page<User>();
+        pages.setPage(page);
+        pages.setRows(lsit);
+        pages.setSize(rows);
+        pages.setTotal(lsit.size());
+        return pages;
 
     }
 

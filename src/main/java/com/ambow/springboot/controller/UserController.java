@@ -8,6 +8,7 @@ import com.ambow.springboot.entity.User;
 
 import com.ambow.springboot.service.UserService;
 import com.ambow.springboot.util.MD5Util;
+import com.ambow.springboot.util.Page;
 import com.ambow.springboot.util.SendMessage;
 import org.apache.commons.httpclient.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +41,15 @@ public class UserController {
             HashMap<String, String> m = SendMessage.getMessageStatus(phone);
             String result = m.get("result");
             if (result.trim().equals("1")) {//手机号已注册发送验证码
-                user.setPassword(MD5Util.MD5( user.getPassword()));//MD5加密密码
+
                 HttpSession session=request.getSession();
                 String code = m.get("code");//获取验证码
                 session.setAttribute(phone + "code", code);//验证码存session
                 session.setMaxInactiveInterval(60 * 3);//设置短信有效时间
-                return "";
+                return "success";
             } else {
                 //手机号未注册提醒注册
-                return "";
+                return "false";
             }
 
         }
@@ -130,6 +131,14 @@ public class UserController {
         HttpSession session=request.getSession();
         session.removeAttribute("user");
         return "SUCCESS";
+    }
+    /*查询所有用户*/
+    @ResponseBody
+    @RequestMapping(value="/listUser")
+    public Page<User> Listuser(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                               @RequestParam(defaultValue = "4") Integer rows){
+        Page<User> listuser=userService.lsituser(page,rows);
+        return listuser;
     }
 }
 

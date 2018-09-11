@@ -6,8 +6,7 @@ import com.ambow.springboot.entity.Orders;
 import com.ambow.springboot.mapper.OrdersMapper;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
@@ -28,33 +27,35 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 @Component
 public class ExportExcel {
     @Autowired
     private OrdersMapper ordersMapper;
     List<Orders> listorderByDay;
-    private final static String excel2003L =".xls";    //2003- 版本的excel
-    private final static String excel2007U =".xlsx";   //2007+ 版本的excel\
+    private final static String excel2003L = ".xls";    //2003- 版本的excel
+    private final static String excel2007U = ".xlsx";   //2007+ 版本的excel\
 
-    public XSSFWorkbook exportExcelInfo(){
+    public XSSFWorkbook exportExcelInfo() {
         //根据条件查询数据，把数据装载到一个list中
         XSSFWorkbook xssfWorkbook = null;
-        try { Calendar c = Calendar.getInstance();
+        try {
+            Calendar c = Calendar.getInstance();
             SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-MM-dd");
-            String nowdates=sdfs.format(c.getTime());
-            listorderByDay=ordersMapper.likeListOrders(nowdates);
-            List<ExcelBean> excel=new ArrayList<>();
-            Map<Integer,List<ExcelBean>> map=new LinkedHashMap<>();
-            xssfWorkbook=null;
+            String nowdates = sdfs.format(c.getTime());
+            listorderByDay = ordersMapper.likeListOrders(nowdates);
+            List<ExcelBean> excel = new ArrayList<>();
+            Map<Integer, List<ExcelBean>> map = new LinkedHashMap<>();
+            xssfWorkbook = null;
             //设置标题栏
-            excel.add(new ExcelBean("序号","id",0));
-            excel.add(new ExcelBean("订单号","orderNum",0));
-            excel.add(new ExcelBean("总价格","allPrice",0));
-            excel.add(new ExcelBean("用户id","userId",0));
-            excel.add(new ExcelBean("订单状态","state",0));
-            excel.add(new ExcelBean("桌号","deskNum",0));
-            excel.add(new ExcelBean("用餐人数","peopleNum",0));
-            System.out.println(excel.toString());
+            excel.add(new ExcelBean("序号", "id", 0));
+            excel.add(new ExcelBean("订单号", "orderNum", 0));
+            excel.add(new ExcelBean("总价格", "allPrice", 0));
+            excel.add(new ExcelBean("用户id", "userId", 0));
+            excel.add(new ExcelBean("订单状态", "state", 0));
+            excel.add(new ExcelBean("桌号", "deskNum", 0));
+            excel.add(new ExcelBean("用餐人数", "peopleNum", 0));
+            excel.add(new ExcelBean("订单时间", "generateTime", 0));
             map.put(0, excel);
             String sheetName = "sheet1";
             //调用ExcelUtil的方法
@@ -102,25 +103,27 @@ public class ExportExcel {
         }
         return list;
     }*/
+
     /**
      * 描述：根据文件后缀，自适应上传文件的版本
      */
-    public static  Workbook getWorkbook(InputStream inStr,String fileName) throws Exception{
+    public static Workbook getWorkbook(InputStream inStr, String fileName) throws Exception {
         Workbook wb = null;
         String fileType = fileName.substring(fileName.lastIndexOf("."));
-        if(excel2003L.equals(fileType)){
+        if (excel2003L.equals(fileType)) {
             wb = new HSSFWorkbook(inStr);  //2003-
-        }else if(excel2007U.equals(fileType)){
+        } else if (excel2007U.equals(fileType)) {
             wb = new XSSFWorkbook(inStr);  //2007+
-        }else{
+        } else {
             throw new Exception("解析的文件格式有误！");
         }
         return wb;
     }
+
     /**
      * 描述：对表格中数值进行格式化
      */
-    public static  Object getCellValue(Cell cell){
+    public static Object getCellValue(Cell cell) {
         Object value = null;
         DecimalFormat df = new DecimalFormat("0");  //格式化字符类型的数字
         SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");  //日期格式化
@@ -130,11 +133,11 @@ public class ExportExcel {
                 value = cell.getRichStringCellValue().getString();
                 break;
             case Cell.CELL_TYPE_NUMERIC:
-                if("General".equals(cell.getCellStyle().getDataFormatString())){
+                if ("General".equals(cell.getCellStyle().getDataFormatString())) {
                     value = df.format(cell.getNumericCellValue());
-                }else if("m/d/yy".equals(cell.getCellStyle().getDataFormatString())){
+                } else if ("m/d/yy".equals(cell.getCellStyle().getDataFormatString())) {
                     value = sdf.format(cell.getDateCellValue());
-                }else{
+                } else {
                     value = df2.format(cell.getNumericCellValue());
                 }
                 break;
@@ -149,16 +152,18 @@ public class ExportExcel {
         }
         return value;
     }
+
     /**
      * 导入Excel表结束
      * 导出Excel表开始
+     *
      * @param sheetName 工作簿名称
-     * @param clazz  数据源model类型
-     * @param objs   excel标题列以及对应model字段名
-     * @param map  标题列行数以及cell字体样式
+     * @param clazz     数据源model类型
+     * @param objs      excel标题列以及对应model字段名
+     * @param map       标题列行数以及cell字体样式
      */
     public static XSSFWorkbook createExcelFile(Class clazz, List objs, Map<Integer, List<ExcelBean>> map, String sheetName) throws
-            IllegalArgumentException,IllegalAccessException, InvocationTargetException,
+            IllegalArgumentException, IllegalAccessException, InvocationTargetException,
             ClassNotFoundException, IntrospectionException, ParseException {
         // 创建新的Excel工作簿
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -169,11 +174,13 @@ public class ExportExcel {
         createFont(workbook); //字体样式
         createTableHeader(sheet, map); //创建标题（头）
         createTableRows(sheet, map, objs, clazz); //创建内容
-System.out.println(sheet);
+
         return workbook;
     }
+
     private static XSSFCellStyle fontStyle;
     private static XSSFCellStyle fontStyle2;
+
     public static void createFont(XSSFWorkbook workbook) {
         // 表头
         fontStyle = workbook.createCellStyle();
@@ -188,7 +195,7 @@ System.out.println(sheet);
         fontStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);// 右边框
         fontStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER); // 居中
         // 内容
-        fontStyle2=workbook.createCellStyle();
+        fontStyle2 = workbook.createCellStyle();
         XSSFFont font2 = workbook.createFont();
         font2.setFontName("宋体");
         font2.setFontHeightInPoints((short) 10);// 设置字体大小
@@ -199,39 +206,40 @@ System.out.println(sheet);
         fontStyle2.setBorderRight(XSSFCellStyle.BORDER_THIN);// 右边框
         fontStyle2.setAlignment(XSSFCellStyle.ALIGN_CENTER); // 居中
     }
+
     /**
      * 根据ExcelMapping 生成列头（多行列头）
      *
      * @param sheet 工作簿
-     * @param map 每行每个单元格对应的列头信息
+     * @param map   每行每个单元格对应的列头信息
      */
     public static final void createTableHeader(XSSFSheet sheet, Map<Integer, List<ExcelBean>> map) {
-        int startIndex=0;//cell起始位置
-        int endIndex=0;//cell终止位置
+        int startIndex = 0;//cell起始位置
+        int endIndex = 0;//cell终止位置
         for (Map.Entry<Integer, List<ExcelBean>> entry : map.entrySet()) {
             XSSFRow row = sheet.createRow(entry.getKey());
             List<ExcelBean> excels = entry.getValue();
             for (int x = 0; x < excels.size(); x++) {
                 //合并单元格
-                if(excels.get(x).getCols()>1){
-                    if(x==0){
-                        endIndex+=excels.get(x).getCols()-1;
-                        CellRangeAddress range=new CellRangeAddress(0,0,startIndex,endIndex);
+                if (excels.get(x).getCols() > 1) {
+                    if (x == 0) {
+                        endIndex += excels.get(x).getCols() - 1;
+                        CellRangeAddress range = new CellRangeAddress(0, 0, startIndex, endIndex);
                         sheet.addMergedRegion(range);
-                        startIndex+=excels.get(x).getCols();
-                    }else{
-                        endIndex+=excels.get(x).getCols();
-                        CellRangeAddress range=new CellRangeAddress(0,0,startIndex,endIndex);
+                        startIndex += excels.get(x).getCols();
+                    } else {
+                        endIndex += excels.get(x).getCols();
+                        CellRangeAddress range = new CellRangeAddress(0, 0, startIndex, endIndex);
                         sheet.addMergedRegion(range);
-                        startIndex+=excels.get(x).getCols();
+                        startIndex += excels.get(x).getCols();
                     }
-                    XSSFCell cell = row.createCell(startIndex-excels.get(x).getCols());
+                    XSSFCell cell = row.createCell(startIndex - excels.get(x).getCols());
                     cell.setCellValue(excels.get(x).getHeadTextName());// 设置内容
                     if (excels.get(x).getCellStyle() != null) {
                         cell.setCellStyle(excels.get(x).getCellStyle());// 设置格式
                     }
                     cell.setCellStyle(fontStyle);
-                }else{
+                } else {
                     XSSFCell cell = row.createCell(x);
                     cell.setCellValue(excels.get(x).getHeadTextName());// 设置内容
                     if (excels.get(x).getCellStyle() != null) {
@@ -242,6 +250,7 @@ System.out.println(sheet);
             }
         }
     }
+
     public static void createTableRows(XSSFSheet sheet, Map<Integer, List<ExcelBean>> map, List objs, Class clazz)
             throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, IntrospectionException,
             ClassNotFoundException, ParseException {
@@ -266,14 +275,15 @@ System.out.println(sheet);
                 String value = "";
                 // 如果是日期类型进行转换
                 if (rtn != null) {
-                /*    if (rtn instanceof Date) {
-                        value = DateUtils.formatDate((Date)rtn,"yyyy-MM-dd");
-                    } */if(rtn instanceof BigDecimal){
+                    if (rtn instanceof Date) {
+                        value =(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(rtn));
+                    }
+                    if (rtn instanceof BigDecimal) {
                         NumberFormat nf = new DecimalFormat("#,##0.00");
-                        value=nf.format((BigDecimal)rtn).toString();
-                    } else if((rtn instanceof Integer) && (Integer.valueOf(rtn.toString())<0 )){
-                        value="--";
-                    }else {
+                        value = nf.format((BigDecimal) rtn).toString();
+                    } else if ((rtn instanceof Integer) && (Integer.valueOf(rtn.toString()) < 0)) {
+                        value = "--";
+                    } else {
                         value = rtn.toString();
                     }
                 }
@@ -303,8 +313,9 @@ System.out.println(sheet);
             sheet.setColumnWidth(index, width);
         }
     }
+
     /*定时导出*/
-    @Scheduled(cron = "0 00 22 * * ?")
+    @Scheduled(cron = "0  00 22  * * ?")/* 秒、分、时、日、月、年*/
     public void export() throws ClassNotFoundException,
             IntrospectionException, IllegalAccessException, ParseException, InvocationTargetException,
             UnsupportedEncodingException {
@@ -323,7 +334,7 @@ System.out.println(sheet);
         System.out.println(workbook);
         /*OutputStream output;*/
         try {
-            FileOutputStream fileOut = new FileOutputStream("workbook.xls");
+            FileOutputStream fileOut = new FileOutputStream("target/classes/upload/workbook.xls");
             /*output = response.getOutputStream();*/
            /* BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
             bufferedOutPut.flush();*/

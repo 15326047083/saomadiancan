@@ -36,6 +36,12 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <!--查询User-->
+  <select id="listUser" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from  user
+  </select>
   <insert id="insert" parameterType="com.ambow.springboot.entity.User" >
     insert into user (id, name, phone, 
       password, integral)

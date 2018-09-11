@@ -1,5 +1,6 @@
 package com.ambow.springboot.util;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
@@ -41,10 +42,10 @@ public class MailUtil {
         this.user = user;
         this.password = password;
     }
-
-    public static void main(String[] args) {
+    @Scheduled(cron = "0  00 22  * * ?")/* 秒、分、时、日、月、年*/
+    public void mains() {
         //new MailUtil().send("1161588342@qq.com", "测试1", "nihao显示");
-      new MailUtil().send("15848639533@163.com", "在线点餐今日订单", "在线点餐今日订单详情见附件","C:/AppData/test.xlsx");
+      new MailUtil().send("15848639533@163.com", "在线点餐今日订单", "在线点餐今日订单详情见附件","F:\\sts\\saomadiancan\\target\\classes\\upload\\workbook.xls");
     }
 
     /**

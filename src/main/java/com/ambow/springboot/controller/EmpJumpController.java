@@ -1,9 +1,13 @@
 package com.ambow.springboot.controller;
 
+import com.ambow.springboot.entity.Emp;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 跳转
@@ -70,5 +74,14 @@ public class EmpJumpController {
     @RequestMapping("/toPay")
     public String toPay() {
         return "phone/pay";
+    }
+    // 查看员工自己信息
+    @RequestMapping("/toEmpBy/{empId}")
+    public String toEmpby(HttpServletRequest request,Model model) {
+        HttpSession session=request.getSession();
+        Emp emps= (Emp) session.getAttribute("emp");
+        Integer empId = emps.getId();
+        model.addAttribute("empId", empId);
+        return "manager/emp/update";
     }
 }
