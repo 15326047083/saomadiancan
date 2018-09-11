@@ -37,16 +37,21 @@ public class TypeController {
     public Type toUpdate(@PathVariable("id") Integer id){
         System.out.println("进入toUpdate");
         type=typeService.toUpdate(id);
+        System.out.println(type);
         return type;
     }
 
     /*
     * 修改信息,判重
     * */
-    @RequestMapping(value = "update",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @ResponseBody
     public String update(Type type){
         String typeName = type.getName();
+        System.out.println(typeName+"接收到的值");
         Type type1 = typeService.selectByName(typeName);
+        System.out.println(type1+"type1");
         if (type1 != null) {
             if (type1.getId() != type.getId()) {
                 System.out.println("判重成功");
@@ -59,14 +64,13 @@ public class TypeController {
             typeService.updateByPrimaryKeySelective(type);
             return "success";
         }
-
-
     }
 
     /*
     * 添加类型信息
     * */
     @RequestMapping(value = "/toSave",method = RequestMethod.POST)
+    @ResponseBody
     public String addType(Type type) {
         System.out.println("添加操作"+type);
         String name=type.getName();
@@ -75,21 +79,18 @@ public class TypeController {
             return "error";
         }
         typeService.addType(type);//添加类型
-        return "redirect:/zhengJump/toList";
+        return "success";
     }
 
     /*
     * 删除数据类型
     * */
-    @RequestMapping("toDelete/{ids}")
-    public String deleteType(@PathVariable("ids") Integer[] ids){
-        if (ids == null && ids.length <= 0) {
-            return "error2";
-        }else if(typeService.selectGoodsByTypeId(ids)) {
-            typeService.deleteType(ids);
+    @RequestMapping(value = "/delete/{id}",method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteType(@PathVariable("id") int id){
+        System.out.println("进入删除");
+        typeService.deleteType(id);
             return "success";
-        }else {
-            return "error";
-        }
+
     }
 }

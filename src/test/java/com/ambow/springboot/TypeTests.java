@@ -36,13 +36,13 @@ public class TypeTests {
     }
 
     /*
-    * 批量删除测试
+    * 删除测试
     * */
     @Test
     public void testdetele(){
         Type type=new Type();
-        Integer[] ids={1,2};
-        typMapper.deleteByPrimaryKey(ids);
+
+        typMapper.deleteByPrimaryKey(2);
     }
 
     /*
@@ -82,4 +82,5 @@ public class TypeTests {
         String name="1";
         typMapper.selectByName(name);
     }
+
 }

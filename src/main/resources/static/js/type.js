@@ -46,7 +46,8 @@ function showtable() {
 					var trtd = "<td>" + json[i].id + "</td><td>" + json[i].name + "</td><td>" + json[i].num + "</td>";
 					var tdbutten = "<td><a href='/zhengJump/toUpdate/"+json[i].id+
 						"'><button class='layui-btn layui-btn-primary layui-btn-small'>修改</button></a>" +
-						"<button class='layui-btn layui-btn-primary layui-btn-small'>删除</button></td>";
+                        "<a onclick='deletet(" + json[i].id +
+                        ")'><button class='layui-btn layui-btn-primary layui-btn-small'>删除</button></a></td>";
 					$("#table1 tbody").append("<tr>" + trtd + tdbutten + "</tr>");
 				}
 			}
@@ -64,28 +65,27 @@ function showtable() {
 }
 
 function deletet(id) {
-	if(confirm("真的要删除吗?")) {
-		alert("点击了确认按钮");
-		$.ajax({
-			type: "POST",
-			url: "/type/delete",
-			data: {
-				'id': id,
-			},
-			success: function(result) {
-				if(result == 'success') {
-					alert("删除成功！");
-					showtable();
-				} else {
-					alert("删除失败！");
-				}
-			}
-		});
-	} else {
-		return false;
-	}
+    if(confirm("真的要删除吗?")) {
+        alert("点击了确认按钮");
+        $.ajax({
+            type: "post",
+            url: "/type/delete/"+id,
+            success: function(result) {
+                if(result == 'success') {
+                    alert("删除成功！");
+                    window.location.href = "/zhengJump/toList";
+                } else {
+                    alert("删除失败！");
+                }
+            }
+        });
+    } else {
+        return false;
+    }
 
 }
+
+
 
 //类型修改前 显示原来的值
 function toUpdate() {

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/zhengJump")
@@ -73,5 +74,19 @@ public class TypeJumpController {
     @RequestMapping("costGain")
     public String costGain(){
         return "manager/report/costGain";
+    }
+    /*
+     * 月成本利润
+     * */
+    @RequestMapping("costGainMonth")
+    public String costGainMonth(){
+        return "manager/report/costGainMonth";
+    }
+    /*
+     * 年成本利润
+     * */
+    @RequestMapping("costGainYear")
+    public String costGainYear(){
+        return "manager/report/coatGainYear";
     }
 }

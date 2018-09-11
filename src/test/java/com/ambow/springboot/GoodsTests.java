@@ -101,4 +101,24 @@ public class GoodsTests {
         System.out.println(goodsMapper.toList(goods));
 
     }
+
+    @Test
+    public void  testUpdateTyoeNum(){
+
+        goodsMapper.updateTypeNum("10");
+    }
+
+    /*
+    * 根据商品id较少商品数量
+    * */
+   @Test
+    public void  testUpdateTyoeNumDown(){
+
+        goodsMapper.updateTypeNumdown(7);
+    }
+    @Test
+    public void  testUpdateTyoeNumDown2(){
+        Integer[] ids={7,9};
+        goodsMapper.updateTypeNumdown2(ids);
+    }
 }

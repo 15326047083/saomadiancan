@@ -17,15 +17,16 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">类型名称</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" autocomplete="off" placeholder="请输入类型名称" lay-verify="required" class="layui-input"/>
+					<input type="text" id="name" name="name" autocomplete="off" placeholder="请输入类型名称" lay-verify="required" class="layui-input"/>
 				</div>
 			</div>
 			
-			<div class="layui-form-item">
-				<button class="layui-btn" lay-submit="" lay-filter="sub">提交</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-			</div>
+
 		</form>
+		<div class="layui-form-item">
+			<button class="layui-btn" lay-submit="" lay-filter="sub" onclick="addType()">提交</button>
+			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		</div>
 	</body>
 
 </html>
@@ -42,22 +43,43 @@
 		//创建一个编辑器
 		var editIndex = layedit.build('LAY_demo_editor');
 		//监听提交
-        form.on('submit(sub)', function(data) {
+  /*      form.on('submit(sub)', function(data) {
             $.ajax({
                 type: "post",
                 data:$(".form").serialize(),
-                error() {
-                    alert("重复命名");
-                },
-                success() {
+                error() {},
+                success(data) {
+                    alert(data);
+                    if(data=='success'){
                     alert("添加成功");
                     window.location.href="/zhengJump/toList";
+                }else{
+                    alert("已存在，不可添加");
+				}
                 }
             });
 
-        });
-
-        // you code ...
+        });*/
 
 	});
+
+
+    function addType() {
+        var name = $('#name').val();
+        $.ajax({
+            url:'/type/toSave',
+            data:{'name':name},
+            type:"post",//提交方式
+
+            success:function(data){
+
+                if(data=='success'){
+                    alert("添加成功")
+                    window.location.href = "/zhengJump/toList";
+                }else{
+                    alert("命名重复")
+                }
+            }
+        });
+    }
 </script>

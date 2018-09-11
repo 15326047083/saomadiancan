@@ -11,10 +11,7 @@ import com.ambow.springboot.vo.CartVo;
 import com.ambow.springboot.vo.PurchaseGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -291,6 +288,18 @@ public class OrdersController {
     public String toDeletePurchase(@PathVariable("id") Integer id) {
         purchaseService.toDeletePurchase(id);
         return "success";
+    }
+    /*
+     *  根据用户id查找用户订单
+     * */
+    @RequestMapping(value = "findOrdersByUserId",method = RequestMethod.POST)
+    @ResponseBody
+    public List<Orders> findOrdersByUserId(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("user");
+        Integer id = user.getId();
+        ordersList=ordersService.findOrdersByUserId(id);
+        return ordersList;
     }
 
 }

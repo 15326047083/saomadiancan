@@ -61,8 +61,8 @@ public class TypeServiceImpl implements TypeService {
     * 删除类型
     * */
     @Override
-    public void deleteType(Integer[] ids) {
-        typeMapper.deleteByPrimaryKey(ids);
+    public void deleteType(int id) {
+        typeMapper.deleteByPrimaryKey(id);
     }
     /*
     * 判断类型是否被引用

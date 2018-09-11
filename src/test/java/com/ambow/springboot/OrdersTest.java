@@ -60,4 +60,10 @@ public class OrdersTest {
         long orders_num=1234567898;
         System.out.println(purchaseMapper.toListPurchaseByOrderNumber(orders_num));
     }
+
+    @Test
+    public void findOrdersByUserId(){
+        long orders_num=1234567898;
+        System.out.println(ordersMapper.findOrdersByUserId(1));
+    }
 }

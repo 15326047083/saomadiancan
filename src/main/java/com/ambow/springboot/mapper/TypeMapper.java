@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface TypeMapper {
     /*
-    * 根据id批量删除类型
+    * 根据id删除类型
     * */
-    int deleteByPrimaryKey(Integer[] ids);
+    int deleteByPrimaryKey(int id);
 
     /*
     * 添加类型

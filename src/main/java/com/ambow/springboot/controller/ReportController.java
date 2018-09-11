@@ -76,9 +76,17 @@ public class ReportController {
      * */
     @RequestMapping("costGainMonth")
     @ResponseBody
-    public List<Report> costGainMonth(String time1,String time2){
-        reportList=ordersService.costGainMonth(time1,time2);
+    public List<Report> costGainMonth(String time1){
+        reportList=ordersService.costGainMonth(time1);
         return reportList;
     }
-
+    /*
+     * 年成本利润
+     * */
+    @RequestMapping("costGainYear")
+    @ResponseBody
+    public List<Report> costGainYear(){
+        reportList=ordersService.costGainYear();
+        return reportList;
+    }
 }

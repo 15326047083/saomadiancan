@@ -260,17 +260,36 @@
     DATE_FORMAT(o.generate_time,
 		'%Y-%m' )=DATE_FORMAT(b.buy_date,
 		'%Y-%m' )
-    <if test="time1 != null and time2 !=null">
+    <if test="time1 != null">
     and DATE_FORMAT(o.generate_time,
-		'%Y-%m' ) BETWEEN #{time1} AND #{time2}
+		'%Y' ) = #{time1}
     </if>
     GROUP BY DATE_FORMAT(o.generate_time,
 		'%Y-%m' )
 
   </select>
+<select id="costGainYear" resultMap="ReportMap">
 
+  SELECT
+  DATE_FORMAT(o.generate_time,
+		'%Y' ) as name,
+  SUM(o.all_price)-SUM(b.price) as value
+  FROM orders o,buy b
+    where
+  DATE_FORMAT(o.generate_time,
+		'%Y' )=DATE_FORMAT(b.buy_date,
+		'%Y' )
+
+  GROUP BY DATE_FORMAT(o.generate_time,
+		'%Y' )
+</select>
   <resultMap id="ReportMap" type="com.ambow.springboot.vo.Report">
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="value" property="value" jdbcType="INTEGER" />
   </resultMap>
+
+  <select id="findOrdersByUserId" parameterType="Integer" resultMap="BaseResultMap">
+
+    select * from orders where user_id=#{id}
+  </select>
 </mapper>

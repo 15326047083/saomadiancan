@@ -29,5 +29,9 @@ public interface OrdersService {
 
     List<Report> costGain(String time1,String time2);
 
-    List<Report> costGainMonth(String time1, String time2);
+    List<Report> costGainMonth(String time1);
+
+    List<Report> costGainYear();
+
+    List<Orders> findOrdersByUserId(Integer id);
 }

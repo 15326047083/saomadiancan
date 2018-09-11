@@ -129,7 +129,23 @@ public class OrdersServiceImpl implements OrdersService {
     *
     * */
     @Override
-    public List<Report> costGainMonth(String time1, String time2) {
-        return ordersMapper.costGainMonth(time1,time2);
+    public List<Report> costGainMonth(String time1) {
+        return ordersMapper.costGainMonth(time1);
+    }
+
+    /*
+    * 年利润
+    * */
+    @Override
+    public List<Report> costGainYear() {
+        return ordersMapper.costGainYear();
+    }
+
+    /*
+    * 根据用户id查找订单
+    * */
+    @Override
+    public List<Orders> findOrdersByUserId(Integer id) {
+        return ordersMapper.findOrdersByUserId(id);
     }
 }

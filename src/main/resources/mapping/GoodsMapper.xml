@@ -29,7 +29,7 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from goods
+        delete from goods g
         where
         <foreach item="ids" collection="array" open="id in ("
                  separator="," close=")">
@@ -217,4 +217,25 @@
     FROM
     goods
   </select>
+
+    <update id="updateTypeNum" parameterType="String">
+        update type set num=num+1 where id=#{typeId}
+
+    </update>
+
+    <update id="updateTypeNumdown2" parameterType="Integer">
+
+        update type set num=num-1 where
+        id in(select type_id from goods where
+        <foreach item="ids" collection="array" open="id in ("
+                 separator="," close=")">
+           #{ids}
+        </foreach>)
+    </update>
+
+    <update id="updateTypeNumdown" parameterType="Integer">
+
+        update type set num=num-1 where
+        id = (select type_id from goods where id=#{ids})
+    </update>
 </mapper>

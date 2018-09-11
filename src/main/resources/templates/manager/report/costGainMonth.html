@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>某年的月销售金额</title>
-    <script type="text/javascript" src="/js/echarts.js"></script>
-    <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+<meta charset="UTF-8" />
+<title>某一年月成本利润</title>
+<script type="text/javascript" src="/js/echarts.js"></script>
+<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/js/year.js"></script>
+
 </head>
 <body>
 <div style="text-align: center">
-<!--
-    年份：<input type="text" id="year" name="year" value="2018" maxlength="4" width="30px" />
--->
     年份：<select id="year" style="width: 80px"></select>
     <input type="button" value="查询" onclick="aa()" />
-
-
-
 </div>
 <!-- 柱状图容器 -->
 <div id="main" style="width: 1000px; height: 500px;text-align: center; margin-top: 20px" ></div>
@@ -29,7 +24,7 @@
         // 配置图标参数
         var options = {
             title : {
-                text : '月营业额',
+                text : '月利润',
                 show : true, // 是否显示标题
                 subtext : '数据',
                 textStyle : {
@@ -44,7 +39,7 @@
                 }
             },
             legend : {
-                data : [ '月营业额' ]
+                data : [ '营业额' ]
             },
             // X轴
             xAxis : {
@@ -54,7 +49,7 @@
             // Y轴
             yAxis : {},
             series : [ {
-                name : '月营业额',
+                name : '月利润',
                 type : 'bar', // 设置图表类型为柱状图
                 data : []
                 // 设置纵坐标的刻度(异步请求时,这里要置空)
@@ -65,13 +60,11 @@
         myChart.showLoading(); // 显示加载动画
         // 异步请求加载数据
 
-        var year = $('#year').val();
-
+        var time1 = $('#year').val();
         $.ajax({
-            url : '/report/ordersMonth',
+            url : '/report/costGainMonth',
             data : {
-                'year' : year,
-
+                'time1' : time1,
             },
             type : 'post',
             dataType : 'json',
@@ -86,13 +79,13 @@
                 myChart.hideLoading(); // 隐藏加载动画
                 myChart.setOption({
                     legend : {
-                        data : [ '月营业额' ]
+                        data : [ '月利润' ]
                     },
                     xAxis : {
                         data : names
                     },
                     series : [ {
-                        name : '月营业额',
+                        name : '月利润',
                         type : 'bar', // 设置图表类型为柱状图
                         data : nums
                         // 设置纵坐标的刻度
@@ -102,6 +95,7 @@
         });
     };
 </script>
+
 
 </body>
 </html>

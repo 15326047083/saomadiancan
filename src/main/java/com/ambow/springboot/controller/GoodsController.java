@@ -48,10 +48,12 @@ public class GoodsController {
     @RequestMapping("/toSave")
     public String addGoods(Goods goods) {
         String name = goods.getName();
+        String typeId = goods.getTypeId();
         if (goodsService.selectByName(name) != null) {
             return "error";
         }
-        goodsService.addGoods(goods);//添加类型
+        goodsService.addGoods(goods);//添加商品
+        goodsService.updateTypeNum(typeId);//给商品类型加一
         return "success";
     }
 
@@ -61,6 +63,7 @@ public class GoodsController {
     @RequestMapping("/todelete/{ids}")
     public String deleteGoods(@PathVariable("ids") Integer[] ids) {
         if (ids != null && ids.length > 0) {
+
             goodsService.deleteType(ids);
             return "success";
         } else {

@@ -59,7 +59,13 @@ public class ReportTest {
     //月成本利润
     @Test
     public void costGainMonth(){
-        System.out.println(ordersMapper.costGainMonth("2018-08","2018-09"));
+        System.out.println(ordersMapper.costGainMonth("2018"));
+    }
+
+    //年成本利润
+    @Test
+    public void costGainYear(){
+        System.out.println(ordersMapper.costGainYear());
     }
 
 }

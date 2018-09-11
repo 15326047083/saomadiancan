@@ -25,14 +25,13 @@
         from type
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from type
-        where
-        <foreach item="ids" collection="array" open="id in ("
-                 separator="," close=")">
-            #{ids,jdbcType=INTEGER}
-        </foreach>
-    </delete>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from type
+    where
+     id= #{id,jdbcType=INTEGER}
+
+  </delete>
     <insert id="insert" parameterType="com.ambow.springboot.entity.Type">
     insert into type (name)
     values (#{name,jdbcType=VARCHAR})

@@ -33,7 +33,7 @@ public interface TypeService {
     /*
     * 批量删除类型
     * */
-    void deleteType(Integer[] ids);
+    void deleteType(int id);
     /*
     * 判断此类型是否被引用
     * */

@@ -76,5 +76,15 @@ public interface OrdersMapper {
     /*
     * 区间内的月收入
     * */
-    List<Report> costGainMonth(@Param("time1") String time1,@Param("time2") String time2);
+    List<Report> costGainMonth(@Param("time1") String time1);
+
+    /*
+    * 年收入
+    * */
+    List<Report> costGainYear();
+
+    /*
+    * 根据用户id查找订单
+    * */
+    List<Orders> findOrdersByUserId(Integer id);
 }

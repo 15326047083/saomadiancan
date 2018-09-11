@@ -34,4 +34,8 @@ public interface GoodsService {
     List<Goods> queryAll();
 
     Goods getById(Integer goodsId);
+
+    void updateTypeNum(String typeId);
+
+
 }
