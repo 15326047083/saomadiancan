@@ -12,7 +12,7 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="format-detection" content="address=no"/>
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
     <!--导航栏渐变开始-->
     <link rel="stylesheet" href="/phone/css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/phone/css/index.css"/>
     <script src="/phone/js/jquery.js"></script>
     <script src="/phone/js/swiper.min.js"></script>
+    <script type="text/javascript" src="/phone/js/cart.js"></script>
     <style>
         nav a {
             display: block;
@@ -40,52 +41,14 @@
 
 </head>
 <body>
-
+<script>
+    window.onload = getCartList();
+</script>
 <div class="con">
     <div id="cart" class="right-con con-active" style="width: 100%;height: 100%;">
         <ul>
             <!--菜品-->
             <!--开始循环菜品-->
-            <li class="clearfix">
-                <div class="menu-img"><img src="/phone/img/index (2).png" width="55" height="55"/></div>
-                <div class="menu-txt">
-                    <h4>凉拌猪耳</h4>
-                    <h2>￥25.00</h2>
-                    <p class="list1">剩余<em>3</em>份，预计等待时间<em>5</em>分钟</p>
-                    <p class="list2">
-                    <div class="btn">
-                        <button class="cartminus">
-                            <strong>-</strong>
-                        </button>
-                        <i style="display: inline-block;">1</i>
-                        <button class="add">
-                            <strong>+</strong>
-                        </button>
-                        <i class="price">25</i>
-                    </div>
-                    </p>
-                </div>
-                <!--循环结束-->    </li>
-            <li class="clearfix">
-                <div class="menu-img"><img src="/phone/img/index (2).png" width="55" height="55"/></div>
-                <div class="menu-txt">
-                    <h4>宫保鸡丁</h4>
-                    <h2>￥30.00</h2>
-                    <p class="list1">剩余<em>3</em>份，预计等待时间<em>5</em>分钟</p>
-                    <p class="list2">
-                    <div class="btn">
-                        <button class="cartminus">
-                            <strong>-</strong>
-                        </button>
-                        <i style="display: inline-block;">1</i>
-                        <button class="add">
-                            <strong>+</strong>
-                        </button>
-                        <i class="price">30</i>
-                    </div>
-                    </p>
-                </div>
-                <!--循环结束-->    </li>
 
         </ul>
     </div>
@@ -94,20 +57,20 @@
 <div class="footer">
     <div class="left">
 		<span id="cartN">
-			<a href="/empJump/toCart c"><img src="/phone/img/shop_03.png"/></a><!--购物车-->
-			<span id="totalcountshow">2</span>    <!--传入总数量-->
-			<span class="totalpriceshow">￥<em id="totalpriceshow">55</em></span>  <!--传入总价-->
+			<a href="/empJump/toCart"><img src="/phone/img/shop_03.png"/></a><!--购物车-->
+			<span id="totalcountshow">0</span>    <!--传入总数量-->
+			<span class="totalpriceshow">￥<em id="totalpriceshow">0</em></span>  <!--传入总价-->
 		</span>
     </div>
     <div class="right">
         <a style="background-color: #3acd17;" id="btnselect" class="xhlbtn  disable"
-           href="order-settlement.html">去结算</a>
+           href="javascript:" onclick="submitOrder()">提交订单</a>
     </div>
 </div>
 <div style="height:1.2rem;"></div>
 <nav>
     <a href="/empJump/toGoodsList" class="homeIcon addclasstruenav"><img src="/phone/img/index1-1.png"/>点餐</a>
-    <a href="order-settlement.html" class="categoryIcon"><img src="/phone/img/index2.png"/>订单</a>
+    <a href="/empJump/toOrder" class="categoryIcon"><img src="/phone/img/index2.png"/>订单</a>
     <a href="service.html" class="cartIcon numberCount"><img src="/phone/img/index3.png"/>服务</a>
     <a href="about-us.html" class="userIcon"><img src="/phone/img/index4.png"/>我的</a>
 </nav>
@@ -127,8 +90,9 @@
         });
     });
 </script>
-<!--加减和tab切换-->
-<script type="text/javascript" src="/phone/js/cart.js"></script>
 </body>
 
 </html>
+
+<!--加减和tab切换-->
+<script type="text/javascript" src="/phone/js/button.js"></script>

@@ -1,106 +1,106 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ambow.springboot.mapper.TypeMapper" >
-  <resultMap id="BaseResultMap" type="com.ambow.springboot.entity.Type" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="num" property="num" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="BaseResultMap1" type="com.ambow.springboot.entity.Goods" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="type_id" property="typeId" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="INTEGER" />
-    <result column="discount" property="discount" jdbcType="INTEGER" />
-    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-    <result column="num" property="num" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.ambow.springboot.mapper.TypeMapper">
+    <resultMap id="BaseResultMap" type="com.ambow.springboot.entity.Type">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="BaseResultMap1" type="com.ambow.springboot.entity.Goods">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="type_id" property="typeId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="INTEGER"/>
+        <result column="discount" property="discount" jdbcType="INTEGER"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, name, num
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from type
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from type
-    where
-    <foreach item="ids" collection="array" open="id in ("
-             separator="," close=")">
-      #{ids,jdbcType=INTEGER}
-    </foreach>
-  </delete>
-  <insert id="insert" parameterType="com.ambow.springboot.entity.Type" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from type
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from type
+        where
+        <foreach item="ids" collection="array" open="id in ("
+                 separator="," close=")">
+            #{ids,jdbcType=INTEGER}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.ambow.springboot.entity.Type">
     insert into type (name)
     values (#{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ambow.springboot.entity.Type" >
-    insert into type
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ambow.springboot.entity.Type" >
-    update type
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="num != null" >
-        num = #{num,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ambow.springboot.entity.Type" >
+    <insert id="insertSelective" parameterType="com.ambow.springboot.entity.Type">
+        insert into type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ambow.springboot.entity.Type">
+        update type
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ambow.springboot.entity.Type">
     update type
     set name = #{name,jdbcType=VARCHAR},
       num = #{num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
-    from type
-    where name = #{typeName,jdbcType=VARCHAR}
-  </select>
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from type
+        where name = #{typeName,jdbcType=VARCHAR}
+    </select>
 
-  <select id="selectGoodsByTypeId" resultMap="BaseResultMap1" parameterType="java.lang.Integer" >
-    select
-    *
-    from goods
-    where
-    <foreach item="ids" collection="array" open="type_id in ("
-             separator="," close=")">
-      #{ids,jdbcType=INTEGER}
-    </foreach>
-  </select>
-  <select id="toList" resultMap="BaseResultMap">
+    <select id="selectGoodsByTypeId" resultMap="BaseResultMap1" parameterType="java.lang.Integer">
+        select
+        *
+        from goods
+        where
+        <foreach item="ids" collection="array" open="type_id in ("
+                 separator="," close=")">
+            #{ids,jdbcType=INTEGER}
+        </foreach>
+    </select>
+    <select id="toList" resultMap="BaseResultMap">
 
-    select * from type
+    select * from type order by id;
 
   </select>
 

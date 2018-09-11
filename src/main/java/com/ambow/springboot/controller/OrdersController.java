@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 @RequestMapping("/orders")
 @Controller
 public class OrdersController {
@@ -40,6 +41,7 @@ public class OrdersController {
     private List<Purchase> purchaseList;
     private List<Orders> ordersList;
     private List<PurchaseGoodsVo> purchaseGoodsVoList;
+
     /**
      * 获取名为"cart"的cookie
      *
@@ -49,9 +51,11 @@ public class OrdersController {
     public Cookie getCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         Cookie cart_cookie = null;
-        for (Cookie cookie : cookies) {
-            if ("cart".equals(cookie.getName())) { //获取购物车cookie
-                cart_cookie = cookie;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("cart".equals(cookie.getName())) { //获取购物车cookie
+                    cart_cookie = cookie;
+                }
             }
         }
         return cart_cookie;
@@ -101,56 +105,46 @@ public class OrdersController {
     }
 
     /*
-    * 前台生成订单,同时生成中间表
-    * */
+     * 前台生成订单,同时生成中间表
+     * */
     @RequestMapping("/toSave")
     @ResponseBody
-    public String toSave(HttpServletResponse response, HttpServletRequest request,Integer desk_num,Integer people_num)throws
-            UnsupportedEncodingException{
-        //获取session中的id
-        HttpSession session=request.getSession();
-        User user= (User) session.getAttribute("user");
-        int user_id=user.getId();
+    public String toSave(HttpServletResponse response, HttpServletRequest request) throws
+            UnsupportedEncodingException {
+        //获取session中的id和桌号和人数
+        HttpSession session = request.getSession();
+        Integer people_num = 2; //(Integer) session.getAttribute("people_num");
+        Integer desk_num = 1; //(Integer) session.getAttribute("desk_num");
+        User user = (User) session.getAttribute("user");
+        Integer user_id = null;
+        if (user != null) {
+            user_id = user.getId();
+        }
 
         //自动生成单号
         SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");   //时间格式
         String time = sdf.format(new Date());   //取当前时间
-        int  radom = (int)((Math.random()*9+1)*100000);
-        String aa=String.valueOf(radom);
-        String number = aa+time;
-        long order_number=Long.parseLong(number);//生成订单号
+        int radom = (int) ((Math.random() * 9 + 1) * 100000);
+        String aa = String.valueOf(radom);
+        String number = aa + time;
+        long order_number = Long.parseLong(number);//生成订单号
 
         //将订单号放在cookie中
-        Cookie order_numberCookie=new Cookie("loginInfo",number);
-        order_numberCookie.setMaxAge(30*24*60*60);   //存活期为一个月 30*24*60*60
+        Cookie order_numberCookie = new Cookie("order_numberCookie", number);
+        order_numberCookie.setMaxAge(24 * 60 * 60);   //存活期为一天 24*60*60
         order_numberCookie.setPath("/");
         response.addCookie(order_numberCookie);
 
-        //获取购物车的内容
-        List<CartVo> listCart= getCartInCookie(response,request);
-        int sumPrice=0;
-        for (CartVo cart:listCart) {
-            sumPrice=sumPrice+cart.getNum()*cart.getGoodsDiscount();//计算总价
-        }
-        Orders orders=new Orders();
-        orders.setAllPrice(sumPrice);
-        orders.setDeskNum(desk_num);
-        orders.setOrderNum(order_number);
-        orders.setGenerateTime(new Date());
-        orders.setPeopleNum(people_num);
-        orders.setState(0);
-        orders.setUserId(user_id);
-
-        //生成订单
-        ordersService.toSave(orders);
+        //获取购物车的内
 
         //中间表操作
-        Purchase purchase=new Purchase();
-
-        //遍历list
-        for (CartVo cart:listCart) {
-            int goods_id=cart.getGoodsId();
-            int num=cart.getNum();
+        Purchase purchase = new Purchase();
+        List<CartVo> listCart = getCartInCookie(response, request);
+        int sumPrice = 0;
+        for (CartVo cart : listCart) {
+            sumPrice = sumPrice + cart.getNum() * cart.getGoodsDiscount();//计算总价
+            int goods_id = cart.getGoodsId();
+            int num = cart.getNum();
 
             //中间表赋值
             purchase.setGoodsId(goods_id);
@@ -158,7 +152,30 @@ public class OrdersController {
             purchase.setOrderNum(order_number);
             purchaseService.toSave(purchase);
         }
-        return  "success";
+        Orders orders = new Orders();
+        orders.setAllPrice(sumPrice);
+        orders.setDeskNum(desk_num);
+        orders.setOrderNum(order_number);
+        orders.setGenerateTime(new Date());
+        orders.setPeopleNum(people_num);
+        orders.setState(0);
+        if (user != null) {
+            orders.setUserId(user_id);
+        }
+        //生成订单
+        ordersService.toSave(orders);
+//        Cookie cookie = getCookie(request);
+//        if (cookie != null) {
+//            // 设置寿命为0秒
+//            cookie.setMaxAge(0);
+//            // 设置路径
+//            cookie.setPath("/");
+//            // 设置cookie的value为null
+//            cookie.setValue(null);
+//            // 更新cookie
+//            response.addCookie(cookie);
+//        }
+        return "success";
     }
 
     /**
@@ -167,32 +184,34 @@ public class OrdersController {
      * @param request
      * @return cookie
      */
-   public String getorder_numberCookie(HttpServletRequest request) {
+    public String getorder_numberCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String order_numberCookie = null;
-        for (Cookie cookie : cookies) {
-            if ("order_numberCookie".equals(cookie.getName())) { //获取cookie中的订单号
-                order_numberCookie = cookie.getValue();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("order_numberCookie".equals(cookie.getName())) { //获取cookie中的订单号
+                    order_numberCookie = cookie.getValue();
+                }
             }
         }
         return order_numberCookie;
     }
 
     /*
-    * 前台根据cookie中的订单号查询中间表的内容
-    * */
+     * 前台根据cookie中的订单号查询中间表的内容
+     * */
     @RequestMapping("/toListPurchaseByOrderNum")
     @ResponseBody
-    public List<PurchaseGoodsVo> toListPurchaseByOrderNum(HttpServletRequest request){
+    public List<PurchaseGoodsVo> toListPurchaseByOrderNum(HttpServletRequest request) {
 
         //获取cookie中的订单号
-        String order_numberCookie=getorder_numberCookie(request);
-        long order_number=Long.parseLong(order_numberCookie);
+        String order_numberCookie = getorder_numberCookie(request);
+        long order_number = Long.parseLong(order_numberCookie);
         //前台根据cookie中的订单号查询中间表的内容
-        if(order_number>0){
-        purchaseGoodsVoList= purchaseService.toListPurchaseByOrderNumber(order_number);
+        if (order_number > 0) {
+            purchaseGoodsVoList = purchaseService.toListPurchaseByOrderNumber(order_number);
             return purchaseGoodsVoList;
-        }else {
+        } else {
             return null;
         }
     }
@@ -205,12 +224,12 @@ public class OrdersController {
     @ResponseBody
     public Orders toListOrdersByOrderNum(HttpServletRequest request) {
         //获取cookie中的订单号
-        String order_numberCookie=getorder_numberCookie(request);
-        long order_number=Long.parseLong(order_numberCookie);
-        if(order_number>0){
+        String order_numberCookie = getorder_numberCookie(request);
+        long order_number = Long.parseLong(order_numberCookie);
+        if (order_number > 0) {
             orders = ordersService.toListOrdersByOrderNum(order_number);
             return orders;
-        }else {
+        } else {
             return null;
         }
     }
@@ -223,8 +242,8 @@ public class OrdersController {
     @ResponseBody
     public List<PurchaseGoodsVo> toListPurchase(@PathVariable("order_num") Long order_num) {
 
-        purchaseGoodsVoList=purchaseService.toListPurchaseByOrderNumber(order_num);
-        return  purchaseGoodsVoList;
+        purchaseGoodsVoList = purchaseService.toListPurchaseByOrderNumber(order_num);
+        return purchaseGoodsVoList;
     }
 
     /*
@@ -235,35 +254,36 @@ public class OrdersController {
     public Page<Orders> toListOrders(Integer state, @RequestParam(defaultValue = "1") Integer page,
                                      @RequestParam(defaultValue = "8") Integer rows) {
 
-        Page<Orders>  ordersList=ordersService.toListOrders(page,rows,state);
-        return  ordersList;
+        Page<Orders> ordersList = ordersService.toListOrders(page, rows, state);
+        return ordersList;
     }
 
     /*
      * 网上订单付款，修改状态为1
      * */
     @RequestMapping("/toUpdateUp")
-    public String toUpdateUp(Long orders_num){
-            ordersService.toUpdateUp(orders_num);
-            return "success";
+    public String toUpdateUp(Long orders_num) {
+        ordersService.toUpdateUp(orders_num);
+        return "success";
     }
+
     /*
      * 线下订单付款，修改状态为2
      * */
     @RequestMapping("/toUpdateDown")
-    public String toUpdateDown(Long orders_num){
+    public String toUpdateDown(Long orders_num) {
         ordersService.toUpdateDown(orders_num);
         return "success";
     }
 
     /*
-    * 删去订单中（中间表）的一条数据
-    * */
+     * 删去订单中（中间表）的一条数据
+     * */
     @RequestMapping("toDeletePurchase/{id}")
 
-    public String toDeletePurchase(@PathVariable("id") Integer id){
-            purchaseService.toDeletePurchase(id);
-            return "success";
+    public String toDeletePurchase(@PathVariable("id") Integer id) {
+        purchaseService.toDeletePurchase(id);
+        return "success";
     }
 
 }

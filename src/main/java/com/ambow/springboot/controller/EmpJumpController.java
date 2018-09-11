@@ -59,4 +59,16 @@ public class EmpJumpController {
     public String toGoodsList() {
         return "phone/goods";
     }
+
+    // 订单页
+    @RequestMapping("/toOrder")
+    public String toOrder() {
+        return "phone/order";
+    }
+
+    // 支付页面
+    @RequestMapping("/toPay")
+    public String toPay() {
+        return "phone/pay";
+    }
 }

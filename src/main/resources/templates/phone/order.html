@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>订单结算</title>
+    <meta name="keywords" content="KEYWORDS..."/>
+    <meta name="description" content="DESCRIPTION..."/>
+    <meta name="author" content="DeathGhost"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name='apple-touch-fullscreen' content='yes'/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+    <script type="text/javascript" src="/phone/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/phone/js/date.js"></script>
+    <script type="text/javascript" src="/phone/js/iscroll.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#beginTime').date();
+            $('#endTime').date({
+                theme: "datetime"
+            });
+        });
+    </script>
+</head>
+
+<body style="overflow-y: scroll;height: 100%;">
+<div class="pay-order-header">
+    <ul>
+        <li>祝您用餐愉快</li>
+    </ul>
+</div>
+<table id="orders" width="100%" class="bg-fff order-det-cont">
+    <tbody>
+    </tbody>
+</table>
+<table id="purchases" width="100%" class="bg-fff order-det-cont">
+    <tbody>
+    <tr>
+        <td align="left" class="padl3" style="color:#999">餐品详情</td>
+        <td align="left" class="padl3" style="color:#999">单价</td>
+        <td align="left" class="padl3" style="color:#999">数量</td>
+    </tr>
+    <!--菜品开始循环-->
+    <!--结束循环-->
+    </tbody>
+</table>
+<table id="orderAllPrice" width="100%" class="bg-fff order-det-cont">
+    <tbody>
+    </tbody>
+</table>
+
+<div id="discussOrPay">
+</div>
+</body>
+
+</html>
+<script src="/phone/js/order.js"></script>
+<script>
+    window.onload = getOrder();
+    window.onload = getOrderGoods();
+</script>

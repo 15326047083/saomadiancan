@@ -1,6 +1,4 @@
-function getCartList() {
 
-}
 
 function add(add, id) {
     add.disabled = true;
