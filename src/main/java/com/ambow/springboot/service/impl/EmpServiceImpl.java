@@ -67,4 +67,12 @@ public class EmpServiceImpl implements EmpService {
         List<Emp> emps = empMapper.selectByRoles();
         return emps;
     }
+    /*
+     * 用户登录
+     * */
+    @Override
+    public Emp login(Emp emp) {
+        Emp users=empMapper.login(emp);
+        return users;
+    }
 }

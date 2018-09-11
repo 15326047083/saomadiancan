@@ -28,5 +28,8 @@ public interface EmpService {
      * roles查询是采购员的
      */
     List<Emp> toroleList();
-
+    /*
+    * 员工登录
+    * */
+    Emp login(Emp emp);
 }

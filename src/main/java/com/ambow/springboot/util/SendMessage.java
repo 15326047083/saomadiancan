@@ -19,8 +19,8 @@ public class SendMessage {
 		HashMap<String, String> m = new HashMap<String, String>();
 		// http协议
 		HttpClient client = new HttpClient();
-		// 连接第三方平?
-		PostMethod post = new PostMethod("http://gbk.api.smschinese.cn/");
+		// 连接第三方平台
+		PostMethod post = new PostMethod("http://gbk.api.smschinese.cn/");//gbk编码访问
 		post.addRequestHeader("Content-Type",
 				"application/x-www-form-urlencoded;charset=gbk");// 在头文件中设置转
 
@@ -34,36 +34,31 @@ public class SendMessage {
 		NameValuePair[] data = { new NameValuePair("Uid", "背影yy"), // sms短信
 																	// 注册的用户名
 				new NameValuePair("Key", "d41d8cd98f00b204e980"), // 密匙
-				new NameValuePair("smsMob", phone),// 要发送的手机�?
-				new NameValuePair("smsText", "在线点餐注册验证码:" + charValue + "验证码有效时间为三分钟") // 短信内容
+				new NameValuePair("smsMob", phone),// 要发送的手机号
+				new NameValuePair("smsText", "在线点餐验证码:" + charValue + "验证码有效时间为三分钟") // 短信内容
 		};
-
 		post.setRequestBody(data);
 		client.executeMethod(post);
 		// 获取http
 		Header[] headers = (Header[]) post.getResponseHeaders();
 		int statusCode = post.getStatusCode();
-
 		System.out.println("statusCode:" + statusCode);
-
 		for (Header h : headers) {
 			System.out.println(h.toString());
 		}
 		// 获取返回消息
 		String result = new String(post.getResponseBodyAsString().getBytes(
 				"gbk"));
-		System.out.println(result); // 打印返回消息状�??
+		System.out.println(result); // 打印返回消息
 		// 将返回消息和6位数验证码放入到m列表里面
 		m.put("result", result);
 		m.put("code", charValue);
-		// 断开与第三方平台的连�?
+		// 断开与第三方平台的连接
 		post.releaseConnection();
-
 		return m;
 
 	}
-
-	// 生成验证
+	// 生成验证码
 	public static int randomInt(int from, int to) {
 		Random r = new Random();
 		return from + r.nextInt(to - from);

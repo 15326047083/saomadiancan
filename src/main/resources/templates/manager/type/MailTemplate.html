@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<table style="border-bottom: #006699 1px solid; border-left: #006699 1px solid; font-size: 12px;
+
+            border-top: #006699 1px solid; border-right: #006699 1px solid" border="0" cellspacing="0"
+
+       cellpadding="2" width="80%">
+
+    <tbody>
+
+    <tr>
+
+        <td>
+
+            订单号： <%=Order.OrderNo%>
+
+        </td>
+
+        <td>
+
+            客户编号：<%=Order.CardCode%>
+
+        </td>
+
+        <td>
+
+            下单日期:<%=Order.CreateDate%>
+
+        </td>
+
+    </tr>
+
+    <tr>
+
+        <td>
+
+            运费：<%=Order.Freight%>
+
+        <td>
+
+            交易币种：<%=Order.Currency%>
+
+        </td>
+
+        <td>
+
+
+
+        </td>
+
+    </tr>
+
+    <tr>
+
+        <td colspan="3">
+
+            &nbsp;
+
+        </td>
+
+    </tr>
+
+    <tr>
+
+        <td colspan="3">
+
+            送货地址：<%=Order.ShipAddress%>
+
+        </td>
+
+    </tr>
+
+
+
+
+
+    <tr>
+
+        <td  colspan="3">
+
+            <font  color="red">具体的交货时将将由我们的客服人员与您联系协商 </font>
+
+        </td>
+
+    </tr>
+
+    <tr>
+
+
+
+    <tr>
+
+        <td colspan="3">
+
+            <br>
+
+            <table style="font-size: 12px" border="0" cellspacing="5" cellpadding="4" width="100%"
+
+                   align="center">
+
+                <tbody>
+
+                <tr>
+
+                    <td>
+
+                        <strong>产品编号</strong>
+
+                    </td>
+
+                    <td>
+
+                        <strong>单位</strong>
+
+                    </td>
+
+                    <td width="60">
+
+                        <strong>数量</strong>
+
+                    </td>
+
+                    <td width="80">
+
+                        <strong>单价</strong>
+
+                    </td>
+
+                </tr>
+
+
+
+                <%  foreach (SendMailTemplate.OrderItem item in Order.OrderItems)
+
+                { %>
+
+                <tr>
+
+                    <td>
+
+                        <%=item.ItemCode%>
+
+                    </td>
+
+                    <td>
+
+                        <%=item.Unit%>
+
+                    </td>
+
+                    <td>
+
+                        <%=item.Quantity%>
+
+                    </td>
+
+                    <td>
+
+                        <%=item.BasicPrice%>
+
+                    </td>
+
+
+
+                </tr>
+
+                <%} %>
+
+                </tbody>
+
+            </table>
+
+
+
+        </td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+</html>

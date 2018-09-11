@@ -1,3 +1,7 @@
+
+
+
+
 package com.ambow.springboot.controller;
 
 import com.ambow.springboot.entity.User;
@@ -24,36 +28,64 @@ import java.util.HashMap;
 public class UserController {
     @Autowired
     private UserService userService;
-
     /*
-     * 登录
+     * 短信验证码登录
      * */
     @ResponseBody
-    @RequestMapping("/tologin")
-    public String login(User user, HttpServletRequest request) {
-        user.setPassword(MD5Util.MD5(user.getPassword()));
-        HttpSession session = request.getSession();
-        User users = userService.login(user);
-        if (users != null) {
-            session.setAttribute("user", users);
-            return "success";
+    @RequestMapping(value = "/sendmelogin", method = RequestMethod.GET)
+    public String sendmes(User user,@RequestParam("phone") String phone,
+                          HttpServletRequest request) throws HttpException,
+            IOException {
+        if (userService.listphone(user)) {
+            HashMap<String, String> m = SendMessage.getMessageStatus(phone);
+            String result = m.get("result");
+            if (result.trim().equals("1")) {//手机号已注册发送验证码
+                user.setPassword(MD5Util.MD5( user.getPassword()));//MD5加密密码
+                HttpSession session=request.getSession();
+                String code = m.get("code");//获取验证码
+                session.setAttribute(phone + "code", code);//验证码存session
+                session.setMaxInactiveInterval(60 * 3);//设置短信有效时间
+                return "";
+            } else {
+                //手机号未注册提醒注册
+                return "";
+            }
+
         }
-        return "error";
+        return "";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/comparecodelogin.action", method = RequestMethod.POST)
+    public String  comparecodelogin(@RequestParam(value = "code") String code,
+                                    User user, HttpServletRequest request) {
+        user.setPassword(MD5Util.MD5( user.getPassword()));//MD5加密密码
+        HttpSession session = request.getSession();
+        String sessioncode = (String) session.getAttribute(user.getPhone()
+                + "code");//取session里手机号与code验证码
+        System.out.println(sessioncode);
+        if ((code).equals(sessioncode)) {//用户输入的code与session里相比较
+            User users=userService.login(user);
+            if (users!=null){
+                session.setAttribute("user","users");//登录session
+            }
+        }
+        return "";
+    }
     /*
      * 短信验证注册
      * */
     @ResponseBody
     @RequestMapping(value = "/sendme", method = RequestMethod.GET)
-    public ModelAndView sendme(User user, @RequestParam("phone") String phone,
-                               HttpServletRequest request) throws HttpException, IOException {
+    public ModelAndView sendme(User user,@RequestParam("phone") String phone,
+                               HttpServletRequest request) throws HttpException,
+            IOException {
 
         ModelAndView model = new ModelAndView();
         if (userService.listphone(user)) {
             HashMap<String, String> m = SendMessage.getMessageStatus(phone);
             String result = m.get("result");
-            if (result.trim().equals("1")) {
+            if (result.trim().equals("1")) {//未注册发送验证码
                 String code = m.get("code");
                 HttpSession session = request.getSession();
                 session.setAttribute(phone + "code", code);
@@ -74,7 +106,7 @@ public class UserController {
     @RequestMapping(value = "/comparecode.action", method = RequestMethod.POST)
     public ModelAndView comparecode(@RequestParam(value = "code") String code,
                                     User user, HttpServletRequest request) {
-        user.setPassword(MD5Util.MD5(user.getPassword()));
+        user.setPassword(MD5Util.MD5( user.getPassword()));
         ModelAndView model = new ModelAndView();
         HttpSession session = request.getSession();
         String sessioncode = (String) session.getAttribute(user.getPhone()
@@ -89,15 +121,15 @@ public class UserController {
 
         return model;
     }
-
     /*
      * 注销
      * */
     @ResponseBody
     @RequestMapping(value = "/zhuxiao")
-    public String zhuxiao(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    public String  zhuxiao( HttpServletRequest request){
+        HttpSession session=request.getSession();
         session.removeAttribute("user");
         return "SUCCESS";
     }
 }
+

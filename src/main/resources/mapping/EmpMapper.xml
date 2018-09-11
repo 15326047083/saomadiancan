@@ -155,4 +155,10 @@
       ticheng = #{ticheng,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="login" resultMap="BaseResultMap" parameterType="Emp">
+    select
+    <include refid="Base_Column_List"/>
+    from emp
+    where username =#{username}and password=#{password}
+  </select>
 </mapper>

@@ -14,7 +14,7 @@ public interface EmpMapper {
      */
     int deleteByPrimaryKey(Integer id);
     /**
-     * 插入一条员工信息
+     *
      * @param record
      * @return
      */
@@ -43,6 +43,10 @@ public interface EmpMapper {
      * @return
      */
     List<Emp> selectByRoles();
+    /*
+     * 后台emp登录方法
+     * */
+    Emp login(Emp emp);
     int updateByPrimaryKey(Emp record);
     int insert(Emp record);
 }
