@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>注册信息</title>
+    <meta name="keywords" content="KEYWORDS..."/>
+    <meta name="description" content="DESCRIPTION..."/>
+    <meta name="author" content="DeathGhost"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name='apple-touch-fullscreen' content='yes'/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/reset.css"/>
+    <script src="/phone/js/jquery.js"></script>
+</head>
+
+<body>
+<header>
+    <!--返回-->
+    <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
+    <h1>注册信息</h1>
+</header>
+<div style="height:1rem;">
+</div>
+<form action="/empJump/toGoodsList">
+    <ul class="formarea">
+        <li>
+            <label class="lit">姓名</label>
+            <input id="name" type="text" name="name" placeholder="请输入您的姓名" class="textbox" required="required"/>
+        </li>
+        <li>
+            <label class="lit">密码</label>
+            <input id="password" type="password" name="password" placeholder="请输入您的密码" class="textbox"
+                   required="required"/>
+        </li>
+        <li>
+            <label class="lit">手机号</label>
+            <input id="phone" type="tel" name="phone" pattern="1[0-9]{10}" title="输入11位有效的手机号" placeholder="请输入您的密码"
+                   class="textbox" required="required"/>
+        </li>
+        <li>
+            <label class="lit">验证码：</label>
+            <input type="text" id="code" placeholder="请输入验证码" class="textbox" required="required"/>
+            <a id="send" onclick="send()" class="yanzhegma">获取验证码</a>
+            <a id="sendAgain" style="display: none;" class="yanzhegma">
+                <span style="font-size: 15px; font-weight: 400;" id="time">60</span>秒后重新发送
+            </a>
+
+        </li>
+    </ul>
+
+    <div style="height:1.2rem;"></div>
+    <div class="button-order-det">
+        <input type="submit" class="button-order-det" id="" onclick="return userRegister()" value="提交"/>
+    </div>
+</form>
+</body>
+
+</html>
+<script>
+    //60秒后重新发送
+    function time() {
+        var time = $("#time").text();
+        //定时器
+        t = setInterval(function () {
+            time--;
+            $("#time").html(time);
+            if (time == 0) {
+                $("#sendAgain").css("display", "none");
+                $("#send").css("display", "block");
+                $("#time").html("60");
+                clearInterval(t);
+                return;
+            }
+        }, 1000);
+
+    }
+
+    //点击发送按钮
+    function send() {
+        $.ajax({
+            type: "get",
+            url: "/login/sendme",
+            data: {
+                "phone": $("#phone").val()
+            },
+            success(data) {
+                if (data == "success") {
+                    $("#send").css("display", "none");
+                    $("#sendAgain").css("display", "block");
+                    time();
+                } else {
+                    alert("手机号已存在，更换手机号或直接登陆！");
+                }
+            }
+        })
+        ;
+    }
+
+    function userRegister() {
+        $.ajax({
+            type: 'post',
+            url: '/login/comparecode',
+            data: {
+                'phone': $('#phone').val(),
+                'name': $('#name').val(),
+                'password': $('#password').val(),
+                'code': $('#code').val()
+            },
+            success(data) {
+                if (data == 'success') {
+                    return true;
+                } else {
+                    alert('注册失败，请检查手机号和验证码是否正确！');
+                    return false;
+                }
+            }
+        });
+    }
+</script>

@@ -31,7 +31,7 @@ public class SendMessage {
 			charValue += String.valueOf(c);
 		}
 		// 短信模板
-		NameValuePair[] data = { new NameValuePair("Uid", "背影yyy"), // sms短信
+		NameValuePair[] data = { new NameValuePair("Uid", "背影yy"), // sms短信
 																	// 注册的用户名
 				new NameValuePair("Key", "d41d8cd98f00b204e980"), // 密匙
 				new NameValuePair("smsMob", phone),// 要发送的手机号

@@ -22,7 +22,7 @@
     select
    <include refid="Base_Column_List"/>
     from user
-    where phone =#{phone}and password=#{password}
+    where phone =#{phone}
   </select>
   <!--查询用户是否注册过-->
   <select id="listphone" parameterType="String" resultMap="BaseResultMap" >
