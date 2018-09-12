@@ -25,6 +25,11 @@ public interface DiscussMapper {
      * @return List<DiscussReplyVo>
      */
     List<DiscussReplyVo> DiscussList(Discuss discuss);
+    /**
+     * 查询所有评价和回复,不分页
+     * @return List<DiscussReplyVo>
+     */
+    List<DiscussReplyVo> DiscussListNoPage();
 
     /*
      * 统计总条数方法

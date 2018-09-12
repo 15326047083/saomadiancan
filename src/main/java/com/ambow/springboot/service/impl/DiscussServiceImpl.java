@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DiscussServiceImpl implements DiscussService {
@@ -36,6 +37,14 @@ public class DiscussServiceImpl implements DiscussService {
         pages.setSize(rows);
         pages.setTotal(discussMapper.selectDiscussCount());
         return pages;
+    }
+
+    /**
+     * 查看所有评论信息，不分页
+     */
+    @Override
+    public List<DiscussReplyVo> DiscussListNoPage() {
+        return discussMapper.DiscussListNoPage();
     }
 
     /**

@@ -6,6 +6,8 @@ import com.ambow.springboot.vo.DiscussReplyVo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Service
 public interface DiscussService{
     /**
@@ -22,4 +24,8 @@ public interface DiscussService{
     Page<DiscussReplyVo> DiscussList(@RequestParam(defaultValue = "1") Integer page,
                                      @RequestParam(defaultValue = "4")Integer rows);
 
+    /**
+     * 查看所有评论信息，不分页
+     */
+    List<DiscussReplyVo> DiscussListNoPage();
 }

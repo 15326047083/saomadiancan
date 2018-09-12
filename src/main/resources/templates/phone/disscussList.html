@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>点餐</title>
+		<meta name="keywords" content="KEYWORDS..."/>
+		<meta name="description" content="DESCRIPTION..."/>
+		<meta name="author" content="DeathGhost"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name='apple-touch-fullscreen' content='yes'/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="format-detection" content="address=no"/>
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+		<!--导航栏渐变开始-->
+		<link rel="stylesheet" href="/phone/css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="/phone/css/swiper3.07.min.css"/>
+		<link rel="stylesheet" href="/phone/css/index.css"/>
+		<script src="/phone/js/jquery.js"></script>
+		<script src="/phone/js/swiper.min.js"></script>
+	</head>
+
+	<body style="background-color: #f1f1f1;">
+	<header>
+		<a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
+		<h1>顾客评论</h1>
+	</header>
+	<!--评价-->
+	<dl class="evaluateList" id="main">
+		<dt class="evaluateList-title">
+			<p class="f035">评价</p>
+			<p class="f03">好评度<em class="colorf00">100%</em></p>
+		</dt>
+		<!--开始循环-->
+
+		<!--结束循环-->
+	</dl>
+	</body>
+	<nav>
+		<a href="/empJump/toGoodsList" class="homeIcon addclasstruenav"><img src="/phone/img/index1-1.png"/>点餐</a>
+		<a href="/empJump/toOrder" class="categoryIcon"><img src="/phone/img/index2.png"/>订单</a>
+		<a href="service.html" class="cartIcon numberCount"><img src="/phone/img/index3.png"/>服务</a>
+		<a href="about-us.html" class="userIcon"><img src="/phone/img/index4.png"/>我的</a>
+	</nav>
+
+</html>
+<script src="/phone/js/discussList.js"></script>
+<script>
+	window.onload=getDiscussList(1);
+</script>

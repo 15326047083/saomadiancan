@@ -27,9 +27,10 @@ public class EmpController {
     public  String  login(Emp emp, HttpServletRequest request){
 
         HttpSession session=request.getSession();
+
         Emp emps=empService.login(emp);
         if (emps!=null){
-            session.setAttribute("emp","emp");
+            session.setAttribute("emp",emps);
             return "SUCCESS";
         }
         return "";

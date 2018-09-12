@@ -37,6 +37,21 @@ FROM discuss as d1
 right join discuss as d2 ON d1.discuss_id=d2.id where d2.discuss_id is null
     LIMIT ${start},${rows};
   </select>
+
+    <select id="DiscussListNoPage" resultMap="DiscussReplyVoMap">
+SELECT d1.id as replyId,
+    d1.info as replyInfo,
+    d2.en_level as discussEnLevel,
+    d2.service_level as discussServiceLevel,
+    d2.qu_level as discussQuLevel,
+    d1.discuss_time as replyTime,
+    d2.id as discussId,
+    d2.discuss_time as discussTime,
+    d2.info as discussInfo
+FROM discuss as d1
+right join discuss as d2 ON d1.discuss_id=d2.id where d2.discuss_id is null
+  </select>
+
     <!--查询所有总数-->
     <select id="selectDiscussCount" resultType="java.lang.Integer">
      SELECT

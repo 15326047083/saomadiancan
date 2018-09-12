@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/discuss")
@@ -45,6 +46,26 @@ public class DiscussController {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         for (DiscussReplyVo Discusslist : DiscussList.getRows()) {
+            String s = (new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(Discusslist.getDiscussTime()));
+            try {
+                date = format.parse(s);
+                discuss.setDiscussTime(date);
+            } catch (Exception e) {
+            }
+        }
+        return DiscussList;
+    }
+    /**
+     * 查看所有留言 不分页
+     */
+    @RequestMapping("/DiscussListNoPage")
+
+    public List<DiscussReplyVo> DiscussList() {
+        List<DiscussReplyVo> DiscussList = discussService.DiscussListNoPage();
+        Discuss discuss = new Discuss();
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        for (DiscussReplyVo Discusslist : DiscussList) {
             String s = (new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(Discusslist.getDiscussTime()));
             try {
                 date = format.parse(s);
