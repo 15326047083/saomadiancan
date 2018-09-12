@@ -75,4 +75,10 @@ public class EmpServiceImpl implements EmpService {
         Emp users=empMapper.login(emp);
         return users;
     }
+
+    @Override
+    public Emp selectByPassword(Integer  empid, String password) {
+        Emp emps=empMapper.selectBypassword(empid,password);
+        return emps;
+    }
 }

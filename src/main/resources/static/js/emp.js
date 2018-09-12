@@ -32,7 +32,18 @@ function deleteEmp(empId) {
         }
     });
 }
-
+//旧密码是否正确
+function checkEmpPassword() {
+    alert("dsad");
+    $.ajax({
+        type: "get",
+        url: "/emp/emplistbypassowrd/" + $("#oldpassword").val(),
+        dataType:"data",
+        success(data="error") {
+            alert("旧密码不符合");
+        }
+    });
+}
 // 获取需要修改的员工信息
 function getEmp() {
     var roles;

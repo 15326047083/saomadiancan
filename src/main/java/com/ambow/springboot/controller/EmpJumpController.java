@@ -76,14 +76,20 @@ public class EmpJumpController {
         return "phone/pay";
     }
 
+
     // 查看员工自己信息
-    @RequestMapping("/toEmpBy/{empId}")
-    public String toEmpby(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        Emp emps = (Emp) session.getAttribute("emp");
+    @RequestMapping("/toEmpBy")
+    public String toEmpby(HttpServletRequest request,Model model) {
+      /*  HttpSession session=request.getSession();
+        Emp emps= (Emp) session.getAttribute("emp");
         Integer empId = emps.getId();
-        model.addAttribute("empId", empId);
-        return "manager/emp/update";
+        model.addAttribute("empId", empId);*/
+        return "manager/emp/myInfo";
+    }
+    @RequestMapping("/toUpdatePassword")
+    public String toUpdatePassword(){
+
+        return "manager/emp/updatePassword";
     }
 
     @RequestMapping("/toUserList")

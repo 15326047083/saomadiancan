@@ -28,6 +28,13 @@
     from emp
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <!-- 根据id和密码查找员工信息-->
+  <select id="selectBypassword" resultMap="BaseResultMap" parameterType="com.ambow.springboot.entity.Emp" >
+    select
+    <include refid="Base_Column_List" />
+    from emp
+    where id = #{empid} and  password=#{password}
+  </select>
   <!-- 根据roles查询是采购员的-->
   <select id="selectByRoles" resultMap="BaseResultMap" >
     select

@@ -2,6 +2,7 @@ package com.ambow.springboot.mapper;
 
 import com.ambow.springboot.entity.Emp;
 import com.ambow.springboot.entity.Roles;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,6 +48,10 @@ public interface EmpMapper {
      * 后台emp登录方法
      * */
     Emp login(Emp emp);
+    /*
+    * 根据个人密码和员工Empid查询
+    * */
+    Emp selectBypassword(@Param("empid") Integer empid,@Param("passowrd") String password);
     int updateByPrimaryKey(Emp record);
     int insert(Emp record);
 }

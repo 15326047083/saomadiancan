@@ -84,4 +84,20 @@ public class EmpController {
         List<Emp> empList = empService.toList();
         return empList;
     }
+    /*
+    *根据empid和password查询
+    *
+    **/
+    @ResponseBody
+    @RequestMapping(value="/emplistbypassowrd/{password}")
+    public  String listempBypassword(@PathVariable("password") String  password,HttpServletRequest request){
+        HttpSession session=request.getSession();
+        Emp emps= (Emp) session.getAttribute("emp");
+        Integer   empId = emps.getId();
+        Emp empss=empService.selectByPassword(empId,password);
+        if(empss==null){
+        return "success";
+    }
+        return "error";
+    }
 }

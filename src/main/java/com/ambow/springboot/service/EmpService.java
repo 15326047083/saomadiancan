@@ -32,4 +32,8 @@ public interface EmpService {
     * 员工登录
     * */
     Emp login(Emp emp);
+    /*
+    * 根据员工id和密码查询
+    * */
+    Emp selectByPassword(Integer empid,String password);
 }
