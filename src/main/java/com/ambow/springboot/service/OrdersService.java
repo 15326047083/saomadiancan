@@ -34,4 +34,6 @@ public interface OrdersService {
     List<Report> costGainYear();
 
     List<Orders> findOrdersByUserId(Integer id);
+
+    void updateOrdersPrice(Integer xiaoji, Long orderNum);
 }

@@ -87,4 +87,11 @@ public interface OrdersMapper {
     * 根据用户id查找订单
     * */
     List<Orders> findOrdersByUserId(Integer id);
+    /*
+    * 退菜修改钱
+    * */
+    void updateOrdersPrice(@Param("xiaoji") Integer xiaoji,@Param("ordersNum") Long orderNum);
+
+
+
 }

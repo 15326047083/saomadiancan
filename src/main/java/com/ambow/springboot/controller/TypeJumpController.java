@@ -89,4 +89,22 @@ public class TypeJumpController {
     public String costGainYear(){
         return "manager/report/coatGainYear";
     }
+
+    /*
+     * 跳转到订单全查页面
+     * */
+    @RequestMapping("ordersList")
+    public String ordersList(){
+        return "manager/orders/list";
+    }
+
+    /*
+    * 订单详情
+    * */
+    @RequestMapping("/toFindPurchase/{ordersNum}/{state}")
+    public String toFindPurchase(@PathVariable("ordersNum") String ordersNum,@PathVariable("state") String state, Model model) {
+        model.addAttribute("ordersNum", ordersNum);
+        model.addAttribute("state", state);
+        return "manager/orders/show";
+    }
 }

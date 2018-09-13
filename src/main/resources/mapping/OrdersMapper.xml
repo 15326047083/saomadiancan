@@ -138,13 +138,16 @@
     select
     <include refid="Base_Column_List" />
     from orders
-    where
+
     <if test="state!=null">
+    where
     state=#{state,jdbcType=INTEGER}
     </if>
+    order by generate_time desc
     <if test="start!=null and rows!=null">
       LIMIT ${start},${rows};
     </if>
+
   </select>
 
   <update id="toUpdateUp" parameterType="com.ambow.springboot.entity.Orders" >
@@ -169,6 +172,11 @@
     count(*)
     FROM
     orders
+    <if test="state!=null">
+      where
+      state =#{state}
+    </if>
+
   </select>
 
   <select id="ordersDay" resultMap="ReportMap">
@@ -292,4 +300,8 @@
 
     select * from orders where user_id=#{id}
   </select>
+
+  <update id="updateOrdersPrice">
+  update orders set all_price=all_price-#{xiaoji} where order_num=#{ordersNum}
+</update>
 </mapper>

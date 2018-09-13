@@ -46,6 +46,7 @@ public class OrdersServiceImpl implements OrdersService {
 
         orders.setStart((page - 1) * rows);
         orders.setRows(rows);
+        orders.setState(state);
         List<Orders> ordersList = ordersMapper.toListOrders(orders);
         Integer count = ordersMapper.selectOrdersCount(orders);
         Page<Orders> pages = new Page<Orders>();
@@ -147,5 +148,14 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public List<Orders> findOrdersByUserId(Integer id) {
         return ordersMapper.findOrdersByUserId(id);
+    }
+
+
+    /*
+    * 退菜根据订单号修改价钱
+    * */
+    @Override
+    public void updateOrdersPrice(Integer xiaoji, Long orderNum) {
+        ordersMapper.updateOrdersPrice(xiaoji,orderNum);
     }
 }

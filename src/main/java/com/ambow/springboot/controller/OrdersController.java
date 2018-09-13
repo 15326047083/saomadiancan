@@ -242,23 +242,25 @@ public class OrdersController {
     /*
      * 后台根据订单号查询订单中间表的所有内容
      * */
-    @RequestMapping("/toListPurchase/{order_num}")
+    @RequestMapping("/toListPurchase/{ordersNum}")
     @ResponseBody
-    public List<PurchaseGoodsVo> toListPurchase(@PathVariable("order_num") Long order_num) {
+    public List<PurchaseGoodsVo> toListPurchase(@PathVariable("ordersNum") Long ordersNum) {
 
-        purchaseGoodsVoList = purchaseService.toListPurchaseByOrderNumber(order_num);
+        purchaseGoodsVoList = purchaseService.toListPurchaseByOrderNumber(ordersNum);
+        System.out.println(purchaseGoodsVoList+""+ordersNum);
         return purchaseGoodsVoList;
     }
 
     /*
-     * 后台查询所有订单内容,分页
+     * 后台状态查询所有订单内容,分页
      * */
     @RequestMapping("/toListOrders")
     @ResponseBody
-    public Page<Orders> toListOrders(Integer state, @RequestParam(defaultValue = "1") Integer page,
+    public Page<Orders> toListOrders(@RequestParam(name = "state") Integer state, @RequestParam(name = "page",defaultValue = "1") Integer page,
                                      @RequestParam(defaultValue = "8") Integer rows) {
-
+        System.out.println(state+"状态");
         Page<Orders> ordersList = ordersService.toListOrders(page, rows, state);
+        System.out.println(ordersList+"订单列表");
         return ordersList;
     }
 
@@ -274,18 +276,24 @@ public class OrdersController {
     /*
      * 线下订单付款，修改状态为2
      * */
-    @RequestMapping("/toUpdateDown")
-    public String toUpdateDown(Long orders_num) {
-        ordersService.toUpdateDown(orders_num);
+    @RequestMapping(value = "/toUpdateDown",method = RequestMethod.POST)
+    @ResponseBody
+    public String toUpdateDown(@RequestParam("ordersNum") String ordersNum) {
+        long ordersNum1=Long.parseLong(ordersNum);
+        System.out.println(ordersNum+"订单号");
+        ordersService.toUpdateDown(ordersNum1);
         return "success";
     }
 
     /*
      * 删去订单中（中间表）的一条数据
      * */
-    @RequestMapping("toDeletePurchase/{id}")
-
-    public String toDeletePurchase(@PathVariable("id") Integer id) {
+    @RequestMapping(value = "/toDeletePurchase",method = RequestMethod.POST)
+    @ResponseBody
+    public String toDeletePurchase(@RequestParam(name = "id") Integer id,@RequestParam(name = "xiaoji") Integer xiaoji,
+                                   @RequestParam(name = "ordersNum") Long ordersNum) {
+        System.out.println(id);
+        ordersService.updateOrdersPrice(xiaoji,ordersNum);
         purchaseService.toDeletePurchase(id);
         return "success";
     }
