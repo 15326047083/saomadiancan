@@ -87,38 +87,44 @@ public class EmpJumpController {
         return "manager/emp/myInfo";
     }
 
+    // 员工修改密码
     @RequestMapping("/toUpdatePassword")
     public String toUpdatePassword() {
 
         return "manager/emp/updatePassword";
     }
 
+    // 获取用户列表
     @RequestMapping("/toUserList")
     public String toUserList() {
         return "phone/user/userList";
     }
 
+    // 用户登陆
     @RequestMapping("/toUserLogin")
     public String toUserLogin() {
         return "phone/user/login";
     }
 
+    // 用户注册
     @RequestMapping("/toUserRegister")
     public String toUserRegister() {
         return "phone/user/register";
     }
 
-
+    // 我的详情
     @RequestMapping("/toMy")
     public String toMy() {
         return "phone/user/my";
     }
 
+    // 我的订单
     @RequestMapping("/toMyOrders")
     public String toMyOrders() {
         return "phone/user/myOrder";
     }
 
+    // 我的积分
     @RequestMapping("/toMyIntegral")
     public String toMyIntegral() {
         return "phone/user/integral";
