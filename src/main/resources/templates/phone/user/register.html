@@ -55,70 +55,11 @@
 
     <div style="height:1.2rem;"></div>
     <div class="button-order-det">
-        <input type="submit" class="button-order-det" id="" onclick="return userRegister()" value="提交"/>
+        <input type="button" class="button-order-det" id="" onclick="return userRegister()" value="提交"/>
     </div>
 </form>
 </body>
 
 </html>
-<script>
-    //60秒后重新发送
-    function time() {
-        var time = $("#time").text();
-        //定时器
-        t = setInterval(function () {
-            time--;
-            $("#time").html(time);
-            if (time == 0) {
-                $("#sendAgain").css("display", "none");
-                $("#send").css("display", "block");
-                $("#time").html("60");
-                clearInterval(t);
-                return;
-            }
-        }, 1000);
-
-    }
-
-    //点击发送按钮
-    function send() {
-        $.ajax({
-            type: "get",
-            url: "/login/sendme",
-            data: {
-                "phone": $("#phone").val()
-            },
-            success(data) {
-                if (data == "success") {
-                    $("#send").css("display", "none");
-                    $("#sendAgain").css("display", "block");
-                    time();
-                } else {
-                    alert("手机号已存在，更换手机号或直接登陆！");
-                }
-            }
-        })
-        ;
-    }
-
-    function userRegister() {
-        $.ajax({
-            type: 'post',
-            url: '/login/comparecode',
-            data: {
-                'phone': $('#phone').val(),
-                'name': $('#name').val(),
-                'password': $('#password').val(),
-                'code': $('#code').val()
-            },
-            success(data) {
-                if (data == 'success') {
-                    return true;
-                } else {
-                    alert('注册失败，请检查手机号和验证码是否正确！');
-                    return false;
-                }
-            }
-        });
-    }
+<script src="/phone/js/user.js">
 </script>

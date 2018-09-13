@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>我的信息</title>
+    <meta name="keywords" content="KEYWORDS..."/>
+    <meta name="description" content="DESCRIPTION..."/>
+    <meta name="author" content="DeathGhost"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name='apple-touch-fullscreen' content='yes'/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/reset.css"/>
+    <script src="/phone/js/jquery.js"></script>
+    <style>
+        .addclasstruenav {
+            color: #3acd17;
+        }
+    </style>
+</head>
+
+<body>
+<div style="background-color: greenyellow;height: 150px;width: 100%;">
+    <div style="width: 40%; height: 100%;float: left;">
+        <img style="width: 100px; height: 100px;margin-top: 30px;margin-left: 20px;" src="/phone/img/people.png"/>
+    </div>
+    <div style="width: 60%; height: 100%;float: right;">
+        <div style="margin-top: 55px;margin-left: 20px;">
+            <span id="userName" style="font-size: 20px; color: gray;"></span><br/><br/>
+            <span style="color: gray;">
+                <img src="/phone/img/about5.png" style="width: 12px; height: 18px;"/><span id="userPhone"
+                                                                                           style="color: gray;"></span>
+					</span>
+        </div>
+
+    </div>
+</div>
+<ul class="inforList">
+    <li>
+        <a href="/empJump/toMyIntegral" class="isNext">
+            <span><em><img src="/phone/img/about1.png"/></em>我的积分</span>
+            <span></span>
+        </a>
+    </li>
+
+    <li>
+        <a href="/empJump/toMyOrders" class="isNext">
+            <span><em><img src="/phone/img/about4.png"/></em>我的订单</span>
+            <span></span>
+        </a>
+    </li>
+
+</ul>
+<div style="height:1.2rem;"></div>
+<nav>
+    <a href="/empJump/toGoodsList" class="homeIcon addclasstruenav"><img src="/phone/img/index1-1.png"/>点餐</a>
+    <a href="/empJump/toOrder" class="categoryIcon"><img src="/phone/img/index2.png"/>订单</a>
+    <a href="service.html" class="cartIcon numberCount"><img src="/phone/img/index3.png"/>服务</a>
+    <a href="/empJump/toMy" class="userIcon"><img src="/phone/img/index4.png"/>我的</a>
+</nav>
+</body>
+<script src="/phone/js/user.js"></script>
+<script>
+    window.onload = getMyUserInfo();
+</script>
+</html>

@@ -210,14 +210,18 @@ public class OrdersController {
 
         //获取cookie中的订单号
         String order_numberCookie = getorder_numberCookie(request);
-        long order_number = Long.parseLong(order_numberCookie);
-        //前台根据cookie中的订单号查询中间表的内容
-        if (order_number > 0) {
-            purchaseGoodsVoList = purchaseService.toListPurchaseByOrderNumber(order_number);
-            return purchaseGoodsVoList;
-        } else {
-            return null;
+        long order_number;
+        if (order_numberCookie != null) {
+            order_number = Long.parseLong(order_numberCookie);
+            //前台根据cookie中的订单号查询中间表的内容
+            if (order_number > 0) {
+                purchaseGoodsVoList = purchaseService.toListPurchaseByOrderNumber(order_number);
+                return purchaseGoodsVoList;
+            } else {
+                return null;
+            }
         }
+        return null;
     }
 
 
@@ -229,13 +233,17 @@ public class OrdersController {
     public Orders toListOrdersByOrderNum(HttpServletRequest request) {
         //获取cookie中的订单号
         String order_numberCookie = getorder_numberCookie(request);
-        long order_number = Long.parseLong(order_numberCookie);
-        if (order_number > 0) {
-            orders = ordersService.toListOrdersByOrderNum(order_number);
-            return orders;
-        } else {
-            return null;
+        long order_number;
+        if (order_numberCookie != null) {
+            order_number = Long.parseLong(order_numberCookie);
+            if (order_number > 0) {
+                orders = ordersService.toListOrdersByOrderNum(order_number);
+                return orders;
+            } else {
+                return null;
+            }
         }
+        return null;
     }
 
 
@@ -247,7 +255,7 @@ public class OrdersController {
     public List<PurchaseGoodsVo> toListPurchase(@PathVariable("ordersNum") Long ordersNum) {
 
         purchaseGoodsVoList = purchaseService.toListPurchaseByOrderNumber(ordersNum);
-        System.out.println(purchaseGoodsVoList+""+ordersNum);
+        System.out.println(purchaseGoodsVoList + "" + ordersNum);
         return purchaseGoodsVoList;
     }
 
@@ -256,11 +264,12 @@ public class OrdersController {
      * */
     @RequestMapping("/toListOrders")
     @ResponseBody
-    public Page<Orders> toListOrders(@RequestParam(name = "state") Integer state, @RequestParam(name = "page",defaultValue = "1") Integer page,
+    public Page<Orders> toListOrders(@RequestParam(name = "state") Integer state, @RequestParam(name = "page",
+            defaultValue = "1") Integer page,
                                      @RequestParam(defaultValue = "8") Integer rows) {
-        System.out.println(state+"状态");
+        System.out.println(state + "状态");
         Page<Orders> ordersList = ordersService.toListOrders(page, rows, state);
-        System.out.println(ordersList+"订单列表");
+        System.out.println(ordersList + "订单列表");
         return ordersList;
     }
 
@@ -276,11 +285,11 @@ public class OrdersController {
     /*
      * 线下订单付款，修改状态为2
      * */
-    @RequestMapping(value = "/toUpdateDown",method = RequestMethod.POST)
+    @RequestMapping(value = "/toUpdateDown", method = RequestMethod.POST)
     @ResponseBody
     public String toUpdateDown(@RequestParam("ordersNum") String ordersNum) {
-        long ordersNum1=Long.parseLong(ordersNum);
-        System.out.println(ordersNum+"订单号");
+        long ordersNum1 = Long.parseLong(ordersNum);
+        System.out.println(ordersNum + "订单号");
         ordersService.toUpdateDown(ordersNum1);
         return "success";
     }
@@ -288,25 +297,26 @@ public class OrdersController {
     /*
      * 删去订单中（中间表）的一条数据
      * */
-    @RequestMapping(value = "/toDeletePurchase",method = RequestMethod.POST)
+    @RequestMapping(value = "/toDeletePurchase", method = RequestMethod.POST)
     @ResponseBody
-    public String toDeletePurchase(@RequestParam(name = "id") Integer id,@RequestParam(name = "xiaoji") Integer xiaoji,
+    public String toDeletePurchase(@RequestParam(name = "id") Integer id, @RequestParam(name = "xiaoji") Integer xiaoji,
                                    @RequestParam(name = "ordersNum") Long ordersNum) {
         System.out.println(id);
-        ordersService.updateOrdersPrice(xiaoji,ordersNum);
+        ordersService.updateOrdersPrice(xiaoji, ordersNum);
         purchaseService.toDeletePurchase(id);
         return "success";
     }
+
     /*
      *  根据用户id查找用户订单
      * */
-    @RequestMapping(value = "findOrdersByUserId",method = RequestMethod.POST)
+    @RequestMapping(value = "findOrdersByUserId", method = RequestMethod.POST)
     @ResponseBody
-    public List<Orders> findOrdersByUserId(HttpServletRequest request){
+    public List<Orders> findOrdersByUserId(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        User user= (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         Integer id = user.getId();
-        ordersList=ordersService.findOrdersByUserId(id);
+        ordersList = ordersService.findOrdersByUserId(id);
         return ordersList;
     }
 

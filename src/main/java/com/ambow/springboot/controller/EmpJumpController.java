@@ -79,15 +79,16 @@ public class EmpJumpController {
 
     // 查看员工自己信息
     @RequestMapping("/toEmpBy")
-    public String toEmpby(HttpServletRequest request,Model model) {
+    public String toEmpby(HttpServletRequest request, Model model) {
       /*  HttpSession session=request.getSession();
         Emp emps= (Emp) session.getAttribute("emp");
         Integer empId = emps.getId();
         model.addAttribute("empId", empId);*/
         return "manager/emp/myInfo";
     }
+
     @RequestMapping("/toUpdatePassword")
-    public String toUpdatePassword(){
+    public String toUpdatePassword() {
 
         return "manager/emp/updatePassword";
     }
@@ -105,5 +106,21 @@ public class EmpJumpController {
     @RequestMapping("/toUserRegister")
     public String toUserRegister() {
         return "phone/user/register";
+    }
+
+
+    @RequestMapping("/toMy")
+    public String toMy() {
+        return "phone/user/my";
+    }
+
+    @RequestMapping("/toMyOrders")
+    public String toMyOrders() {
+        return "phone/user/myOrder";
+    }
+
+    @RequestMapping("/toMyIntegral")
+    public String toMyIntegral() {
+        return "phone/user/integral";
     }
 }

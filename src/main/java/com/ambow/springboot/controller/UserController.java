@@ -29,6 +29,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ResponseBody
+    @RequestMapping("/getMyUserInfo")
+    public User getMyUserInfo(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute("user");
+    }
+
     /*
      * 短信验证码登录
      * */
@@ -46,6 +52,8 @@ public class UserController {
             session.setAttribute("code", code);//验证码存session
             session.setAttribute("phone", phone);//验证码存session
             session.setMaxInactiveInterval(60 * 3);//设置短信有效时间
+            System.out.println(code);
+
             return "success";
         } else {
             //手机号未注册提醒注册
@@ -92,7 +100,6 @@ public class UserController {
             session.setAttribute("code", code);//验证码存session
             session.setAttribute("phone", phone);//手机号存session
             session.setMaxInactiveInterval(60 * 3);
-            System.out.println(code);
             return "success";
         }
     }
@@ -135,6 +142,13 @@ public class UserController {
                                @RequestParam(defaultValue = "4") Integer rows) {
         Page<User> listuser = userService.lsituser(page, rows);
         return listuser;
+    }
+
+    @ResponseBody
+    @RequestMapping("/getUser")
+    public User getUser(HttpServletRequest request) {
+        System.out.println(request.getSession().getAttribute("user"));
+        return (User) request.getSession().getAttribute("user");
     }
 }
 

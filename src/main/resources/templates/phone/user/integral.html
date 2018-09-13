@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>我的积分</title>
+    <meta name="keywords" content="KEYWORDS..."/>
+    <meta name="description" content="DESCRIPTION..."/>
+    <meta name="author" content="DeathGhost"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name='apple-touch-fullscreen' content='yes'/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/reset.css"/>
+    <script src="/phone/js/jquery.js"></script>
+</head>
+
+<body style="background-color: #fff;">
+<header>
+    <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
+    <h1>积分</h1>
+</header>
+<div style="height:1rem;"></div>
+
+<div class="clearfix integral-title">
+			<span>
+			<h2 class="f032 text-center padb03 bg-fff font-weight400 color999">您当前积分为（分）</h2>
+			<h1 class="f042 text-center bg-fff"><em class="" id="integral">50</em></h1>
+		</span>
+    <span>
+			<h2 class="f032 text-center padb03 bg-fff font-weight400 color999">可抵用（元）</h2>
+			<h1 class="f042 text-center bg-fff"><em class="" id="money">0.50</em></h1>
+		</span>
+</div>
+</body>
+<script>
+    window.onload = function () {
+        $.ajax({
+            url: "/login/getUser",
+            type: "get",
+            dataType: "json",
+            success(user) {
+                $("#integral").html(user.integral);
+                $("#money").html(user.integral / 100);
+            }
+        });
+    }
+</script>
+</html>
