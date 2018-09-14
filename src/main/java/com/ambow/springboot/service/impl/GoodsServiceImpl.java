@@ -32,6 +32,8 @@ public class GoodsServiceImpl implements GoodsService {
      * */
     @Override
     public void addGoods(Goods goods) {
+        goods.setDiscount(goods.getPrice());
+        goods.setNum(0);
         goodsMapper.insert(goods);
     }
 

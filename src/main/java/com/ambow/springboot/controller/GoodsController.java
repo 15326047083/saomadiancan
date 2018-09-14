@@ -9,16 +9,15 @@ import com.ambow.springboot.vo.GoodsTypeListVo;
 import com.ambow.springboot.vo.TypeGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
-@Controller
+
+@RestController
 @RequestMapping("/goods")
 public class GoodsController {
 
@@ -45,25 +44,23 @@ public class GoodsController {
     /*
      * 增加商品信息，判重
      * */
-    @RequestMapping("/toSave")
+    @RequestMapping(value = "/toSave",method = RequestMethod.POST)
     public String addGoods(Goods goods) {
         String name = goods.getName();
-        String typeId = goods.getTypeId();
         if (goodsService.selectByName(name) != null) {
             return "error";
         }
-        goodsService.addGoods(goods);//添加商品
-        goodsService.updateTypeNum(typeId);//给商品类型加一
+        goodsService.addGoods(goods);//添加类型
         return "success";
     }
 
     /*
      * 批量删除商品
      * */
-    @RequestMapping("/todelete/{ids}")
-    public String deleteGoods(@PathVariable("ids") Integer[] ids) {
-        if (ids != null && ids.length > 0) {
+    @RequestMapping("/todelete")
+    public String deleteGoods(@RequestParam(value = "ids[]")Integer[] ids) {
 
+        if (ids != null && ids.length > 0) {
             goodsService.deleteType(ids);
             return "success";
         } else {
@@ -75,6 +72,7 @@ public class GoodsController {
     /*
      * 修改商品，判重
      * */
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
     public String updateGoods(Goods goods) {
         String typeName = goods.getName();
         Goods goods1 = goodsService.selectByName(typeName);
@@ -95,9 +93,8 @@ public class GoodsController {
      * 查询所有商品，分页
      * */
     @RequestMapping("/toList")
-    @ResponseBody
     public Page<TypeGoodsVo> tolist(@RequestParam(defaultValue = "1") Integer page,
-                                    @RequestParam(defaultValue = "9") Integer rows) {
+                                    @RequestParam(defaultValue = "4") Integer rows) {
         Page<TypeGoodsVo> toList = goodsService.toList(page, rows);
         return toList;
     }
@@ -106,8 +103,15 @@ public class GoodsController {
      * 根据id查询商品
      * */
     @RequestMapping("/toUpdate/{id}")
-    @ResponseBody
-    public GoodsTypeListVo toUpdate(@PathVariable("id") Integer id) {
+    public Goods toUpdate(@PathVariable("id") Integer id) {
+        goods = goodsService.toUpdate(id);
+        return goods;
+    }
+    /*
+     * 查看
+     * */
+    @RequestMapping("/getGoodsById/{id}")
+    public GoodsTypeListVo getGoodsById(@PathVariable("id") Integer id) {
         goods = goodsService.toUpdate(id);
         typeList = typeService.toList();
         GoodsTypeListVo goodsTypeListVo = new GoodsTypeListVo();
@@ -117,7 +121,6 @@ public class GoodsController {
     }
 
     @RequestMapping("/queryAll")
-    @ResponseBody
     public List<Goods> queryAll() {
         return goodsService.queryAll();
     }

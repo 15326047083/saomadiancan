@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8"/>
@@ -13,14 +12,16 @@
 	</head>
 
 	<body class="body">
-		<input type="hidden" id="id" />
+
+		<input type="hidden" id="goodsid" name="goodid" th:value="${goodsid}"/>
 		<div class="layui-form-item">
 			<label class="layui-form-label">所属类别</label>
 			<div class="layui-input-block">
-				<input type="text" id="name" name="name" autocomplete="off" lay-verify="required" class="layui-input" readonly="readonly" />
+
+				<input type="text" id="typeid" name="typeid" autocomplete="off" lay-verify="required" class="layui-input" readonly="readonly" />
 			</div>
 		</div>
-		<input type="hidden" id="id" />
+
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜品名称</label>
 			<div class="layui-input-block">
@@ -51,15 +52,13 @@
 				<input type="text" id="endTime" name="endTime" autocomplete="off" lay-verify="required" class="layui-input" readonly="readonly" />
 			</div>
 		</div>
-		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label">菜品简介</label>
-			<div class="layui-input-block">
-				图书简介
-			</div>
+		<label class="layui-form-label">菜品简介</label>
+		<div class="layui-input-block">
+			<div id="info" name="info"></div>
 		</div>
 
 		<div class="layui-form-item">
-			<input type="button" class="layui-btn" lay-submit="" lay-filter="demo1" value="修改">
+
 			 <button type="reset" class="layui-btn layui-btn-primary" onclick="history.go(-1)">返回</button>
 		</div>
 
@@ -68,9 +67,12 @@
 </html>
 <script src="/frame/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="/js/menu.js"></script>
+<script type="text/javascript" src="/js/goods.js"></script>
+<script>
+    window.onload = getcheckgoods();
+</script>
 <script type="text/javascript">
-
+    window.onload = showtable();
 	layui.use(['form', 'layedit', 'laydate', 'element'], function() {
 		var form = layui.form,
 			layer = layui.layer,
@@ -81,18 +83,7 @@
 		//创建一个编辑器
 		var editIndex = layedit.build('LAY_demo_editor');
 
-		//自定义验证规则
-		form.verify({
-			title: function(value) {
-				if(value.length < 5) {
-					return '标题至少得5个字符啊';
-				}
-			},
-			pass: [/(.+){6,12}$/, '密码必须6到12位'],
-			content: function(value) {
-				layedit.sync(editIndex);
-			}
-		});
+
 
 		//监听提交
 		/*		form.on('submit(sub)', function(data) {

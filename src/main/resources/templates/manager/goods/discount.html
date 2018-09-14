@@ -13,7 +13,7 @@
 	</head>
 
 	<body class="body">
-		<form class="layui-form layui-form-pane" action="goodsList.html">
+		<form class="layui-form layui-form-pane" action="/goods/update">
 			
 			<input type="hidden" id="id" />
 			<div class="layui-form-item">
@@ -60,16 +60,17 @@
 <script src="/frame/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/js/menu.js"></script>
+<script type="text/javascript" src="/js/type.js"></script>
 <script type="text/javascript">
  function submitNewUser() {
  	var discount=$("#discount").val();
  	var price=$("#price").val()
- 
+
   	if(discount<1&&discount!=''){
  		alert("菜品单价要大于0的整数");
  		$("#discount").val('');
  	}
-  	
+
   	else if(discount>=price){
  		alert("折后价格应小于原价！");
  		$("#discount").val('');
@@ -77,7 +78,7 @@
  	if($("#endTime").val()<=$("#startTime").val()){
  		alert("结束时间应大于开始时间！");
  		$("#discount").val('');
- 		
+
  	}
  	return true;
  }

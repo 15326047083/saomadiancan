@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="renderer" content="webkit"/>
@@ -12,94 +11,94 @@
 	</head>
 
 	<body class="body">
-		<form class="layui-form layui-form-pane" action="goodsList.html">
-			<div class="layui-form-item">
+		<form class="layui-form layui-form-pane" id="form" onsubmit="return false" method="post">
+            <input type="hidden" id="goodsid" name="id" th:value="${goodsid}" />
+            <div class="layui-form-item">
 				<label class="layui-form-label">类型名称</label>
 				<div class="layui-input-block">
-					<select name="typeId" lay-filter="aihao" id="typeId">
-						<option value=""></option>
-						<option value="0">写作</option>
-						<option value="1" selected="">阅读</option>
-						<option value="2">游戏</option>
-						<option value="3">音乐</option>
-						<option value="4">旅行</option>
+					<select name="typeId" lay-filter="aihao" id="typeName">
+
 					</select>
 				</div>
 			</div>
-			<input type="hidden" id="id" name="id"/>
+
 			<div class="layui-form-item">
 				<label class="layui-form-label">菜品名称</label>
 				<div class="layui-input-block">
-					<input type="text" id="name" name="name" autocomplete="off" placeholder="请输入菜品名称" lay-verify="required" class="layui-input" />
+					<input type="text" id="name" name="name" autocomplete="off" placeholder="请输入菜品名称" lay-verify="required" class="layui-input" required="required"/>
+					<!--<span style="color: red" id="sname"></span>-->
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">菜品单价</label>
 				<div class="layui-input-block">
-					<input type="text" id="price" name="price" autocomplete="off" placeholder="请输入菜品单价（分）" lay-verify="required" class="layui-input" required/>
+					<input type="number" id="price" name="price" autocomplete="off" placeholder="请输入菜品单价（分）" lay-verify="price" class="layui-input"/>
+					<!--<span style="color: red" id="sprice"></span>-->
 				</div>
 			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">菜品折后价</label>
+				<div class="layui-input-block">
+					<input type="number" id="discount" name="discount" autocomplete="off" placeholder="请输入菜品折后价（分）"
+						   lay-verify="discount" class="layui-input"/>
+					<!--<span style="color: red" id="sdiscount"></span>-->
+				</div>
+			</div>
+			<input type="hidden" id="num" name="num"/>
 			<div class="layui-form-item layui-form-text">
 				<label class="layui-form-label">菜品简介</label>
 				<div class="layui-input-block">
-					<textarea class="layui-textarea layui-hide" name="info" lay-verify="content" id="LAY_demo_editor" required></textarea>
+            <textarea class="layui-textarea layui-hide" lay-verify="content"
+					  id="LAY_demo_editor"></textarea>
 				</div>
 			</div>
-
+			<textarea style="display: none" id="info" name="info"></textarea>
 			<div class="layui-form-item">
-				 <input type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" value="提交"
-                   onclick="return submitNewUser()">
-           
-			</div>
+			<button class="layui-btn" lay-submit="" lay-filter="sub">提交</button>
+		</div>
 		</form>
 	</body>
 
 </html>
 <script src="/frame/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="/js/menu.js"></script>
+<script type="text/javascript" src="/js/goods.js"></script>
+<script>
+    window.onload = getgoods();
+</script>
 <script type="text/javascript">
- function submitNewUser() {
-  	if($("#price").val()<1&&$("#price").val()!=''){
- 		alert("菜品单价要大于0的整数");
- 		$("#price").val('');
- 		//return false;
- 	}
- 	return true;
- }
-
+    var layedit;
+    var editIndex;
 	layui.use(['form', 'layedit', 'laydate', 'element'], function() {
 		var form = layui.form,
 			layer = layui.layer,
 			layedit = layui.layedit,
 			laydate = layui.laydate,
 			element = layui.element;
+        form.verify({
+            price: [/^([1-9]\d*|[0]{1,1})$/, "只能填写大于等于0的数字"],
+            discount: [/^([1-9]\d*|[0]{1,1})$/, "只能填写大于等于0的数字"]
+        });
+        form.on('submit(sub)', function (data) {
+            $("#info").val(layedit.getContent(editIndex));
+            $.ajax({
+                type: "post",
+                url:"/goods/update",
+                async: false,
+                data: $("#form").serialize(),
+                success(data) {
+                    if (data == 'success') {
+                        alert("修改成功");
+                        window.location.href = "/goodsJump/toGoodsList";
+                    }
+                    else {
+                        alert("名称重复");
+                        return false;
+                    }
 
-		//创建一个编辑器
-		var editIndex = layedit.build('LAY_demo_editor');
+                }
 
-		//自定义验证规则
-		form.verify({
-			title: function(value) {
-				if(value.length < 5) {
-					return '标题至少得5个字符啊';
-				}
-			},
-			pass: [/(.+){6,12}$/, '密码必须6到12位'],
-			content: function(value) {
-				layedit.sync(editIndex);
-			}
-		});
-
-		//监听提交
-/*		form.on('submit(sub)', function(data) {
-			layer.alert(JSON.stringify(data.field), {
-				title: '最终的提交信息'
-			});
-			return false;
-		});
-*/
-		// you code ...
-
+            });
+        });
 	});
 </script>
