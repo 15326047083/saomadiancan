@@ -41,7 +41,7 @@ public class JumpController {
     //前台评论页面
     @RequestMapping("/toDiscussList")
     public String toDiscussList(){return "phone/disscussList";}
-
+    //前台服务页面
     @RequestMapping("/toService")
     public String toService(){return "phone/service";}
 }
