@@ -22,7 +22,7 @@
 
 <span class="fr">
  				<div class="layui-input-inline">
-       				<select onclick="showtable(1,this.value)" name="state" autocomplete="off" class="layui-input" id="select">
+       				<select onchange="showtable(1,this.value)" name="state" autocomplete="off" class="layui-input" id="select">
 		            <option value="" selected="selected">全部订单</option>
 		            <option  value="0">未支付</option>
 		            <option  value="1">网上支付</option>
@@ -77,6 +77,9 @@
   	   </span>
 
 </div>
+
+<div id="mp3">
+</div>
 </body>
 
 </html>
@@ -84,6 +87,7 @@
 <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/js/orders.js"></script>
 <script type="text/javascript" src="/js/jquery-confirm.js"></script>
+<script type="text/javascript" src="/js/websocket.js"></script>
 <script>
     window.onload = showtable(1,$("#select").val());
     window.onload = tdColor();

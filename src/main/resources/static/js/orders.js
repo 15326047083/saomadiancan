@@ -2,10 +2,8 @@
 var page = 1;
 var allPage = 1;
 function showtable(p,state) {
-    console.log(p+" "+state+" "+allPage);
     if (p >= 1 && p <= allPage) {
         page = p;
-        console.log("状态："+state);
         $.ajax({
             type: "post",
             url: "/orders/toListOrders?page=" +p+"&state="+state,

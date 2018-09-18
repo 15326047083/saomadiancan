@@ -32,18 +32,19 @@ function deleteEmp(empId) {
         }
     });
 }
+
 //旧密码是否正确
 function checkEmpPassword() {
-    alert("dsad");
     $.ajax({
         type: "get",
         url: "/emp/emplistbypassowrd/" + $("#oldpassword").val(),
-        dataType:"data",
-        success(data="error") {
-            alert("旧密码不符合");
+        success(data) {
+            if (data == "error")
+                alert("旧密码不符合");
         }
     });
 }
+
 // 获取需要修改的员工信息
 function getEmp() {
     var roles;
@@ -81,11 +82,12 @@ function getEmp() {
         }
     });
 }
+
 //查看个人信息
 function getEmpby() {
     $.ajax({
         type: "get",
-        url: "/emp/toUpdate/"+$("#empid").val() ,
+        url: "/emp/toUpdate/" + $("#empid").val(),
         dataType: "json",
         error() {
         },
@@ -101,6 +103,7 @@ function getEmpby() {
     });
 
 }
+
 // 获取角色去重列表
 function getRolesList() {
     $.ajax({

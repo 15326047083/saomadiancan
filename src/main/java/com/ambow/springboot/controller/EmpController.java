@@ -19,22 +19,24 @@ public class EmpController {
 
     @Autowired
     EmpService empService;
+
     /*
      * 员工登录
      * */
     @ResponseBody
     @RequestMapping("/toEmplogin")
-    public  String  login(Emp emp, HttpServletRequest request){
+    public String login(Emp emp, HttpServletRequest request) {
 
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
 
-        Emp emps=empService.login(emp);
-        if (emps!=null){
-            session.setAttribute("emp",emps);
+        Emp emps = empService.login(emp);
+        if (emps != null) {
+            session.setAttribute("emp", emps);
             return "SUCCESS";
         }
         return "";
     }
+
     /**
      * 查看所有员工信息
      */
@@ -85,20 +87,21 @@ public class EmpController {
         List<Emp> empList = empService.toList();
         return empList;
     }
+
     /*
-    *根据empid和password查询
-    *
-    **/
+     *根据empid和password查询
+     *
+     **/
     @ResponseBody
-    @RequestMapping(value="/emplistbypassowrd/{password}")
-    public  String listempBypassword(@PathVariable("password") String  password,HttpServletRequest request){
-        HttpSession session=request.getSession();
-        Emp emps= (Emp) session.getAttribute("emp");
-        Integer   empId = emps.getId();
-        Emp empss=empService.selectByPassword(empId,password);
-        if(empss==null){
-        return "success";
-    }
+    @RequestMapping(value = "/emplistbypassowrd/{password}")
+    public String listempBypassword(@PathVariable("password") String password, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Emp emps = (Emp) session.getAttribute("emp");
+        Integer empId = emps.getId();
+        Emp empss = empService.selectByPassword(empId, password);
+        if (empss == null) {
+            return "success";
+        }
         return "error";
     }
 }

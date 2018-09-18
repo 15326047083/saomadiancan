@@ -1,11 +1,14 @@
 package com.ambow.springboot.controller;
 
+import com.ambow.springboot.WebSocket;
 import com.ambow.springboot.entity.Emp;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +18,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/empJump")
 public class EmpJumpController {
+    @Autowired
+    private WebSocket webSocket;
+
     // 新增员工
     @RequestMapping("/toEmpNew")
     public String toEmpNew() {
@@ -128,5 +134,15 @@ public class EmpJumpController {
     @RequestMapping("/toMyIntegral")
     public String toMyIntegral() {
         return "phone/user/integral";
+    }
+
+    // 呼叫服务员
+    @RequestMapping("/help")
+    @ResponseBody
+    public String help(HttpServletRequest request) {
+        //String deskNum = (String) request.getSession().getAttribute("deskNum");
+        String deskNum = "" + 5;
+        webSocket.sendMessage(deskNum);
+        return "success";
     }
 }

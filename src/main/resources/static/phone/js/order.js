@@ -36,7 +36,7 @@ function getOrder() {
                         "    <div class=\"order-set-paybutton\" style=\"margin-bottom: 0px;\">\n" +
                         "        <div onclick='backCart()' class=\"paybutton-left fl\" style=\"width: 40%;text-align: center;\">取消</div>\n" +
                         "        <div class=\"paybutton-right fr\" style=\"width: 60%;text-align: center;\">\n" +
-                        "            <a href=\"/empJump/toPay\">确认付款</a>\n" +
+                        "            <a href=\"/orders/toUpdateUp\">确认付款</a>\n" +
                         "        </div>\n" +
                         "        <div class=\"clearfix\"></div>\n" +
                         "    </div>\n" +
@@ -58,7 +58,7 @@ function getOrder() {
                         "    <nav>\n" +
                         "        <a href=\"/empJump/toGoodsList\" class=\"homeIcon addclasstruenav\"><img src=\"/phone/img/index1-1.png\"/>点餐</a>\n" +
                         "        <a href=\"/empJump/toOrder\" class=\"categoryIcon\"><img src=\"/phone/img/index2.png\"/>订单</a>\n" +
-                        "        <a href=\"service.html\" class=\"cartIcon numberCount\"><img src=\"/phone/img/index3.png\"/>服务</a>\n" +
+                        "        <a href=\"/jump/toService\" class=\"cartIcon numberCount\"><img src=\"/phone/img/index3.png\"/>服务</a>\n" +
                         "        <a href=\"/empJump/toMy\" class=\"userIcon\"><img src=\"/phone/img/index4.png\"/>我的</a>\n" +
                         "    </nav>");
                 }
@@ -69,7 +69,7 @@ function getOrder() {
                     "    <nav>\n" +
                     "        <a href=\"/empJump/toGoodsList\" class=\"homeIcon addclasstruenav\"><img src=\"/phone/img/index1-1.png\"/>点餐</a>\n" +
                     "        <a href=\"/empJump/toOrder\" class=\"categoryIcon\"><img src=\"/phone/img/index2.png\"/>订单</a>\n" +
-                    "        <a href=\"service.html\" class=\"cartIcon numberCount\"><img src=\"/phone/img/index3.png\"/>服务</a>\n" +
+                    "        <a href=\"/jump/toService\" class=\"cartIcon numberCount\"><img src=\"/phone/img/index3.png\"/>服务</a>\n" +
                     "        <a href=\"/empJump/toMy\" class=\"userIcon\"><img src=\"/phone/img/index4.png\"/>我的</a>\n" +
                     "    </nav>");
             }
