@@ -1,5 +1,7 @@
 package com.ambow.springboot.service;
 import com.ambow.springboot.entity.Emp;
+import com.ambow.springboot.entity.Goods;
+
 import java.util.List;
 
 
@@ -8,10 +10,15 @@ public interface EmpService {
      * 查看所有员工信息
      */
      List<Emp> toList();
+    /*
+     * 根据商品名查询
+     * */
+    Emp selectByName(String username);
+    /*
     /**
      * 增加员工信息
      */
-    int toSave(Emp emp);
+    void toSave(Emp emp);
     /**
      * 根据id删除员工信息
      */
@@ -19,7 +26,7 @@ public interface EmpService {
     /**
      * 修改员工信息
      */
-     int toUpdate(Emp emp);
+     void toUpdate(Emp emp);
     /**
      * 根据id查看员工信息
      */

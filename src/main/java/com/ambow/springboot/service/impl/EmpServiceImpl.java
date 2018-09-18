@@ -1,6 +1,7 @@
 package com.ambow.springboot.service.impl;
 
 import com.ambow.springboot.entity.Emp;
+import com.ambow.springboot.entity.Goods;
 import com.ambow.springboot.mapper.EmpMapper;
 import com.ambow.springboot.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,21 @@ public class EmpServiceImpl implements EmpService {
         List<Emp> emps = empMapper.getAll();
         return emps;
     }
-
+    /*
+     * 根据名字查找
+     * */
+    @Override
+    public Emp selectByName(String username) {
+        return empMapper.selectByName(username);
+    }
     /**
      * 增加员工信息
      */
     @Override
-    public int toSave(Emp emp) {
+    public void toSave(Emp emp) {
         emp.setEntryTime(new Date());
         emp.setPassword("123456");
-        return empMapper.insertSelective(emp);
+         empMapper.insertSelective(emp);
     }
 
     /**
@@ -45,8 +52,10 @@ public class EmpServiceImpl implements EmpService {
      * 修改员工信息
      */
     @Override
-    public int toUpdate(Emp emp) {
-        return empMapper.updateByPrimaryKeySelective(emp);
+    public void toUpdate(Emp emp) {
+
+                empMapper.updateByPrimaryKeySelective(emp);
+
     }
 
     /**

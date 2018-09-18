@@ -50,8 +50,13 @@ public class EmpController {
      * 添加员工信息
      */
     @RequestMapping(value = "/Save", method = RequestMethod.POST)
-    public int toSave(@ModelAttribute Emp emp) {
-        return empService.toSave(emp);
+    public String toSave(@ModelAttribute Emp emp) {
+        String username =emp.getUsername();
+        if (empService.selectByName(username) != null) {
+            return "error";
+        }
+        empService.toSave(emp);
+        return "success";
     }
 
     /**
@@ -66,8 +71,20 @@ public class EmpController {
      * 修改员工信息
      */
     @RequestMapping(value = "/Update")
-    public int toUpdate(@ModelAttribute Emp emp) {
-        return empService.toUpdate(emp);
+    public String toUpdate(@ModelAttribute Emp emp) {
+        String username = emp.getUsername();
+        Emp emp1 = empService.selectByName(username);
+        if (emp1 != null) {
+            if (emp1.getId() != emp1.getId()) {
+                return "error";
+            } else {
+                empService.toUpdate(emp);
+                return "success";
+            }
+        } else {
+            empService.toUpdate(emp);
+            return "success";
+        }
     }
 
     /**

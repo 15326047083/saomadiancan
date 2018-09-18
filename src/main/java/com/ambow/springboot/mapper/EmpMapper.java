@@ -1,6 +1,7 @@
 package com.ambow.springboot.mapper;
 
 import com.ambow.springboot.entity.Emp;
+import com.ambow.springboot.entity.Goods;
 import com.ambow.springboot.entity.Roles;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -54,4 +55,5 @@ public interface EmpMapper {
     Emp selectBypassword(@Param("empid") Integer empid,@Param("passowrd") String password);
     int updateByPrimaryKey(Emp record);
     int insert(Emp record);
+    Emp selectByName(String username);
 }

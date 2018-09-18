@@ -21,6 +21,15 @@
     <include refid="Base_Column_List" />
     from emp
   </select>
+  <!-- 得到员工用户名 -->
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    *
+    from emp
+    <where>
+      username = #{username,jdbcType=INTEGER}
+    </where>
+  </select>
   <!-- 根据id查找员工信息-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

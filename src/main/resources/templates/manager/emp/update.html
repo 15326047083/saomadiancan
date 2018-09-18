@@ -13,7 +13,7 @@
 </head>
 
 <body class="body">
-<form class="layui-form layui-form-pane" action="/emp/Update" id="form">
+<form class="layui-form layui-form-pane"  onsubmit="return false" id="form">
     <input type="hidden" id="id" name="id"/>
     <input type="hidden" id="empId" th:value="${empId}"/>
     <div class="layui-form-item">
@@ -27,7 +27,7 @@
         <label class="layui-form-label">用户名</label>
         <div class="layui-input-block">
             <input type="text" id="username" name="username" autocomplete="off" placeholder="请输入用户名"
-                   lay-verify="required" class="layui-input"/>
+                   lay-verify="required" class="layui-input" readonly="readonly"/>
         </div>
     </div>
     <div class="layui-form-item">
@@ -47,7 +47,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">基本工资</label>
         <div class="layui-input-block">
-            <input type="text" id="wage" name="wage" autocomplete="off" placeholder="请输入基本工资" lay-verify="required"
+            <input type="text" id="wage" name="wage" autocomplete="off" placeholder="请输入基本工资" lay-verify="wage"
                    class="layui-input"/>
         </div>
     </div>
@@ -55,7 +55,7 @@
         <label class="layui-form-label">提成工资</label>
         <div class="layui-input-block">
             <input type="text" id="ticheng" name="ticheng" autocomplete="off" placeholder="请输入提成工资"
-                   lay-verify="required" class="layui-input"/>
+                   lay-verify="ticheng" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
@@ -81,6 +81,11 @@
 
         //创建一个编辑器
         var editIndex = layedit.build('LAY_demo_editor');
+        form.verify({
+            wage: [/^([1-9]\d*|[0]{1,1})$/, "只能填写大于等于0的数字"],
+            ticheng: [/^([1-9]\d*|[0]{1,1})$/, "只能填写大于等于0的数字"]
+        });
+
         //监听提交
         form.on('submit(sub)', function (data) {
             $.ajax({
@@ -88,9 +93,17 @@
                 url: "/emp/Update",
                 data: $("#form").serialize(),
                 success(data) {
-                    alert("修改成功");
-                    window.location.href = "/empJump/toEmpList";
+                    if (data == 'success') {
+                        alert("修改成功");
+                        window.location.href = "/empJump/toEmpList";
+                    }
+                    else {
+                        alert("名称重复");
+                        return false;
+                    }
+
                 }
+
             });
         });
 
