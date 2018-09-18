@@ -44,4 +44,10 @@ public class JumpController {
     //前台服务页面
     @RequestMapping("/toService")
     public String toService(){return "phone/service";}
+
+    //欢迎页
+    @RequestMapping("/toWelcome")
+    public String toWelcome(){
+        return "/manager/welcome";
+    }
 }

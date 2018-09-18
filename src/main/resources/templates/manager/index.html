@@ -18,7 +18,7 @@
     <div class="layui-header my-header">
         <a href="index.html">
             <!--<img class="my-header-logo" src="" alt="logo">-->
-            <div class="my-header-logo">后台模板 HTML</div>
+            <div class="my-header-logo">主页</div>
         </a>
         <div class="my-header-btn">
             <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon">&#xe65f;</i></button>
@@ -61,9 +61,9 @@
             <!-- 左侧主菜单添加选项卡监听 -->
             <ul class="layui-nav layui-nav-tree" lay-filter="side-main" >
                 <li class="layui-nav-item  layui-nav-itemed">
-                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i>基础</a>
+                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i></a>
                     <dl class="layui-nav-child" id="menu">
-                         <dd><a href="javascript:;" href-url="../../demo/auxiliar.html"><i class="layui-icon">&#xe621;</i>辅助元素</a></dd>
+
                     </dl>
                 </li> </ul>
 
@@ -77,7 +77,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe id="iframe" src="welcome.html" frameborder="0"></iframe>
+                    <iframe id="iframe" src="/jump/toWelcome" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -122,6 +122,9 @@
         // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
         vipNav.top_left('../../json/nav_top_left.json', 'side-top-left', false);
 
+        setTimeout(function () {
+            layui.element.render('nav');
+        },2000);
         // you code ...
 
 

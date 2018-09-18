@@ -1,5 +1,6 @@
 //添加左侧菜单
 function addMenu() {
+	//$("#menu").remove();
 	$.ajax({
 		type: "get",
 		url: "/roles/getMean",
@@ -12,9 +13,8 @@ function addMenu() {
 
 			var u = $("#menu");
 			for(var i = 0; i < leng; i++) {
-				u.append("<dd><a href='javascript:;'><i class='layui-icon'>&#xe621;</i>" + json[i].meanName + "</a></dd>");
-				$("#menu dd a").attr("href-url", json[i]. meanUrl);
-
+				u.append("<dd><a href='javascript:;' href-url='"+ json[i]. meanUrl+"'>" + json[i].meanName + "</a></dd>");
+			//	$("#menu dd a").attr("href-url", json[i]. meanUrl);
 			}
 		}
 	});
