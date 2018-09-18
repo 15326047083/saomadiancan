@@ -85,9 +85,10 @@ function getEmp() {
 
 //查看个人信息
 function getEmpby() {
+
     $.ajax({
         type: "get",
-        url: "/emp/toUpdate/" + $("#empid").val(),
+        url: "/emp/toUpdate/" + $("#empId").val(),
         dataType: "json",
         error() {
         },
@@ -119,4 +120,29 @@ function getRolesList() {
             layui.form.render('select');
         }
     });
+}
+
+function flag() {
+    $("#p1").html("");
+    $("#p2").html("");
+    $("#p3").html("");
+    var password=$("#password").val();
+    var pwd=$("#pwd").val();
+    var newpassword=$("#newpassword").val();
+    var oldpassword=$("#oldpassword").val();
+    if(oldpassword!=pwd){
+        $("#p1").html("旧密码错误");
+        return false;
+    }
+    if(password!=newpassword){
+        $("#p3").html("两次密码不一致");
+        return false;
+    }
+    return true;
+}
+function updatePassword() {
+    if (flag()){
+alert("ok")
+    }
+
 }

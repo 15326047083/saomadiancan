@@ -83,6 +83,7 @@ public class EmpJumpController {
     }
 
 
+
     // 查看员工自己信息
     @RequestMapping("/toEmpBy")
     public String toEmpby(HttpServletRequest request, Model model) {
@@ -95,8 +96,10 @@ public class EmpJumpController {
 
     // 员工修改密码
     @RequestMapping("/toUpdatePassword")
-    public String toUpdatePassword() {
-
+    public String toUpdatePassword(HttpServletRequest request, Model model) {
+        HttpSession session=request.getSession();
+        Emp emp= (Emp) session.getAttribute("emp");
+        model.addAttribute("emp", emp);
         return "manager/emp/updatePassword";
     }
 

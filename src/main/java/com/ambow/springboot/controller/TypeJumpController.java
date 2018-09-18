@@ -71,21 +71,21 @@ public class TypeJumpController {
     /*
     * 日成本利润
     * */
-    @RequestMapping("costGain")
+    @RequestMapping("/costGain")
     public String costGain(){
         return "manager/report/costGain";
     }
     /*
      * 月成本利润
      * */
-    @RequestMapping("costGainMonth")
+    @RequestMapping("/costGainMonth")
     public String costGainMonth(){
         return "manager/report/costGainMonth";
     }
     /*
      * 年成本利润
      * */
-    @RequestMapping("costGainYear")
+    @RequestMapping("/costGainYear")
     public String costGainYear(){
         return "manager/report/coatGainYear";
     }
@@ -93,7 +93,7 @@ public class TypeJumpController {
     /*
      * 跳转到订单全查页面
      * */
-    @RequestMapping("ordersList")
+    @RequestMapping("/ordersList")
     public String ordersList(){
         return "manager/orders/list";
     }

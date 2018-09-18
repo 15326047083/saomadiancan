@@ -121,4 +121,17 @@ public class EmpController {
         }
         return "error";
     }
+    /**
+     *修改密码
+     */
+    @ResponseBody
+    @RequestMapping(value ="/toUpdatePassword/{password}" )
+    public String updatePassword(@PathVariable("password") String password,HttpServletRequest request){
+        HttpSession session=request.getSession();
+        Emp emp= (Emp) session.getAttribute("emp");
+        emp.setPassword(password);
+        empService.toUpdate(emp);
+        return "success";
+    }
+
 }

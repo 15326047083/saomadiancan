@@ -61,11 +61,26 @@
             <!-- 左侧主菜单添加选项卡监听 -->
             <ul class="layui-nav layui-nav-tree" lay-filter="side-main" >
                 <li class="layui-nav-item  layui-nav-itemed">
-                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i></a>
+                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i>基础菜单</a>
                     <dl class="layui-nav-child" id="menu">
 
                     </dl>
-                </li> </ul>
+                </li>
+
+                <li class="layui-nav-item  layui-nav-itemed" id="echarts">
+                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i>报表统计</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" href-url="/zhengJump/ordersDay">日销量</a></dd>
+                        <dd><a href="javascript:;" href-url="/zhengJump/ordersMonth">月销量</a></dd>
+                        <dd><a href="javascript:;" href-url="/zhengJump/goodsSale">商品销量</a></dd>
+                        <dd><a href="javascript:;" href-url="/zhengJump/hoursCustmer">客流量</a></dd>
+                        <dd><a href="javascript:;" href-url="/zhengJump/costGain">日成本利润</a></dd>
+                        <dd><a href="javascript:;" href-url="/zhengJump/costGainMonth">月成本利润</a></dd>
+                        <dd><a href="javascript:;" href-url="/zhengJump/costGainYear">年成本利润</a></dd>
+                    </dl>
+                </li>
+
+            </ul>
 
         </div>
     </div>
@@ -112,23 +127,26 @@
 </script>
 
 <script type="text/javascript">
-    layui.use(['layer', 'vip_nav'], function () {
+    layui.use(['layer','vip_nav'], function () {
 
         // 操作对象
-        var layer = layui.layer
-            , vipNav = layui.vip_nav
-            , $ = layui.jquery;
-
+        var layer       = layui.layer
+            ,vipNav     = layui.vip_nav
+            ,$          = layui.jquery;
+        //    ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
         // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-        vipNav.top_left('../../json/nav_top_left.json', 'side-top-left', false);
+        vipNav.top_left('./json/nav_top_left.json','side-top-left',false);
+        // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
+        vipNav.main('./json/nav_main.json','side-main',true);
 
-        setTimeout(function () {
-            layui.element.render('nav');
-        },2000);
         // you code ...
-
 
     });
 </script>
+<!--<ul class="layui-fixbar" style="left: 10px; bottom: 54px;">
+    <li class="layui-icon" lay-type="bar1" style=""></li>
+    <li class="layui-icon layui-fixbar-top" lay-type="top" style=""></li>
+</ul>
+<div class="layui-layer-move"></div>-->
 </body>
 </html>
