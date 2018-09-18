@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ambow.springboot.mapper.TypeMapper">
-    <resultMap id="BaseResultMap" type="com.ambow.springboot.entity.Type">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="num" property="num" jdbcType="INTEGER"/>
-    </resultMap>
-    <resultMap id="BaseResultMap1" type="com.ambow.springboot.entity.Goods">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="type_id" property="typeId" jdbcType="VARCHAR"/>
-        <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="price" property="price" jdbcType="INTEGER"/>
-        <result column="discount" property="discount" jdbcType="INTEGER"/>
-        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
-        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
-        <result column="num" property="num" jdbcType="INTEGER"/>
-    </resultMap>
-    <sql id="Base_Column_List">
+        <resultMap id="BaseResultMap" type="com.ambow.springboot.entity.Type">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="name" property="name" jdbcType="VARCHAR"/>
+            <result column="num" property="num" jdbcType="INTEGER"/>
+        </resultMap>
+        <resultMap id="BaseResultMap1" type="com.ambow.springboot.entity.Goods">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="type_id" property="typeId" jdbcType="VARCHAR"/>
+            <result column="name" property="name" jdbcType="VARCHAR"/>
+            <result column="price" property="price" jdbcType="INTEGER"/>
+            <result column="discount" property="discount" jdbcType="INTEGER"/>
+            <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+            <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+            <result column="num" property="num" jdbcType="INTEGER"/>
+        </resultMap>
+        <sql id="Base_Column_List">
     id, name, num
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -65,7 +65,8 @@
         update type
         <set>
             <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+                name = #{name,jdbcType=
+                },
             </if>
             <if test="num != null">
                 num = #{num,jdbcType=INTEGER},

@@ -26,7 +26,7 @@ function getBuyList(p) {
         });
     }
 }
-
+/*
 function submitNewUser() {
     if ($("#price").val() < 1 && $("#price").val() != '') {
         alert("物品单价要大于0的整数");
@@ -38,16 +38,8 @@ function submitNewUser() {
         $("#num").val('');
         return false;
     }
-    $.ajax({
-        type: "post",
-        data: $("#form").serialize(),
-        success() {
-            alert("添加成功");
-            window.location.href = "/empJump/toBuyList";
-        }
-    });
-    return true;
-}
+
+}*/
 
 function getCaigouEmpList() {
     $.ajax({

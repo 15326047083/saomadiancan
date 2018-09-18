@@ -3,23 +3,21 @@ package com.ambow.springboot.util;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dm.model.v20151123.SingleSendMailRequest;
-import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
+
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
 import com.ambow.springboot.service.OrdersService;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
+
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
-import javax.mail.Transport;
+
 import javax.mail.internet.MimeBodyPart;
 
 import javax.mail.internet.MimeMultipart;

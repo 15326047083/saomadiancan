@@ -13,7 +13,7 @@
 </head>
 
 <body class="body">
-<form class="layui-form layui-form-pane" id="form" action="/buy/tosave" method="post">
+<form class="layui-form layui-form-pane" id="form" onsubmit="return false" method="post">
 
     <div class="layui-form-item">
         <label class="layui-form-label">采购员</label>
@@ -27,19 +27,20 @@
         <div class="layui-input-block">
             <input type="text" id="name" name="name" autocomplete="off" placeholder="请输入物品名称" lay-verify="required"
                    class="layui-input" maxlength="20"/>
+
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">单价</label>
         <div class="layui-input-block">
             <input type="number" id="price" name="price" autocomplete="off" placeholder="请输入物品单价（分）"
-                   lay-verify="required" class="layui-input" maxlength="20"/>
+                   lay-verify="price" class="layui-input" maxlength="20"/>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">数量</label>
         <div class="layui-input-block">
-            <input type="number" id="num" name="num" autocomplete="off" placeholder="请输入物品数量" lay-verify="required"
+            <input type="number" id="num" name="num" autocomplete="off" placeholder="请输入物品数量" lay-verify="num"
                    class="layui-input" maxlength="20"/>
         </div>
     </div>
@@ -54,7 +55,7 @@
 
 
     <div class="layui-form-item">
-        <button class="layui-btn" onclick="return submitNewUser()">提交</button>
+        <button class="layui-btn"  lay-submit="" lay-filter="ss">提交</button>
         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 
     </div>
@@ -74,9 +75,30 @@
             laydate = layui.laydate,
             element = layui.element;
 
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-        //监听提交
-        // you code ...
+        form.verify({
+            price: [/^([1-9]\d*|[0]{1,1})$/, "只能填写大于等于0的数字"],
+            num:[/^([1-9]\d*|[0]{1,1})$/, "只能填写大于等于0的数字"]
+        });
+        form.on('submit(ss)', function (data) {
+
+            $.ajax({
+                type: "post",
+                url: "/buy/tosave",
+                async: false,
+                data: $("#form").serialize(),
+                success(data) {
+
+                    if (data == 'success') {
+                        alert("添加成功!");
+                        window.location.href = "/jump/toBuyList";
+                    }else{
+                        alert("添加失败!");
+                        return false;
+                    }
+
+                }
+            });
+        });
     });
+
 </script>

@@ -86,10 +86,10 @@ public class EmpJumpController {
     // 查看员工自己信息
     @RequestMapping("/toEmpBy")
     public String toEmpby(HttpServletRequest request, Model model) {
-      /*  HttpSession session=request.getSession();
+        HttpSession session=request.getSession();
         Emp emps= (Emp) session.getAttribute("emp");
         Integer empId = emps.getId();
-        model.addAttribute("empId", empId);*/
+        model.addAttribute("empId", empId);
         return "manager/emp/myInfo";
     }
 
