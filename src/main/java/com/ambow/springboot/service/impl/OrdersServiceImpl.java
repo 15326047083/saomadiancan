@@ -61,8 +61,8 @@ public class OrdersServiceImpl implements OrdersService {
     * 网上支付修改状态为1
     * */
     @Override
-    public void toUpdateUp(Long orders_num) {
-        ordersMapper.toUpdateUp(orders_num);
+    public void toUpdateUp(Long orders_num,Integer all_price) {
+        ordersMapper.toUpdateUp(orders_num,all_price);
     }
 
     /*
@@ -157,5 +157,11 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public void updateOrdersPrice(Integer xiaoji, Long orderNum) {
         ordersMapper.updateOrdersPrice(xiaoji,orderNum);
+    }
+
+    @Override
+    public void deleteByNum(Long ordersNum) {
+        ordersMapper.deleteByNum(ordersNum);
+        ordersMapper.deletePurchaseByNum(ordersNum);
     }
 }

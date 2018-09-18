@@ -277,8 +277,8 @@ public class OrdersController {
      * 网上订单付款，修改状态为1
      * */
     @RequestMapping("/toUpdateUp")
-    public String toUpdateUp(Long orders_num) {
-        ordersService.toUpdateUp(orders_num);
+    public String toUpdateUp(Long orders_num,Integer all_price) {
+        ordersService.toUpdateUp(orders_num,all_price);
         return "success";
     }
 
@@ -318,6 +318,16 @@ public class OrdersController {
         Integer id = user.getId();
         ordersList = ordersService.findOrdersByUserId(id);
         return ordersList;
+    }
+    /*
+    * 根据订单号删除订单与中间表数据
+    * */
+    @RequestMapping(value = "deleteByNum/{ordersNum}",method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteByNum(@PathVariable(name = "ordersNum")Long ordersNum){
+
+        ordersService.deleteByNum(ordersNum);
+        return "";
     }
 
 }

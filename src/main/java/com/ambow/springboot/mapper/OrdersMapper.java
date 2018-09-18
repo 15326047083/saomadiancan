@@ -34,7 +34,7 @@ public interface OrdersMapper {
     /*
     * 网上支付修改状态
     * */
-    void toUpdateUp(@PathVariable("orders_num") Long orders_num);
+    void toUpdateUp(@PathVariable("orders_num") Long orders_num,@PathVariable("all_price")Integer all_price);
     /*
      * 线下支付修改状态
      * */
@@ -91,7 +91,12 @@ public interface OrdersMapper {
     * 退菜修改钱
     * */
     void updateOrdersPrice(@Param("xiaoji") Integer xiaoji,@Param("ordersNum") Long orderNum);
-
-
-
+    /*
+    * 根据订单号删除订单
+    * */
+    void deleteByNum(@Param("ordersNum") Long ordersNum);
+    /*
+    * 根据订单号删除订单中间表
+    * */
+    void deletePurchaseByNum(@Param("ordersNum")Long ordersNum);
 }

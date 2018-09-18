@@ -25,7 +25,7 @@ public class OrdersTest {
     @Test
     public void toUpdateUp(){
         long orders_num=1234567898;
-        ordersMapper.toUpdateUp(orders_num);
+        //ordersMapper.toUpdateUp(orders_num);
     }
     /*
      * 网上支付修改状态测试

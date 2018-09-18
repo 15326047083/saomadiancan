@@ -152,11 +152,13 @@
 
   <update id="toUpdateUp" parameterType="com.ambow.springboot.entity.Orders" >
 
-    update orders
-    <set >
-        state = 1,
+    update orders o,user u
+    <set>
+        o.state = 1,
+        u.all_price= u.all_price+${all_price}
     </set>
     where order_num = #{orders_num,jdbcType=BIGINT}
+    and o.user_id=u.id
   </update>
   <update id="toUpdateDown" parameterType="com.ambow.springboot.entity.Orders" >
 
@@ -304,4 +306,11 @@
   <update id="updateOrdersPrice">
   update orders set all_price=all_price-#{xiaoji} where order_num=#{ordersNum}
 </update>
+
+  <delete id="deleteByNum" parameterType="Long">
+    delete from orders where order_num=#{ordersNum}
+  </delete>
+  <delete id="deletePurchaseByNum" parameterType="Long">
+    delete from purchase where order_num=#{ordersNum}
+  </delete>
 </mapper>

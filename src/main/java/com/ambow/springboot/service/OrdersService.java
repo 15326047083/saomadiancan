@@ -13,7 +13,7 @@ public interface OrdersService {
 
     Page<Orders> toListOrders(Integer page, Integer rows, Integer state);
 
-    void toUpdateUp(Long orders_num);
+    void toUpdateUp(Long orders_num,Integer all_price);
 
     void toUpdateDown(Long orders_num);
 
@@ -36,4 +36,6 @@ public interface OrdersService {
     List<Orders> findOrdersByUserId(Integer id);
 
     void updateOrdersPrice(Integer xiaoji, Long orderNum);
+
+    void deleteByNum(Long ordersNum);
 }
