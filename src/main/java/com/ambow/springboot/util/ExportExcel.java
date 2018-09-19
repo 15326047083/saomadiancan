@@ -331,7 +331,6 @@ public class ExportExcel {
         XSSFWorkbook workbook = null;
         //导出Excel对象
         workbook = exportExcelInfo();
-        System.out.println(workbook);
         /*OutputStream output;*/
         try {
             FileOutputStream fileOut = new FileOutputStream("target/classes/upload/workbook.xls");

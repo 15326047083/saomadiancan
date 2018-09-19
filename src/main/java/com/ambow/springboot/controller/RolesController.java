@@ -34,7 +34,6 @@ public class RolesController {
         for (Roles r : roles) {
             rolesSet.add(r.getName());
         }
-        System.out.println(rolesSet.toString());
         return rolesSet;
     }
 

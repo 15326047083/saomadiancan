@@ -35,9 +35,7 @@ public class TypeController {
     @RequestMapping(value = "/toUpdate/{id}",method = RequestMethod.POST)
     @ResponseBody
     public Type toUpdate(@PathVariable("id") Integer id){
-        System.out.println("进入toUpdate");
         type=typeService.toUpdate(id);
-        System.out.println(type);
         return type;
     }
 
@@ -49,12 +47,9 @@ public class TypeController {
     @ResponseBody
     public String update(Type type){
         String typeName = type.getName();
-        System.out.println(typeName+"接收到的值");
         Type type1 = typeService.selectByName(typeName);
-        System.out.println(type1+"type1");
         if (type1 != null) {
             if (type1.getId() != type.getId()) {
-                System.out.println("判重成功");
                 return "error";
             } else {
                 typeService.updateByPrimaryKeySelective(type);
@@ -72,10 +67,8 @@ public class TypeController {
     @RequestMapping(value = "/toSave",method = RequestMethod.POST)
     @ResponseBody
     public String addType(Type type) {
-        System.out.println("添加操作"+type);
         String name=type.getName();
         if (typeService.selectByName(name) != null) {
-            System.out.println("判重成功");
             return "error";
         }
         typeService.addType(type);//添加类型
@@ -88,7 +81,6 @@ public class TypeController {
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.POST)
     @ResponseBody
     public String deleteType(@PathVariable("id") int id){
-        System.out.println("进入删除");
         typeService.deleteType(id);
             return "success";
 

@@ -42,14 +42,10 @@ public class GoodsServiceImpl implements GoodsService {
      * */
     @Override
     public void deleteType(int ids) {
-        System.out.println(ids);
-        Goods goods=goodsMapper.findTypeIdById(ids);
-        System.out.println(goods.getTypeId());
-        String typeId=goods.getTypeId();
+        Goods goods = goodsMapper.findTypeIdById(ids);
+        String typeId = goods.getTypeId();
         goodsMapper.updateTypeNumdown(typeId);
         goodsMapper.deleteByPrimaryKey(ids);
-        System.out.println(ids+"第二次");
-
         //goodsMapper.updateTypeNumdown2(ids);
 
     }
@@ -100,19 +96,24 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     /*
-    * 添加商品商品类型数量加一
-    * */
+     * 添加商品商品类型数量加一
+     * */
     @Override
     public void updateTypeNum(String typeId) {
         goodsMapper.updateTypeNum(typeId);
     }
 
     /*
-    *添加商品商品类型数量减一
-    * */
+     *添加商品商品类型数量减一
+     * */
     @Override
     public void updateTypeNumDown(int typeId) {
         //goodsMapper.updateTypeNum(typeId);
+    }
+
+    @Override
+    public List<Goods> getLimit() {
+        return goodsMapper.getLimit();
     }
 
 

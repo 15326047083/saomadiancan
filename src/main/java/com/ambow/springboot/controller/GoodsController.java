@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 
 
-
 @RestController
 @RequestMapping("/goods")
 public class GoodsController {
@@ -30,6 +29,16 @@ public class GoodsController {
     private List<Goods> goodsList = null;
     private Goods goods = null;
     private List<Type> typeList;
+
+    /**
+     * 随机获取两个推荐菜品
+     *
+     * @return
+     */
+    @RequestMapping("/getLimit")
+    public List<Goods> getLimit() {
+        return goodsService.getLimit();
+    }
 
     /*
      * 点击添加按钮，先显示商品类型
@@ -47,7 +56,7 @@ public class GoodsController {
     @RequestMapping(value = "/toSave")
     public String addGoods(Goods goods) {
         String name = goods.getName();
-        String typeId=goods.getTypeId();
+        String typeId = goods.getTypeId();
 
         if (goodsService.selectByName(name) != null) {
             return "error";
@@ -60,11 +69,10 @@ public class GoodsController {
     /*
      * 批量删除商品
      * */
-    @RequestMapping(value = "/todelete",method = RequestMethod.POST)
+    @RequestMapping(value = "/todelete", method = RequestMethod.POST)
     public String deleteGoods(@RequestParam(name = "ids") Integer[] ids) {
-        System.out.println(ids.length+"aaaaaa");
         if (ids != null && ids.length > 0) {
-            for(int i=0;i<ids.length;i++) {
+            for (int i = 0; i < ids.length; i++) {
 
                 goodsService.deleteType(ids[i]);
 
@@ -79,7 +87,7 @@ public class GoodsController {
     /*
      * 修改商品，判重
      * */
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateGoods(Goods goods) {
         String typeName = goods.getName();
         Goods goods1 = goodsService.selectByName(typeName);
@@ -114,6 +122,7 @@ public class GoodsController {
         goods = goodsService.toUpdate(id);
         return goods;
     }
+
     /*
      * 查看
      * */

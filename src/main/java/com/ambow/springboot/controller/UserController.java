@@ -52,7 +52,6 @@ public class UserController {
             session.setAttribute("code", code);//验证码存session
             session.setAttribute("phone", phone);//验证码存session
             session.setMaxInactiveInterval(60 * 3);//设置短信有效时间
-            System.out.println(code);
 
             return "success";
         } else {
@@ -147,7 +146,6 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/getUser")
     public User getUser(HttpServletRequest request) {
-        System.out.println(request.getSession().getAttribute("user"));
         return (User) request.getSession().getAttribute("user");
     }
 }

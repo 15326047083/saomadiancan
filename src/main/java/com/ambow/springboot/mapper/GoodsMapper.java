@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface GoodsMapper {
+    List<Goods> getLimit();
+
     int deleteByPrimaryKey(@Param("ids") int ids);
 
     int insert(Goods record);
@@ -34,9 +36,10 @@ public interface GoodsMapper {
 
     void updateTypeNumdown(@Param("ids") String id);
 
-    void updateTypeNumdown2(@Param("ids")int ids);
+    void updateTypeNumdown2(@Param("ids") int ids);
+
     /*
-    * 根据商品id查找类型id
-    * */
-    Goods findTypeIdById(@Param("ids")int ids);
+     * 根据商品id查找类型id
+     * */
+    Goods findTypeIdById(@Param("ids") int ids);
 }

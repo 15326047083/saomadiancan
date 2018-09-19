@@ -32,7 +32,6 @@ public class NavigationTag extends TagSupport {
             if (page.getTotal() % page.getSize() > 0) {
                 pageCount++;
             }
-            System.out.println("errors" + pageCount);
             writer.print("<nav><ul class=\"pagination\">");
 
             String homeUrl = append(url, "page", 1);

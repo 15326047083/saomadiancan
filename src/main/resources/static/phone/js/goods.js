@@ -1,3 +1,4 @@
+
 function getGoodsList() {
     var str1 = "<li class=\"clearfix\">";
     var str3 = "<div class=\"menu-txt\">";
@@ -42,8 +43,7 @@ function getGoodsList() {
                             cartNum = data;
                         }
                     });
-                    var img = "/empJump/imgShow/" +
-                        data[i].id ;
+                    var img = "/empJump/imgShow/" + data[i].id;
                     var str2 = "<div class=\"menu-img\"><img src=\"" + img + "\" width=\"55\" height=\"55\"/></div>";
                     var goodsName = data[i].name;
                     var str4 = "<h4>" + goodsName + "</h4>";

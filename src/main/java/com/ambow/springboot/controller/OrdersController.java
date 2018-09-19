@@ -256,7 +256,6 @@ public class OrdersController {
     public List<PurchaseGoodsVo> toListPurchase(@PathVariable("ordersNum") Long ordersNum) {
 
         purchaseGoodsVoList = purchaseService.toListPurchaseByOrderNumber(ordersNum);
-        System.out.println(purchaseGoodsVoList + "" + ordersNum);
         return purchaseGoodsVoList;
     }
 
@@ -268,9 +267,7 @@ public class OrdersController {
     public Page<Orders> toListOrders(@RequestParam(name = "state") Integer state, @RequestParam(name = "page",
             defaultValue = "1") Integer page,
                                      @RequestParam(defaultValue = "8") Integer rows) {
-        System.out.println(state + "状态");
         Page<Orders> ordersList = ordersService.toListOrders(page, rows, state);
-        System.out.println(ordersList + "订单列表");
         return ordersList;
     }
 
@@ -313,7 +310,6 @@ public class OrdersController {
     @ResponseBody
     public String toUpdateDown(@RequestParam("ordersNum") String ordersNum) {
         long ordersNum1 = Long.parseLong(ordersNum);
-        System.out.println(ordersNum + "订单号");
         ordersService.toUpdateDown(ordersNum1);
         webSocket.sendMessage("有新的订单");
         return "success";
@@ -326,7 +322,6 @@ public class OrdersController {
     @ResponseBody
     public String toDeletePurchase(@RequestParam(name = "id") Integer id, @RequestParam(name = "xiaoji") Integer xiaoji,
                                    @RequestParam(name = "ordersNum") Long ordersNum) {
-        System.out.println(id);
         ordersService.updateOrdersPrice(xiaoji, ordersNum);
         purchaseService.toDeletePurchase(id);
         return "success";

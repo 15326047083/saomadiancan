@@ -18,12 +18,12 @@ function goodstable(p) {
                 for (var i = 0; i < data.rows.length; i++) {
                     // var t1 = $("#table1 tbody");
                     var trtd = "<td><input type='checkbox' name='click' value='" + data.rows[i].goodsId + "' /></td><td>" + data.rows[i].goodsId + "</td><td>" + data.rows[i].typeName + "</td><td>" + data.rows[i].goodsName + "</td><td>" + data.rows[i].goodsPrice +
-                        "</td><td>" + data.rows[i].goodsDiscount + "</td><td>" + data.rows[i].goodsStartTime + "</td><td>" + data.rows[i].goodsEndTime + "</td>";
+                        "</td><td>" + data.rows[i].goodsDiscount + "</td>";
                     var tdbutten = "<td><a href='/goodsJump/toGoodsUpdate/" + data.rows[i].goodsId +
                         "'><button class='layui-btn layui-btn-primary layui-btn-small'>修改</button></a>" +
                         "<a href='/goodsJump/toGoodsShow/" + data.rows[i].goodsId +
                         "'><button class='layui-btn layui-btn-primary layui-btn-small'>查看</button></a>" +
-                        "<form action='/empJump/upload' method='post' enctype='multipart/form-data' id='form" + data.rows[i].goodsId + "'><input type='file' onchange='fileUpload(" + data.rows[i].goodsId + ")' name='file'/><input name='goodsId' value='" + data.rows[i].goodsId + "'/></form></td>";
+                        "<form action='/empJump/upload' method='post' enctype='multipart/form-data' id='form" + data.rows[i].goodsId + "'><input type='file' onchange='fileUpload(" + data.rows[i].goodsId + ")' name='file'/><input type='hidden' name='goodsId' value='" + data.rows[i].goodsId + "'/></form></td>";
                     $("#table1 tbody").append("<tr>" + trtd + tdbutten + "</tr>");
                 }
             }

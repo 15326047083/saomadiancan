@@ -210,12 +210,10 @@ public class EmpJumpController {
      * @throws IOException 抛出异常
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    @ResponseBody
     public String upload(HttpServletRequest request, @RequestParam("file") MultipartFile file, @RequestParam("goodsId")
             Integer goodsId) throws IOException {
         //服务器上使用
         String rootPath = request.getSession().getServletContext().getRealPath("/resource/uploads/");//target的目录
-        System.out.println(rootPath);
         //原始名称
         String originalFilename = file.getOriginalFilename();
         //新的文件名称
@@ -239,7 +237,7 @@ public class EmpJumpController {
         map2.put("src", fileUrl);//图片url
         map2.put("title", newFileName);//图片名称，这个会显示在输入框里
         String result = new JSONObject(map).toString();
-        return result;
+        return "redirect:/goodsJump/toGoodsList";
     }
 
     /**

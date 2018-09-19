@@ -32,7 +32,6 @@ public class TypeJumpController {
     * */
     @RequestMapping("/toUpdate/{id}")
     public String toUpdate(@PathVariable("id") Integer id, Model model) {
-        System.out.println(id);
         model.addAttribute("id", id);
         return "manager/type/updateType";
     }

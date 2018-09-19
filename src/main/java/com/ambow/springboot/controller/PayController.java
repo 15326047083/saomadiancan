@@ -20,7 +20,6 @@ public class PayController {
 	@RequestMapping("/pay")
 	@ResponseBody
 	public Map<String, Object> pay(HttpServletRequest request, String price, int istype) {
-		System.out.println("进来了");
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> remoteMap = new HashMap<String, Object>();
 		remoteMap.put("price", price);
@@ -35,7 +34,6 @@ public class PayController {
 		resultMap.put("data", PayUtil.payOrder(remoteMap));
 		resultMap.put("code", 1);
 		resultMap.put("msg", "错误啦");
-		System.out.println(remoteMap);
 		return resultMap;
 	}
 

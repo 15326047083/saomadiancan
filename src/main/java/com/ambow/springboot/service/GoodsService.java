@@ -38,4 +38,6 @@ public interface GoodsService {
     void updateTypeNum(String typeId);
 
     void updateTypeNumDown(int ids);
+
+    List<Goods> getLimit();
 }

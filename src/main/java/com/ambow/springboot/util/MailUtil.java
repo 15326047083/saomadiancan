@@ -77,7 +77,6 @@ public class MailUtil {
         } catch (MessagingException e) {
             String err = e.getMessage();
             // 在这里处理message内容， 格式是固定的
-            System.out.println(err);
         }
     }
 
@@ -121,7 +120,6 @@ public class MailUtil {
         } catch (Exception e) {
             String err = e.getMessage();
             // 在这里处理message内容， 格式是固定的
-            System.out.println(err);
         }
 
     }
@@ -156,7 +154,6 @@ public class MailUtil {
             return Session.getInstance(props, authenticator);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("mail session is null");
         }
         return null;
     }

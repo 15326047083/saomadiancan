@@ -71,12 +71,12 @@ public class OrdersServiceImpl implements OrdersService {
         if (request.getSession().getAttribute("user") != null && !request.getSession().getAttribute("user").equals
                 ("")) {
             User user = (User) request.getSession().getAttribute("user");
-            user.setIntegral(user.getIntegral() + all_price);
-            userMapper.updateByPrimaryKeySelective(user);
             all_price = all_price - user.getIntegral() / 100;
-            ordersMapper.updateStateNoUser(orders_num,all_price);
+            user.setIntegral(all_price);
+            userMapper.updateByPrimaryKeySelective(user);
+            ordersMapper.updateStateNoUser(orders_num, all_price);
         } else
-            ordersMapper.updateStateNoUser(orders_num,all_price);
+            ordersMapper.updateStateNoUser(orders_num, all_price);
     }
 
     /*

@@ -65,7 +65,7 @@
         update type
         <set>
             <if test="name != null">
-                name = #{name,jdbcType=
+                name = #{name
                 },
             </if>
             <if test="num != null">

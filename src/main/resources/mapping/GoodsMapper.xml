@@ -226,15 +226,18 @@
         t.id in(select g.type_id from goods g where
         <foreach item="ids" collection="array" open="g.id in ("
                  separator="," close=")">
-           #{ids}
+            #{ids}
         </foreach>)
     </update>
 
-    <update id="updateTypeNumdown"  parameterType="String">
+    <update id="updateTypeNumdown" parameterType="String">
         update type set num=num-1 where id = #{ids}
     </update>
 
     <select id="findTypeIdById" parameterType="Integer" resultMap="BaseResultMap">
         select * from goods where id=#{ids}
+    </select>
+    <select id="getLimit" resultMap="BaseResultMap">
+        SELECT * FROM goods ORDER BY RAND() LIMIT 2
     </select>
 </mapper>

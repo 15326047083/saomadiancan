@@ -12,7 +12,7 @@ var allPage = 1;
 //获取列表
 function getDiscussList(p) {
     $("#downShow").remove();
-    var str1="<dd><div class=\"evaluate\"><div class=\"evaluate-fl\"><span><img src=\"/phone/img/index (1).png\"/></span><span><p>匿名评论</p><p class=\"color999\">";
+    var str1="<dd><div class=\"evaluate\"><div class=\"evaluate-fl\"><span><img src=\"/phone/img/people.png\"/></span><span><p>匿名评论</p><p class=\"color999\">";
     //评论时间
     var disTime="";
     var str2="</p></span></div><div class=\"evaluate-fr\">";
