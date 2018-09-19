@@ -44,24 +44,31 @@ public class GoodsController {
     /*
      * 增加商品信息，判重
      * */
-    @RequestMapping(value = "/toSave",method = RequestMethod.POST)
+    @RequestMapping(value = "/toSave")
     public String addGoods(Goods goods) {
         String name = goods.getName();
+        String typeId=goods.getTypeId();
+
         if (goodsService.selectByName(name) != null) {
             return "error";
         }
         goodsService.addGoods(goods);//添加类型
+        goodsService.updateTypeNum(typeId);//根据类型id
         return "success";
     }
 
     /*
      * 批量删除商品
      * */
-    @RequestMapping("/todelete")
-    public String deleteGoods(@RequestParam(value = "ids[]")Integer[] ids) {
-
+    @RequestMapping(value = "/todelete",method = RequestMethod.POST)
+    public String deleteGoods(@RequestParam(name = "ids") Integer[] ids) {
+        System.out.println(ids.length+"aaaaaa");
         if (ids != null && ids.length > 0) {
-            goodsService.deleteType(ids);
+            for(int i=0;i<ids.length;i++) {
+
+                goodsService.deleteType(ids[i]);
+
+            }
             return "success";
         } else {
             return "error";

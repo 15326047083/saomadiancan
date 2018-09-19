@@ -44,8 +44,8 @@ public class GoodsTests {
     @Test
     public void deleteGoods(){
 
-        Integer[] ids={1,2};
-        goodsMapper.deleteByPrimaryKey(ids);
+       /* Integer[] ids={1,2};
+        goodsMapper.deleteByPrimaryKey(ids);*/
     }
 
     /*
@@ -114,11 +114,11 @@ public class GoodsTests {
    @Test
     public void  testUpdateTyoeNumDown(){
 
-        goodsMapper.updateTypeNumdown(7);
+        //goodsMapper.updateTypeNumdown(7);
     }
     @Test
     public void  testUpdateTyoeNumDown2(){
-        Integer[] ids={7,9};
-        goodsMapper.updateTypeNumdown2(ids);
+     /*   Integer[] ids={7,9};
+        goodsMapper.updateTypeNumdown2(ids);*/
     }
 }

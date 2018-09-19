@@ -118,7 +118,7 @@ function deleteAll() {
 		alert("请选择数据");
 	} else if(num > 0) {
 		//删除前判断
-		if(confirm("真的要删除吗?")) {
+            if(confirm("真的要删除吗?")) {
 			$("input[name='click']").each(function() { //判断是否被选
 				if(start == 0) {
 					arrayId = $(this).val() + ',';

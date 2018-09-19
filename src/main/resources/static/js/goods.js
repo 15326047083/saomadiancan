@@ -181,10 +181,12 @@ function deleteAll() {
             });*/
             //alert("点击了确认按钮");
             $.ajax({
+
                 type: "post",
+                traditional: true,
                 url: "/goods/todelete",
-                data: {
-                    'ids': array
+                data:{
+                    "ids":array
                 },
                 success: function (result) {
                     if (result == 'success') {

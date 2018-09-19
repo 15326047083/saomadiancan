@@ -41,12 +41,17 @@ public class GoodsServiceImpl implements GoodsService {
      * 批量删除商品,商品类型数量减少
      * */
     @Override
-    public void deleteType(Integer[] ids) {
-
-        for (int i=0;i<=ids.length;i++){
-            goodsMapper.updateTypeNumdown(ids[i]);
-        }
+    public void deleteType(int ids) {
+        System.out.println(ids);
+        Goods goods=goodsMapper.findTypeIdById(ids);
+        System.out.println(goods.getTypeId());
+        String typeId=goods.getTypeId();
+        goodsMapper.updateTypeNumdown(typeId);
         goodsMapper.deleteByPrimaryKey(ids);
+        System.out.println(ids+"第二次");
+
+        //goodsMapper.updateTypeNumdown2(ids);
+
     }
 
     /*
@@ -102,6 +107,13 @@ public class GoodsServiceImpl implements GoodsService {
         goodsMapper.updateTypeNum(typeId);
     }
 
+    /*
+    *添加商品商品类型数量减一
+    * */
+    @Override
+    public void updateTypeNumDown(int typeId) {
+        //goodsMapper.updateTypeNum(typeId);
+    }
 
 
 }

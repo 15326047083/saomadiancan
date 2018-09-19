@@ -28,13 +28,10 @@
         from goods
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from goods g
-        where
-        <foreach item="ids" collection="array" open="id in ("
-                 separator="," close=")">
-            #{ids,jdbcType=INTEGER}
-        </foreach>
+    <delete id="deleteByPrimaryKey">
+        delete from goods
+        where id = #{ids}
+
     </delete>
     <insert id="insert" parameterType="com.ambow.springboot.entity.Goods">
     insert into goods (id, type_id, name, 
@@ -225,17 +222,19 @@
 
     <update id="updateTypeNumdown2" parameterType="Integer">
 
-        update type set num=num-1 where
-        id in(select type_id from goods where
-        <foreach item="ids" collection="array" open="id in ("
+        update type t set t.num=t.num-1 where
+        t.id in(select g.type_id from goods g where
+        <foreach item="ids" collection="array" open="g.id in ("
                  separator="," close=")">
            #{ids}
         </foreach>)
     </update>
 
-    <update id="updateTypeNumdown" parameterType="Integer">
-
-        update type set num=num-1 where
-        id = (select type_id from goods where id=#{ids})
+    <update id="updateTypeNumdown"  parameterType="String">
+        update type set num=num-1 where id = #{ids}
     </update>
+
+    <select id="findTypeIdById" parameterType="Integer" resultMap="BaseResultMap">
+        select * from goods where id=#{ids}
+    </select>
 </mapper>

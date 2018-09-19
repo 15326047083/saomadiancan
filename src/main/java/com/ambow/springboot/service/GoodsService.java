@@ -21,7 +21,7 @@ public interface GoodsService {
     /*
     * 批量删除商品
     * */
-    void deleteType(Integer[] ids);
+    void deleteType(int ids);
     /*
     *修改商品信息
     * */
@@ -37,5 +37,5 @@ public interface GoodsService {
 
     void updateTypeNum(String typeId);
 
-
+    void updateTypeNumDown(int ids);
 }
