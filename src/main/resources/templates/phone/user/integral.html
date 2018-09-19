@@ -44,7 +44,7 @@
             dataType: "json",
             success(user) {
                 $("#integral").html(user.integral);
-                $("#money").html(user.integral / 100);
+                $("#money").html(Math.round(user.integral / 100) / 100);
             }
         });
     }

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ambow.springboot.mapper.OrdersMapper" >
-  <resultMap id="BaseResultMap" type="com.ambow.springboot.entity.Orders" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="order_num" property="orderNum" jdbcType="BIGINT" />
-    <result column="all_price" property="allPrice" jdbcType="INTEGER" />
-    <result column="generate_time" property="generateTime" jdbcType="TIMESTAMP" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="desk_num" property="deskNum" jdbcType="INTEGER" />
-    <result column="people_num" property="peopleNum" jdbcType="INTEGER" />
+<mapper namespace="com.ambow.springboot.mapper.OrdersMapper">
+    <resultMap id="BaseResultMap" type="com.ambow.springboot.entity.Orders">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="order_num" property="orderNum" jdbcType="BIGINT"/>
+        <result column="all_price" property="allPrice" jdbcType="INTEGER"/>
+        <result column="generate_time" property="generateTime" jdbcType="TIMESTAMP"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="desk_num" property="deskNum" jdbcType="INTEGER"/>
+        <result column="people_num" property="peopleNum" jdbcType="INTEGER"/>
 
-  </resultMap>
-  <sql id="Base_Column_List" >
+    </resultMap>
+    <sql id="Base_Column_List">
     id, order_num, all_price, generate_time, user_id, state, desk_num, people_num
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from orders
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from orders
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.ambow.springboot.entity.Orders" >
+    <insert id="insert" parameterType="com.ambow.springboot.entity.Orders">
     insert into orders (id, order_num, all_price, 
       generate_time, user_id, state, 
       desk_num, people_num)
@@ -33,89 +33,89 @@
       #{generateTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
       #{deskNum,jdbcType=INTEGER}, #{peopleNum,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.ambow.springboot.entity.Orders" >
-    insert into orders
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="orderNum != null" >
-        order_num,
-      </if>
-      <if test="allPrice != null" >
-        all_price,
-      </if>
-      <if test="generateTime != null" >
-        generate_time,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="state != null" >
-        state,
-      </if>
-      <if test="deskNum != null" >
-        desk_num,
-      </if>
-      <if test="peopleNum != null" >
-        people_num,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="orderNum != null" >
-        #{orderNum,jdbcType=BIGINT},
-      </if>
-      <if test="allPrice != null" >
-        #{allPrice,jdbcType=INTEGER},
-      </if>
-      <if test="generateTime != null" >
-        #{generateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="state != null" >
-        #{state,jdbcType=INTEGER},
-      </if>
-      <if test="deskNum != null" >
-        #{deskNum,jdbcType=INTEGER},
-      </if>
-      <if test="peopleNum != null" >
-        #{peopleNum,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ambow.springboot.entity.Orders" >
-    update orders
-    <set >
-      <if test="orderNum != null" >
-        order_num = #{orderNum,jdbcType=BIGINT},
-      </if>
-      <if test="allPrice != null" >
-        all_price = #{allPrice,jdbcType=INTEGER},
-      </if>
-      <if test="generateTime != null" >
-        generate_time = #{generateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="state != null" >
-        state = #{state,jdbcType=INTEGER},
-      </if>
-      <if test="deskNum != null" >
-        desk_num = #{deskNum,jdbcType=INTEGER},
-      </if>
-      <if test="peopleNum != null" >
-        people_num = #{peopleNum,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ambow.springboot.entity.Orders" >
+    <insert id="insertSelective" parameterType="com.ambow.springboot.entity.Orders">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="allPrice != null">
+                all_price,
+            </if>
+            <if test="generateTime != null">
+                generate_time,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="deskNum != null">
+                desk_num,
+            </if>
+            <if test="peopleNum != null">
+                people_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=BIGINT},
+            </if>
+            <if test="allPrice != null">
+                #{allPrice,jdbcType=INTEGER},
+            </if>
+            <if test="generateTime != null">
+                #{generateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="deskNum != null">
+                #{deskNum,jdbcType=INTEGER},
+            </if>
+            <if test="peopleNum != null">
+                #{peopleNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ambow.springboot.entity.Orders">
+        update orders
+        <set>
+            <if test="orderNum != null">
+                order_num = #{orderNum,jdbcType=BIGINT},
+            </if>
+            <if test="allPrice != null">
+                all_price = #{allPrice,jdbcType=INTEGER},
+            </if>
+            <if test="generateTime != null">
+                generate_time = #{generateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="deskNum != null">
+                desk_num = #{deskNum,jdbcType=INTEGER},
+            </if>
+            <if test="peopleNum != null">
+                people_num = #{peopleNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ambow.springboot.entity.Orders">
     update orders
     set order_num = #{orderNum,jdbcType=BIGINT},
       all_price = #{allPrice,jdbcType=INTEGER},
@@ -127,98 +127,105 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="toListOrdersByOrderNum" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-  select
-  <include refid="Base_Column_List" />
-  from orders
-  where order_num = #{order_number,jdbcType=BIGINT}
-</select>
+    <select id="toListOrdersByOrderNum" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where order_num = #{order_number,jdbcType=BIGINT}
+    </select>
 
-  <select id="toListOrders" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from orders
+    <select id="toListOrders" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
 
-    <if test="state!=null">
-    where
-    state=#{state,jdbcType=INTEGER}
-    </if>
-    order by generate_time desc
-    <if test="start!=null and rows!=null">
-      LIMIT ${start},${rows};
-    </if>
+        <if test="state!=null">
+            where
+            state=#{state,jdbcType=INTEGER}
+        </if>
+        order by generate_time desc
+        <if test="start!=null and rows!=null">
+            LIMIT ${start},${rows};
+        </if>
 
-  </select>
+    </select>
 
-  <update id="toUpdateUp" parameterType="com.ambow.springboot.entity.Orders" >
+    <update id="toUpdateUp" parameterType="com.ambow.springboot.entity.Orders">
 
-    update orders o,user u
-    <set>
-        o.state = 1,
-        u.all_price= u.all_price+${all_price}
-    </set>
-    where order_num = #{orders_num,jdbcType=BIGINT}
-    and o.user_id=u.id
-  </update>
-  <update id="toUpdateDown" parameterType="com.ambow.springboot.entity.Orders" >
+        update orders o,user u
+            o.state = 1,
+            u.integral= u.integral+#{arg1}
+        where order_num = #{arg0,jdbcType=BIGINT}
+        and o.user_id=u.id
+    </update>
+    <update id="updateStateNoUser" parameterType="com.ambow.springboot.entity.Orders">
 
-    update orders
-    <set >
-      state = 2,
-    </set>
-    where order_num = #{orders_num,jdbcType=BIGINT}
-  </update>
+        update orders o
+        <set>
+            o.state = 1,
+            o.all_price=#{price},
+        </set>
+        where order_num = #{orders_num,jdbcType=BIGINT}
+    </update>
+    <update id="toUpdateDown" parameterType="com.ambow.springboot.entity.Orders">
 
-  <select id="selectOrdersCount" resultType="java.lang.Integer">
-    SELECT
-    count(*)
-    FROM
-    orders
-    <if test="state!=null">
-      where
-      state =#{state}
-    </if>
+        update orders
+        <set>
+            state = 2,
+        </set>
+        where order_num = #{orders_num,jdbcType=BIGINT}
+    </update>
 
-  </select>
+    <select id="selectOrdersCount" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        orders
+        <if test="state!=null">
+            where
+            state =#{state}
+        </if>
 
-  <select id="ordersDay" resultMap="ReportMap">
-    SELECT
-    DATE_FORMAT(generate_time,
-		'%Y-%m-%d'
-		) AS name,
-		SUM(all_price) as value
-    from orders
-    where
-    <if test="time1 != null and time1 != null ">
-      generate_time BETWEEN #{time1} AND #{time2}
-    </if>
-    GROUP  BY DATE_FORMAT(generate_time,'%Y-%m-%d')
+    </select>
 
-  </select>
+    <select id="ordersDay" resultMap="ReportMap">
+        SELECT
+        DATE_FORMAT(generate_time,
+        '%Y-%m-%d'
+        ) AS name,
+        SUM(all_price) as value
+        from orders
+        where
+        <if test="time1 != null and time1 != null ">
+            generate_time BETWEEN #{time1} AND #{time2}
+        </if>
+        GROUP BY DATE_FORMAT(generate_time,'%Y-%m-%d')
 
-  <select id="ordersMonth" resultMap="ReportMap">
+    </select>
 
-    SELECT
-	month (generate_time) as name,
-	SUM(all_price) as value
-    FROM
-	orders
-    where
-    <if test="year != null">
-      YEAR(generate_time)=#{year}
-    </if>
-    GROUP BY
-	month (generate_time)
-  </select>
+    <select id="ordersMonth" resultMap="ReportMap">
 
-  <!--根据日期模糊查询-->
-  <select id="likeListOrders" resultMap="BaseResultMap" parameterType="String">
-    select
-    <include refid="Base_Column_List" />
-    from orders where  generate_time like "%"#{time1}"%"
-  </select>
+        SELECT
+        month (generate_time) as name,
+        SUM(all_price) as value
+        FROM
+        orders
+        where
+        <if test="year != null">
+            YEAR(generate_time)=#{year}
+        </if>
+        GROUP BY
+        month (generate_time)
+    </select>
 
-  <select id="goodsSale" resultMap="ReportMap">
+    <!--根据日期模糊查询-->
+    <select id="likeListOrders" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from orders where generate_time like "%"#{time1}"%"
+    </select>
+
+    <select id="goodsSale" resultMap="ReportMap">
    SELECT
 	g.name as name,
 	SUM(p.num) as value
@@ -230,55 +237,55 @@
     GROUP BY g.name
   </select>
 
-  <select id="hoursCustmer" resultMap="ReportMap">
-    SELECT
-    sum(people_num) as value,
-    HOUR(generate_time) as name
-    FROM orders
-    where
-    <if test="time1 != null">
-      DATE_FORMAT(generate_time,
-      '%Y-%m-%d' )= #{time1}
-    </if>
-    GROUP BY  hour(generate_time)
-  </select>
+    <select id="hoursCustmer" resultMap="ReportMap">
+        SELECT
+        sum(people_num) as value,
+        HOUR(generate_time) as name
+        FROM orders
+        where
+        <if test="time1 != null">
+            DATE_FORMAT(generate_time,
+            '%Y-%m-%d' )= #{time1}
+        </if>
+        GROUP BY hour(generate_time)
+    </select>
 
-  <select id="costGain" resultMap="ReportMap">
-    SELECT
-    DATE_FORMAT(o.generate_time,
-    '%Y-%m-%d' ) as name,
-    SUM(o.all_price)-SUM(b.price) as value
-    FROM orders o,buy b
-    where
-    DATE_FORMAT(o.generate_time,
-    '%Y-%m-%d' )=DATE_FORMAT(b.buy_date,
-    '%Y-%m-%d' )
-    <if test="time1 != null and time2 !=null">
-    and o.generate_time BETWEEN #{time1} AND #{time2}
-    </if>
-    GROUP BY DATE_FORMAT(o.generate_time,
-    '%Y-%m-%d' )
-  </select>
+    <select id="costGain" resultMap="ReportMap">
+        SELECT
+        DATE_FORMAT(o.generate_time,
+        '%Y-%m-%d' ) as name,
+        SUM(o.all_price)-SUM(b.price) as value
+        FROM orders o,buy b
+        where
+        DATE_FORMAT(o.generate_time,
+        '%Y-%m-%d' )=DATE_FORMAT(b.buy_date,
+        '%Y-%m-%d' )
+        <if test="time1 != null and time2 !=null">
+            and o.generate_time BETWEEN #{time1} AND #{time2}
+        </if>
+        GROUP BY DATE_FORMAT(o.generate_time,
+        '%Y-%m-%d' )
+    </select>
 
-  <select id="costGainMonth" parameterType="String" resultMap="ReportMap">
+    <select id="costGainMonth" parameterType="String" resultMap="ReportMap">
 
-    SELECT
-    DATE_FORMAT(o.generate_time,'%Y-%m' ) as name,
-    SUM(o.all_price)-SUM(b.price) as value
-    FROM orders o,buy b
-    where
-    DATE_FORMAT(o.generate_time,
-		'%Y-%m' )=DATE_FORMAT(b.buy_date,
-		'%Y-%m' )
-    <if test="time1 != null">
-    and DATE_FORMAT(o.generate_time,
-		'%Y' ) = #{time1}
-    </if>
-    GROUP BY DATE_FORMAT(o.generate_time,
-		'%Y-%m' )
+        SELECT
+        DATE_FORMAT(o.generate_time,'%Y-%m' ) as name,
+        SUM(o.all_price)-SUM(b.price) as value
+        FROM orders o,buy b
+        where
+        DATE_FORMAT(o.generate_time,
+        '%Y-%m' )=DATE_FORMAT(b.buy_date,
+        '%Y-%m' )
+        <if test="time1 != null">
+            and DATE_FORMAT(o.generate_time,
+            '%Y' ) = #{time1}
+        </if>
+        GROUP BY DATE_FORMAT(o.generate_time,
+        '%Y-%m' )
 
-  </select>
-<select id="costGainYear" resultMap="ReportMap">
+    </select>
+    <select id="costGainYear" resultMap="ReportMap">
 
   SELECT
   DATE_FORMAT(o.generate_time,
@@ -293,24 +300,24 @@
   GROUP BY DATE_FORMAT(o.generate_time,
 		'%Y' )
 </select>
-  <resultMap id="ReportMap" type="com.ambow.springboot.vo.Report">
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="value" property="value" jdbcType="INTEGER" />
-  </resultMap>
+    <resultMap id="ReportMap" type="com.ambow.springboot.vo.Report">
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="value" property="value" jdbcType="INTEGER"/>
+    </resultMap>
 
-  <select id="findOrdersByUserId" parameterType="Integer" resultMap="BaseResultMap">
+    <select id="findOrdersByUserId" parameterType="Integer" resultMap="BaseResultMap">
 
     select * from orders where user_id=#{id}
   </select>
 
-  <update id="updateOrdersPrice">
+    <update id="updateOrdersPrice">
   update orders set all_price=all_price-#{xiaoji} where order_num=#{ordersNum}
 </update>
 
-  <delete id="deleteByNum" parameterType="Long">
+    <delete id="deleteByNum" parameterType="Long">
     delete from orders where order_num=#{ordersNum}
   </delete>
-  <delete id="deletePurchaseByNum" parameterType="Long">
+    <delete id="deletePurchaseByNum" parameterType="Long">
     delete from purchase where order_num=#{ordersNum}
   </delete>
 </mapper>

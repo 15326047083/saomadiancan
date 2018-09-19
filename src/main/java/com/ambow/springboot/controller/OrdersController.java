@@ -114,8 +114,8 @@ public class OrdersController {
             UnsupportedEncodingException {
         //获取session中的id和桌号和人数
         HttpSession session = request.getSession();
-        Integer people_num = 2; //(Integer) session.getAttribute("people_num");
-        Integer desk_num = 1; //(Integer) session.getAttribute("desk_num");
+        Integer people_num = (Integer) session.getAttribute("peopleNum");
+        Integer desk_num = (Integer) session.getAttribute("deskNum");
         User user = (User) session.getAttribute("user");
         Integer user_id = null;
         if (user != null) {
@@ -141,6 +141,8 @@ public class OrdersController {
         //中间表操作
         Purchase purchase = new Purchase();
         List<CartVo> listCart = getCartInCookie(response, request);
+        if (listCart.size() <= 0)
+            return "error";
         int sumPrice = 0;
         for (CartVo cart : listCart) {
             sumPrice = sumPrice + cart.getNum() * cart.getGoodsDiscount();//计算总价
@@ -177,7 +179,6 @@ public class OrdersController {
 //            response.addCookie(cookie);
 //        }
 
-        webSocket.sendMessage("有新的订单");
 
         return "success";
     }
@@ -277,9 +278,32 @@ public class OrdersController {
      * 网上订单付款，修改状态为1
      * */
     @RequestMapping("/toUpdateUp")
-    public String toUpdateUp(Long orders_num,Integer all_price) {
-        ordersService.toUpdateUp(orders_num,all_price);
-        return "success";
+    @ResponseBody
+    public String toUpdateUp(HttpServletRequest request, HttpServletResponse response) {
+
+        //获取cookie中的订单号
+        String order_numberCookie = getorder_numberCookie(request);
+        long order_number;
+        if (order_numberCookie != null) {
+            order_number = Long.parseLong(order_numberCookie);
+            ordersService.toUpdateUp(order_number, ordersService.toListOrdersByOrderNum(order_number).getAllPrice(),
+                    request);
+            webSocket.sendMessage("有新的订单");
+            // 获取名为"cart"的cookie
+            Cookie cookie = getCookie(request);
+            if (cookie != null) {
+                // 设置寿命为0秒
+                cookie.setMaxAge(0);
+                // 设置路径
+                cookie.setPath("/");
+                // 设置cookie的value为null
+                cookie.setValue(null);
+                // 更新cookie
+                response.addCookie(cookie);
+            }
+            return "success";
+        }
+        return "error";
     }
 
     /*
@@ -291,6 +315,7 @@ public class OrdersController {
         long ordersNum1 = Long.parseLong(ordersNum);
         System.out.println(ordersNum + "订单号");
         ordersService.toUpdateDown(ordersNum1);
+        webSocket.sendMessage("有新的订单");
         return "success";
     }
 
@@ -319,15 +344,17 @@ public class OrdersController {
         ordersList = ordersService.findOrdersByUserId(id);
         return ordersList;
     }
-    /*
-    * 根据订单号删除订单与中间表数据
-    * */
-    @RequestMapping(value = "deleteByNum/{ordersNum}",method = RequestMethod.POST)
-    @ResponseBody
-    public String deleteByNum(@PathVariable(name = "ordersNum")Long ordersNum){
 
-        ordersService.deleteByNum(ordersNum);
-        return "";
+    /*
+     * 根据订单号删除订单与中间表数据
+     * */
+    @RequestMapping(value = "/deleteByNum")
+    @ResponseBody
+    public String deleteByNum(HttpServletRequest request) {
+        String order_numberCookie = getorder_numberCookie(request);
+        long order_number = Long.parseLong(order_numberCookie);
+        ordersService.deleteByNum(order_number);
+        return "success";
     }
 
 }

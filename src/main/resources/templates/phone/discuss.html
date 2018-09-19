@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>评价</title>
+    <meta name="keywords" content="KEYWORDS..."/>
+    <meta name="description" content="DESCRIPTION..."/>
+    <meta name="author" content="DeathGhost"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name='apple-touch-fullscreen' content='yes'/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/reset.css"/>
+    <script src="/phone/js/jquery.js"></script>
+
+</head>
+<body style="background-color: #e7e7e7;">
+<div class="evaluate">
+    <div class="evaluate-title clearfix">
+        <img src="/phone/img/photo-title.png"/>
+        <h1>留下您的评价</h1>
+    </div>
+
+    <div id="startone1" class="block">
+        <div class="attitude">环境评分</div>
+        <div class="star_score"></div>
+    </div>
+    <div id="startone2" class="block">
+        <div class="attitude">服务评分</div>
+        <div class="star_score"></div>
+    </div>
+    <div id="startone3" class="block">
+        <div class="attitude">味道评分</div>
+        <div class="star_score"></div>
+    </div>
+
+    <div class="inputType">
+        <textarea id="copyText"></textarea>
+
+    </div>
+</div>
+<div class="SubmitButton" onclick="submitDiscuss()">提交评价</div>
+<script type="text/javascript" src="/phone/js/startScore.js"></script>
+<script>
+    scoreFun1($("#startone1"));
+    scoreFun2($("#startone2"));
+    scoreFun3($("#startone3"))
+</script>
+<script>
+    //显示分数
+    $(".show_number li p").each(function (index, element) {
+        var num = $(this).attr("tip");
+        var www = num * 2 * 16; //
+        $(this).css("width", www);
+        $(this).parent(".atar_Show").siblings("span").text(num + "分");
+    });
+
+    function submitDiscuss() {
+        $.ajax({
+            type: "post",
+            url: "/discuss/saveDiscuss",
+            data: {
+                "enLevel": score1,
+                "serviceLevel": score2,
+                "quLevel": score3,
+                "info": $("#copyText").val()
+            },
+            success(data) {
+                if (data == "error")
+                    alert("随便说点什么吧！")
+                else {
+                    alert("评价成功!");
+                    window.location.href = "/jump/toDiscussList";
+                }
+            }
+        })
+        ;
+    }
+</script>
+
+</body>
+</html>

@@ -22,12 +22,17 @@ function goodstable(p) {
                     var tdbutten = "<td><a href='/goodsJump/toGoodsUpdate/" + data.rows[i].goodsId +
                         "'><button class='layui-btn layui-btn-primary layui-btn-small'>修改</button></a>" +
                         "<a href='/goodsJump/toGoodsShow/" + data.rows[i].goodsId +
-                        "'><button class='layui-btn layui-btn-primary layui-btn-small'>查看</button></a></td>";
+                        "'><button class='layui-btn layui-btn-primary layui-btn-small'>查看</button></a>" +
+                        "<form action='/empJump/upload' method='post' enctype='multipart/form-data' id='form" + data.rows[i].goodsId + "'><input type='file' onchange='fileUpload(" + data.rows[i].goodsId + ")' name='file'/><input name='goodsId' value='" + data.rows[i].goodsId + "'/></form></td>";
                     $("#table1 tbody").append("<tr>" + trtd + tdbutten + "</tr>");
                 }
             }
         });
     }
+}
+
+function fileUpload(id) {
+    $("#form" + id).submit();
 }
 
 /*
@@ -181,12 +186,10 @@ function deleteAll() {
             });*/
             //alert("点击了确认按钮");
             $.ajax({
-
                 type: "post",
-                traditional: true,
                 url: "/goods/todelete",
-                data:{
-                    "ids":array
+                data: {
+                    'ids': array
                 },
                 success: function (result) {
                     if (result == 'success') {

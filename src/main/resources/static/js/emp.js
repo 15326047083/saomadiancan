@@ -11,7 +11,7 @@ function showTable() {
             for (var i = 0; i < json.length; i++) {
                 var t1 = $("#table1 tbody");
                 var trtd = "<td>" + json[i].id + "</td><td>" + json[i].name + "</td>" + "<td>" + json[i].roles + "</td>" + "<td>" + json[i].username + "</td><td>" +
-                    json[i].password + "</td>" + "<td>" + json[i].entryTime + "</td>" + "<td>" + json[i].wage + "</td>" + "<td>" + json[i].ticheng + "</td>";
+                    json[i].password + "</td>" + "<td>" + new Date(parseInt(json[i].entryTime)).toLocaleString().replace(/:\d{1,2}$/, ' ') + "</td>" + "<td>" + json[i].wage + "</td>" + "<td>" + json[i].ticheng + "</td>";
                 var tdbutten = "<td><a href='/empJump/toEmpUpdate/" + json[i].id +
                     "'><button class='layui-btn layui-btn-primary layui-btn-small'>修改</button></a>" +
                     "<a onclick='deleteEmp(" + json[i].id +
@@ -126,23 +126,24 @@ function flag() {
     $("#p1").html("");
     $("#p2").html("");
     $("#p3").html("");
-    var password=$("#password").val();
-    var pwd=$("#pwd").val();
-    var newpassword=$("#newpassword").val();
-    var oldpassword=$("#oldpassword").val();
-    if(oldpassword!=pwd){
+    var password = $("#password").val();
+    var pwd = $("#pwd").val();
+    var newpassword = $("#newpassword").val();
+    var oldpassword = $("#oldpassword").val();
+    if (oldpassword != pwd) {
         $("#p1").html("旧密码错误");
         return false;
     }
-    if(password!=newpassword){
+    if (password != newpassword) {
         $("#p3").html("两次密码不一致");
         return false;
     }
     return true;
 }
+
 function updatePassword() {
-    if (flag()){
-alert("ok")
+    if (flag()) {
+        alert("ok")
     }
 
 }

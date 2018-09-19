@@ -1,13 +1,16 @@
 package com.ambow.springboot.service.impl;
 
 import com.ambow.springboot.entity.Orders;
+import com.ambow.springboot.entity.User;
 import com.ambow.springboot.mapper.OrdersMapper;
+import com.ambow.springboot.mapper.UserMapper;
 import com.ambow.springboot.service.OrdersService;
 import com.ambow.springboot.util.Page;
 import com.ambow.springboot.vo.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -17,11 +20,14 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
     private OrdersMapper ordersMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     private List<Orders> listorderByDay;
+
     /*
-    * 添加订单
-    * */
+     * 添加订单
+     * */
     @Override
     public void toSave(Orders orders) {
         ordersMapper.insert(orders);
@@ -29,16 +35,16 @@ public class OrdersServiceImpl implements OrdersService {
 
 
     /*
-    * 根据订单号查询所有订单
-    * */
+     * 根据订单号查询所有订单
+     * */
     @Override
     public Orders toListOrdersByOrderNum(Long order_number) {
         return ordersMapper.toListOrdersByOrderNum(order_number);
     }
 
     /*
-    * 查询所有订单
-    * */
+     * 查询所有订单
+     * */
     @Override
     public Page<Orders> toListOrders(Integer page, Integer rows, Integer state) {
 
@@ -58,11 +64,19 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     /*
-    * 网上支付修改状态为1
-    * */
+     * 网上支付修改状态为1
+     * */
     @Override
-    public void toUpdateUp(Long orders_num,Integer all_price) {
-        ordersMapper.toUpdateUp(orders_num,all_price);
+    public void toUpdateUp(Long orders_num, Integer all_price, HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") != null && !request.getSession().getAttribute("user").equals
+                ("")) {
+            User user = (User) request.getSession().getAttribute("user");
+            user.setIntegral(user.getIntegral() + all_price);
+            userMapper.updateByPrimaryKeySelective(user);
+            all_price = all_price - user.getIntegral() / 100;
+            ordersMapper.updateStateNoUser(orders_num,all_price);
+        } else
+            ordersMapper.updateStateNoUser(orders_num,all_price);
     }
 
     /*
@@ -74,11 +88,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     /*
-    * 区间内的日销量
-    * */
+     * 区间内的日销量
+     * */
     @Override
     public List<Report> ordersDay(String time1, String time2) {
-        return ordersMapper.ordersDay(time1,time2);
+        return ordersMapper.ordersDay(time1, time2);
     }
 
     @Override
@@ -89,62 +103,64 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public List<Orders> likeListOrder() {
-        Orders order=new Orders();
+        Orders order = new Orders();
 
         try {
             Calendar c = Calendar.getInstance();
             SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-MM-dd");
-            String nowdates=sdfs.format(c.getTime());
-            listorderByDay=ordersMapper.likeListOrders(nowdates);
+            String nowdates = sdfs.format(c.getTime());
+            listorderByDay = ordersMapper.likeListOrders(nowdates);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  listorderByDay;
+        return listorderByDay;
     }
 
 
     /*
-    *菜品销售量
-    * */
+     *菜品销售量
+     * */
     @Override
     public List<Report> goodsSale() {
         return ordersMapper.goodsSale();
     }
 
     /*
-    * 某一天的时间客流量
-    * */
+     * 某一天的时间客流量
+     * */
     @Override
     public List<Report> hoursCustmer(String time1) {
         return ordersMapper.hoursCustmer(time1);
     }
+
     /*
-    * 时间段的天收入
-    * */
+     * 时间段的天收入
+     * */
     @Override
-    public List<Report> costGain(String time1,String time2) {
-        return ordersMapper.costGain(time1,time2);
+    public List<Report> costGain(String time1, String time2) {
+        return ordersMapper.costGain(time1, time2);
     }
+
     /*
-    * 时间段的月收入
-    *
-    * */
+     * 时间段的月收入
+     *
+     * */
     @Override
     public List<Report> costGainMonth(String time1) {
         return ordersMapper.costGainMonth(time1);
     }
 
     /*
-    * 年利润
-    * */
+     * 年利润
+     * */
     @Override
     public List<Report> costGainYear() {
         return ordersMapper.costGainYear();
     }
 
     /*
-    * 根据用户id查找订单
-    * */
+     * 根据用户id查找订单
+     * */
     @Override
     public List<Orders> findOrdersByUserId(Integer id) {
         return ordersMapper.findOrdersByUserId(id);
@@ -152,11 +168,11 @@ public class OrdersServiceImpl implements OrdersService {
 
 
     /*
-    * 退菜根据订单号修改价钱
-    * */
+     * 退菜根据订单号修改价钱
+     * */
     @Override
     public void updateOrdersPrice(Integer xiaoji, Long orderNum) {
-        ordersMapper.updateOrdersPrice(xiaoji,orderNum);
+        ordersMapper.updateOrdersPrice(xiaoji, orderNum);
     }
 
     @Override

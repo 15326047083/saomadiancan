@@ -53,7 +53,7 @@ function getDiscussList(p) {
                     $("#main").append(str1+disTime+str2+star+str3+disscuss+str4+str8);
                 }
             } //下拉样式
-            $("#main").append("<div id='downShow' style='width: 100%;height: 20px;margin-bottom: 50px;text-align: center' onclick='getDiscussList(page+1)'><a style='color: grey;font-size: 14px'>加载更多...</a></div>");
+            $("#main").append("<div id='downShow' style='width: 100%;height: 40px;margin-bottom: 50px;text-align: center' onclick='getDiscussList(page+1)'><a style='color: grey;font-size: 14px;top: 10px;'>加载更多...</a></div>");
         }
     });
 

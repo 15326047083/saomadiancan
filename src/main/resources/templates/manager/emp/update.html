@@ -13,7 +13,7 @@
 </head>
 
 <body class="body">
-<form class="layui-form layui-form-pane"  onsubmit="return false" id="form">
+<form class="layui-form layui-form-pane" onsubmit="return false" id="form">
     <input type="hidden" id="id" name="id"/>
     <input type="hidden" id="empId" th:value="${empId}"/>
     <div class="layui-form-item">
@@ -92,6 +92,10 @@
                 type: "post",
                 url: "/emp/Update",
                 data: $("#form").serialize(),
+                error() {
+                    alert("修改成功");
+                    window.location.href = "/empJump/toEmpList";
+                },
                 success(data) {
                     if (data == 'success') {
                         alert("修改成功");

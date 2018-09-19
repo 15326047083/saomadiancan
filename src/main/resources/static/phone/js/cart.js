@@ -75,6 +75,8 @@ function submitOrder() {
         success(data) {
             if (data == "success") {
                 window.location.href = "/empJump/toOrder";
+            } else {
+                alert("购物车是空的，先去添加购物车吧！")
             }
         }
     });

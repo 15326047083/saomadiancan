@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>用餐人数</title>
+    <meta name="keywords" content="KEYWORDS..."/>
+    <meta name="description" content="DESCRIPTION..."/>
+    <meta name="author" content="DeathGhost"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name='apple-touch-fullscreen' content='yes'/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/phone/css/reset.css"/>
+    <script src="/phone/js/jquery.js"></script>
+</head>
+
+<body style="background-color: #fff;">
+
+<div style="height:1rem;">
+</div>
+<div align="center">
+    <img src="/phone/img/logo.png" style="width: 150px; height: 150px;"/>
+</div>
+<form method="post" action="/empJump/surePeopleNum">
+    <ul class="formarea mobile-phone">
+        <li>
+            <label class="lit">人数：</label>
+            <input type="text" name="peopleNum" placeholder="请输入用餐人数" class="textbox"
+                   onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                   onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"
+                   required="required"/>
+        </li>
+
+    </ul>
+    <center>
+        <input style="" class="mobile-button" type="submit" value="开始点菜"/><br/><br/>
+    </center>
+</form>
+</body>
+
+</html>

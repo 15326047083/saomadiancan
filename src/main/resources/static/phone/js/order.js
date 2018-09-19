@@ -1,3 +1,19 @@
+function pay() {
+    $.ajax({
+        type: "get",
+        url: "/orders/toUpdateUp",
+        success(data) {
+            if (data == "success") {
+                alert("付款成功");
+                window.location.reload();
+            } else {
+                alert("付款失败，请重试或去前台结账");
+                window.location.reload();
+            }
+        }
+    });
+}
+
 // 动态获取订单信息，生成展示页面
 function getOrder() {
     $.ajax({
@@ -25,18 +41,17 @@ function getOrder() {
                         integralMoney = 0;
                     },
                     success(user) {
-                        integralMoney = user.integral / 100;
+                        integralMoney = Math.round(user.integral / 100);
                     }
                 });
-                alert(integralMoney);
-                $("#orderAllPrice tbody").append(str4 + order.allPrice / 100 + str5 + "积分抵￥" + integralMoney + str6 + "¥" + (order.allPrice / 100 - integralMoney * 1) + str7);
+                $("#orderAllPrice tbody").append(str4 + order.allPrice / 100 + str5 + "积分抵￥" + integralMoney / 100 + str6 + "¥" + (order.allPrice / 100 - integralMoney * 1 / 100) + str7);
                 // 判断订单付款状态，如果未付款，则生成按钮为取消订单以及确认付款按钮
                 if (order.state == 0) {
                     $("#discussOrPay").append("<div style=\"height:1rem;\"></div>\n" +
                         "    <div class=\"order-set-paybutton\" style=\"margin-bottom: 0px;\">\n" +
-                        "        <div onclick='backCart()' class=\"paybutton-left fl\" style=\"width: 40%;text-align: center;\">取消</div>\n" +
+                        "        <div onclick='backCart()' class=\"paybutton-left fl\" style=\"width: 40%;text-align: center;\">返回加菜</div>\n" +
                         "        <div class=\"paybutton-right fr\" style=\"width: 60%;text-align: center;\">\n" +
-                        "            <a href=\"/orders/toUpdateUp\">确认付款</a>\n" +
+                        "            <a href='javascript:' onclick='pay()'>确认付款</a>\n" +
                         "        </div>\n" +
                         "        <div class=\"clearfix\"></div>\n" +
                         "    </div>\n" +
@@ -48,7 +63,7 @@ function getOrder() {
                         "    <div style=\"height:1rem;\"></div>\n" +
                         "    <div class=\"order-set-paybutton\" style=\"margin-bottom: 50px;\">\n" +
                         "        <div class=\"paybutton-right fr\" style=\"width: 100%;text-align: center;\">\n" +
-                        "            <a href=\"#\">评价</a>\n" +
+                        "            <a href='/empJump/toDiscuss'>评价</a>\n" +
                         "        </div>\n" +
                         "        <div class=\"clearfix\"></div>\n" +
                         "    </div>\n" +
@@ -81,7 +96,7 @@ function getOrder() {
 function backCart() {
     $.ajax({
         type: "get",
-        url: "/orders/deleteByOrderNum",
+        url: "/orders/deleteByNum",
         success(data) {
             if (data == "success") {
                 window.location = "/empJump/toGoodsList";

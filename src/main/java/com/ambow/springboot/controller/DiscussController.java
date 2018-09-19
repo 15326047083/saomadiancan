@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -19,12 +22,42 @@ public class DiscussController {
     @Autowired
     private DiscussService discussService;
 
+    public Cookie getCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        Cookie order_numberCookie = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("order_numberCookie".equals(cookie.getName())) { //获取购物车cookie
+                    order_numberCookie = cookie;
+                }
+            }
+        }
+        return order_numberCookie;
+    }
+
     /**
      * 添加评论信息
      */
     @RequestMapping(value = "/saveDiscuss", method = RequestMethod.POST)
-    public int saveDiscuss(Discuss discuss) {
-        return discussService.saveDiscuss(discuss);
+    public String saveDiscuss(Discuss discuss, HttpServletResponse response, HttpServletRequest request) {
+        if (discuss.getInfo().length() < 1)
+            return "error";
+        else {
+            discussService.saveDiscuss(discuss);
+
+            Cookie cookie = getCookie(request);
+            if (cookie != null) {
+                // 设置寿命为0秒
+                cookie.setMaxAge(0);
+                // 设置路径
+                cookie.setPath("/");
+                // 设置cookie的value为null
+                cookie.setValue(null);
+                // 更新cookie
+                response.addCookie(cookie);
+            }
+            return "success";
+        }
     }
 
     /**
@@ -55,6 +88,7 @@ public class DiscussController {
         }
         return DiscussList;
     }
+
     /**
      * 查看所有留言 不分页
      */

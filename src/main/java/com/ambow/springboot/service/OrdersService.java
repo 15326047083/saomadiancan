@@ -4,6 +4,7 @@ import com.ambow.springboot.entity.Orders;
 import com.ambow.springboot.util.Page;
 import com.ambow.springboot.vo.Report;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface OrdersService {
@@ -13,7 +14,7 @@ public interface OrdersService {
 
     Page<Orders> toListOrders(Integer page, Integer rows, Integer state);
 
-    void toUpdateUp(Long orders_num,Integer all_price);
+    void toUpdateUp(Long orders_num, Integer all_price, HttpServletRequest request);
 
     void toUpdateDown(Long orders_num);
 

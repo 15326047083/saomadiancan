@@ -35,6 +35,7 @@ SELECT d1.id as replyId,
     d2.info as discussInfo
 FROM discuss as d1
 right join discuss as d2 ON d1.discuss_id=d2.id where d2.discuss_id is null
+order by d2.id desc
     LIMIT ${start},${rows};
   </select>
 

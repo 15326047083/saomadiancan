@@ -16,9 +16,9 @@
 <div class="layui-layout layui-layout-admin"> <!-- 添加skin-1类可手动修改主题为纯白，添加skin-2类可手动修改主题为蓝白 -->
     <!-- header -->
     <div class="layui-header my-header">
-        <a href="index.html">
+        <a href="/empJump/loginOut">
             <!--<img class="my-header-logo" src="" alt="logo">-->
-            <div class="my-header-logo">主页</div>
+            <div class="my-header-logo">退出</div>
         </a>
         <div class="my-header-btn">
             <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon">&#xe65f;</i></button>
@@ -46,20 +46,13 @@
                     <dd data-skin="2"><a href="javascript:;">蓝白</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item">
-           <!--     <a class="name" href="javascript:;"><img src="/frame/static/image/code.png" alt="logo"> Admin </a>
-           -->   <dl class="layui-nav-child">
-                    <dd><a href="/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
-                </dl>
-            </li>
         </ul>
-
     </div>
     <!-- side -->
     <div class="layui-side my-side">
         <div class="layui-side-scroll">
             <!-- 左侧主菜单添加选项卡监听 -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="side-main" >
+            <ul class="layui-nav layui-nav-tree" lay-filter="side-main">
                 <li class="layui-nav-item  layui-nav-itemed">
                     <a href="javascript:;"><i class="layui-icon">&#xe620;</i>基础菜单</a>
                     <dl class="layui-nav-child" id="menu">
@@ -99,7 +92,7 @@
     </div>
     <!-- footer -->
     <div class="layui-footer my-footer">
-        
+
     </div>
 </div>
 
@@ -122,22 +115,22 @@
 <script type="text/javascript" src="/frame/static/js/vip_comm.js"></script>
 <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-//左侧菜单生成
-	window.onload=addMenu();
+    //左侧菜单生成
+    window.onload = addMenu();
 </script>
 
 <script type="text/javascript">
-    layui.use(['layer','vip_nav'], function () {
+    layui.use(['layer', 'vip_nav'], function () {
 
         // 操作对象
-        var layer       = layui.layer
-            ,vipNav     = layui.vip_nav
-            ,$          = layui.jquery;
+        var layer = layui.layer
+            , vipNav = layui.vip_nav
+            , $ = layui.jquery;
         //    ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
         // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-        vipNav.top_left('./json/nav_top_left.json','side-top-left',false);
+        vipNav.top_left('./json/nav_top_left.json', 'side-top-left', false);
         // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-        vipNav.main('./json/nav_main.json','side-main',true);
+        vipNav.main('./json/nav_main.json', 'side-main', true);
 
         // you code ...
 
